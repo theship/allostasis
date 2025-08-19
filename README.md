@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Allostasis AI
 
-## Getting Started
+Marketing site for Allostasis AI - a boutique AI studio specializing in knowledge systems with high signal-to-noise focus.
 
-First, run the development server:
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit http://localhost:3000 to see the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 Editing Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**All site content is in one file:** `/src/content/copy.ts`
 
-## Learn More
+Simply edit this file to update any text on the site - headlines, buttons, forms, footer, everything.
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Documentation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [**Architecture & Development**](docs/ARCHITECTURE_DEVELOPMENT.md) - Technical details, project structure, development guide
+- [**Email Setup**](docs/EMAIL_SETUP.md) - Configure contact form emails
+- [**All Documentation**](docs/) - Complete documentation index
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Key Features
 
-## Deploy on Vercel
+- Dark theme with Pantone Autumn 2025 colors
+- Single-source content management
+- Direct SMTP email (no third-party services)
+- Mobile responsive with hamburger menu
+- Static export ready for GitLab/GitHub Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2025 Allostasis AI. All rights reserved.

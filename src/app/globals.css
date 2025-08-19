@@ -1,26 +1,172 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-jetbrains: 'JetBrains Mono', monospace;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus styles */
+  *:focus-visible {
+    outline: 2px solid #C04A62;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Selection */
+  ::selection {
+    background: #C04A62;
+    color: white;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #18181b;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #52525b;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .section-full {
+    @apply min-h-screen flex items-center justify-center px-6 py-20 md:px-12 lg:px-20;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-vapor via-winterberry to-crown bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 bg-winterberry text-white font-medium rounded-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-2xl hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 border border-dark-500 text-dark-100 font-medium rounded-lg hover:bg-dark-800 hover:border-dark-400 transition-all duration-300;
+  }
+
+  .card-dark {
+    @apply bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-2xl p-8 hover:bg-dark-800/70 transition-all duration-300;
+  }
+
+  /* MDX/Prose Styles for dark mode */
+  .prose-dark {
+    @apply prose prose-invert max-w-none;
+  }
+
+  .prose-dark h1 {
+    @apply text-5xl md:text-7xl font-bold text-transparent bg-gradient-to-r from-dark-50 to-winterberry bg-clip-text mb-12 pb-8 border-b-2 border-winterberry/30;
+  }
+
+  .prose-dark h2 {
+    @apply text-3xl md:text-5xl font-bold text-winterberry mt-20 mb-10 relative pl-6;
+  }
+  
+  .prose-dark h2::before {
+    @apply content-[''] absolute left-0 top-1/2 -translate-y-1/2 w-3 h-12 bg-gradient-to-b from-winterberry to-crown rounded-full;
+  }
+
+  .prose-dark h3 {
+    @apply text-2xl md:text-3xl font-semibold text-dark-50 mt-16 mb-8 pb-3 border-b border-dark-800;
+  }
+  
+  .prose-dark h4 {
+    @apply text-xl md:text-2xl font-medium text-vapor mt-12 mb-6 tracking-wide;
+  }
+  
+  .prose-dark h5 {
+    @apply text-lg md:text-xl font-medium text-dark-200 mt-10 mb-4 uppercase tracking-widest;
+  }
+
+  .prose-dark p {
+    @apply text-dark-100 leading-relaxed mb-6 text-lg;
+  }
+
+  .prose-dark ul {
+    @apply space-y-4 mb-8 list-none;
+  }
+
+  .prose-dark ul li {
+    @apply text-dark-100 text-lg pl-8 relative;
+  }
+
+  .prose-dark ul li::before {
+    @apply content-['▸'] absolute left-0 text-winterberry font-bold;
+  }
+
+  .prose-dark ul li strong {
+    @apply text-dark-50 font-semibold;
+  }
+
+  .prose-dark ol {
+    @apply space-y-4 mb-8 list-decimal list-inside;
+  }
+
+  .prose-dark ol li {
+    @apply text-dark-100 text-lg;
+  }
+
+  .prose-dark a {
+    @apply text-winterberry hover:text-winterberry/80 underline underline-offset-4 transition-colors;
+  }
+
+  .prose-dark code:not(pre code) {
+    @apply bg-dark-800 text-winterberry px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .prose-dark pre {
+    @apply bg-dark-900 border border-dark-700 rounded-xl p-6 overflow-x-auto mb-8 text-sm;
+  }
+
+  .prose-dark pre code {
+    @apply text-dark-100 bg-transparent p-0;
+  }
+
+  .prose-dark blockquote {
+    @apply border-l-4 border-winterberry/50 pl-6 italic text-dark-200 my-8;
+  }
+
+  .prose-dark strong {
+    @apply text-dark-50 font-semibold;
+  }
 }

@@ -1,103 +1,104 @@
-import Image from "next/image";
+import { Metadata } from "next";
+import siteCopy from "@/content/copy";
+import DiagramLoop from "@/components/DiagramLoop";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: siteCopy.meta.pages.home.title,
+  description: siteCopy.meta.pages.home.description,
+};
+
+export default function HomePage() {
+  const c = siteCopy.home;
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Hero Section - Full Screen */}
+      <section className="min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-20 pt-24 relative overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-crown/20 via-dark-950 to-roast/20 opacity-50" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8">
+            <span className="block text-dark-50 leading-tight">{c.headline.line1}</span>
+            <span className="block bg-gradient-to-r from-vapor via-winterberry to-vapor bg-clip-text text-transparent leading-relaxed pb-4">
+              {c.headline.line2}
+            </span>
+            <span className="block text-dark-200 text-3xl md:text-5xl lg:text-6xl mt-6 leading-tight">
+              {c.headline.line3}
+            </span>
+          </h1>
+          <p className="text-xl md:text-2xl text-dark-200 max-w-4xl leading-relaxed mb-12">
+            {c.subhead}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" className="btn-primary">
+              {siteCopy.cta.primaryLabel}
+            </a>
+            <a href="#principles" className="btn-secondary">
+              Explore Our Approach
+            </a>
+          </div>
+        </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <svg className="w-6 h-6 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </section>
+
+      {/* Principles Section - Full Screen */}
+      <section id="principles" className="min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-20">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-bold text-dark-50 mb-16">
+            Core Principles
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {c.bullets.map((b, index) => (
+              <div 
+                key={b.title} 
+                className="bg-dark-900/50 backdrop-blur-sm border border-dark-700 rounded-2xl p-8 hover:bg-dark-900/70 hover:border-winterberry/30 transition-all duration-300 hover:scale-105"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="text-winterberry text-6xl font-bold mb-4 opacity-30 group-hover:opacity-50 transition-opacity">
+                  0{index + 1}
+                </div>
+                <h3 className="text-2xl font-semibold text-dark-50 mb-4">{b.title}</h3>
+                <p className="text-dark-300 text-lg leading-relaxed">{b.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section - Full Screen */}
+      <section className="min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-20 bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950">
+        <div className="max-w-7xl mx-auto w-full">
+          <h2 className="text-4xl md:text-6xl font-bold text-dark-50 mb-16 text-center">
+            Our Process
+          </h2>
+          <DiagramLoop />
+          <p className="text-center text-dark-200 text-lg mt-12 max-w-3xl mx-auto">
+            Every decision—data, labels, prompts, models—has a paper trail and a rollback plan. 
+            We optimize for traceability and steady-state operations.
+          </p>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="min-h-[50vh] flex items-center justify-center px-6 md:px-12 lg:px-20 bg-gradient-to-r from-dark-900 via-dark-950 to-dark-900">
+        <div className="text-center">
+          <h2 className="text-4xl md:text-6xl font-bold text-dark-50 mb-8">
+            {c.ctaSection.heading}
+          </h2>
+          <p className="text-xl text-dark-200 mb-12 max-w-2xl mx-auto">
+            {c.ctaSection.subheading}
+          </p>
+          <a href="/contact" className="btn-primary text-lg">
+            {c.ctaSection.buttonText}
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+    </>
   );
 }
