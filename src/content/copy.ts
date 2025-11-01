@@ -93,13 +93,12 @@ export const specializations = {
     "We reuse proven building blocks and tune them to your workflows, latency needs, and oversight requirements—useful on day one, maintainable on day 400.",
   cards: [
     { title: "Civic & Urban Systems", body: "Data versioning, transparent metrics, and decision traces across mixed teams." },
-    { title: "Healthcare & Life Sciences", body: "Evaluation rigor, traceable decisions, and review-friendly workflows." },
+    { title: "Life Sciences & Healthcare", body: "Evaluation rigor, traceable decisions, and review-friendly workflows." },
     { title: "Media & Knowledge Ops", body: "Retrieval with provenance, editorial guardrails, and latency-aware UX." },
-    { title: "Scientific & R&D", body: "Reproducible datasets, experiment tracking, and domain-specific eval suites." },
-    { title: "Industrial / IoT", body: "Sensor fusion, weak labeling at scale, drift detection, and on-edge inference." },
+    { title: "Scientific & R&D", body: "Reproducible datasets, experiment tracking, and domain-specific eval suites." }
   ],
   loopNote:
-    "Under the hood, it's the same loop—Data → Labeling → Eval → Release—tuned to your constraints.",
+    "Under the hood, it's the same loop tuned to your constraints: Data → Labeling → Eval → Release",
 };
 
 // ---------- Approach ----------
@@ -325,7 +324,7 @@ export const contact = {
 
 // ---------- Footer ----------
 export const footer = {
-  disclaimer: "We never publish client data or logos. References available under NDA.",
+  disclaimer: "allostasis: maintaining stability through change",
   copyright: "Allostasis AI. All rights reserved."
 };
 

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import siteCopy from "@/content/copy";
 import DiagramLoop from "@/components/DiagramLoop";
 
@@ -94,9 +95,9 @@ export default function HomePage() {
           <p className="text-xl text-dark-200 mb-12 max-w-2xl mx-auto">
             {c.ctaSection.subheading}
           </p>
-          <a href="/contact" className="btn-primary text-lg">
+          <Link href="/contact" className="btn-primary text-lg">
             {c.ctaSection.buttonText}
-          </a>
+          </Link>
         </div>
       </section>
     </>
