@@ -102,8 +102,8 @@ export async function POST(request: Request) {
     if (transporter) {
       try {
         await transporter.sendMail({
-          from: process.env.SMTP_FROM || 'noreply@allostasis.ai',
-          to: process.env.SMTP_TO || 'julee@allostasis.ai',
+          from: process.env.SMTP_FROM || 'info@allostasis.ai',
+          to: process.env.SMTP_TO || 'info@allostasis.ai',
           replyTo: sanitizedData.email,
           subject: `Architecture Intro Request from ${sanitizedData.name}`,
           text: `New Architecture Intro Request
@@ -167,7 +167,7 @@ ${JSON.stringify(sanitizedData, null, 2)}
         
         // Send confirmation email to the submitter
         await transporter.sendMail({
-          from: process.env.SMTP_FROM || 'noreply@allostasis.ai',
+          from: process.env.SMTP_FROM || 'info@allostasis.ai',
           to: sanitizedData.email,
           subject: 'Thank you for your interest in Allostasis AI',
           text: `Dear ${sanitizedData.name},
@@ -235,7 +235,7 @@ This is an automated confirmation. Your data is handled securely and will only b
     } else {
       // Log for development when no SMTP is configured
       console.log('Emails would be sent (no SMTP configured):');
-      console.log('1. Admin notification to:', process.env.SMTP_TO || 'julee@allostasis.ai');
+      console.log('1. Admin notification to:', process.env.SMTP_TO || 'info@allostasis.ai');
       console.log('2. Confirmation email to:', sanitizedData.email);
       console.log('Form data:', sanitizedData);
     }
