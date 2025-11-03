@@ -55,9 +55,9 @@ npm run dev
 
 ---
 
-## PHASE 2: CODE PREPARATION
+## PHASE 2: CODE PREPARATION ✅ COMPLETED
 
-### Task 2.1: Update next.config Files (CRITICAL: Check ALL Config Files!)
+### Task 2.1: Update next.config Files (CRITICAL: Check ALL Config Files!) ✅ DONE
 **Location:** Code editor
 
 **⚠️ IMPORTANT: Multiple Config Files May Exist**
@@ -81,7 +81,7 @@ ls -la | grep next.config
 
 ---
 
-### Task 2.2: Verify .gitignore Includes Sensitive Files
+### Task 2.2: Verify .gitignore Includes Sensitive Files ✅ DONE
 **Location:** Code editor
 **File:** `/Users/julee/GitHub/allostasis/.gitignore`
 **Ensure these lines exist:**
@@ -110,7 +110,7 @@ mkdir archive && mv deploy*.sh archive/
 
 ---
 
-### Task 2.4: Commit All Changes
+### Task 2.4: Commit All Changes ✅ DONE
 **Location:** Terminal
 **Commands:**
 ```bash
@@ -119,7 +119,7 @@ git commit -m "Archive FTP deployment scripts, prepare for Vercel"
 git push origin main
 ```
 **Goal:** Ensure all code changes are in GitHub
-**Status:** ⏸️ PENDING - Need to commit archive changes
+**Status:** ⏸️ PENDING - Need to commit archive changes 
 
 ---
 
@@ -207,9 +207,9 @@ git push origin main
 
 ---
 
-## PHASE 4: INITIAL TESTING
+## PHASE 4: INITIAL TESTING ✅ COMPLETED
 
-### Task 4.1: Test Deployed Site
+### Task 4.1: Test Deployed Site ✅ DONE
 **Location:** Browser
 **URL:** https://allostasis-psi.vercel.app/
 **Steps:**
@@ -224,7 +224,7 @@ git push origin main
 
 ---
 
-### Task 4.2: Verify Email Delivery
+### Task 4.2: Verify Email Delivery ✅ DONE
 **Location:** Email inbox
 **Check two inboxes:**
 1. `info@allostasis.ai` - Should receive admin notification
@@ -238,9 +238,9 @@ git push origin main
 
 ---
 
-## PHASE 5: CUSTOM DOMAIN SETUP
+## PHASE 5: CUSTOM DOMAIN SETUP ✅ COMPLETED
 
-### Task 5.1: Add Custom Domain in Vercel
+### Task 5.1: Add Custom Domain in Vercel ✅ DONE
 **Location:** Browser (Vercel Dashboard)
 **Navigate to:**
 1. Your project → Settings → Domains
@@ -257,11 +257,11 @@ git push origin main
 ```
 A Record:
   Name: @
-  Value: 76.76.21.21 (or similar Vercel IP)
+  Value: 216.198.79.1 (Note from Vercel: "As part of a planned IP range expansion, you may notice new records above. The old records of cname.vercel-dns.com and 76.76.21.21 will continue to work but we recommend you use the new ones.")
 
 CNAME Record:
   Name: www
-  Value: cname.vercel-dns.com
+  Value: 9f75ae52ef921d78.vercel-dns-017.com. (Note from Vercel: "As part of a planned IP range expansion, you may notice new records above. The old records of cname.vercel-dns.com and 76.76.21.21 will continue to work but we recommend you use the new ones.")
 ```
 
 **Goal:** Register your custom domain with Vercel
@@ -269,7 +269,7 @@ CNAME Record:
 
 ---
 
-### Task 5.2: Add www Subdomain
+### Task 5.2: Add www Subdomain ✅ DONE
 **Location:** Browser (Vercel Dashboard, same Domains page)
 **Steps:**
 1. Click "Add Domain" again
@@ -282,7 +282,7 @@ CNAME Record:
 
 ---
 
-### Task 5.3: Update DNS Records in Namecheap
+### Task 5.3: Update DNS Records in Namecheap  ✅ DONE
 **Location:** Browser (Namecheap Dashboard)
 **Navigate to:**
 1. Go to https://www.namecheap.com/
@@ -293,25 +293,25 @@ CNAME Record:
 **Current A Record (find and UPDATE):**
 - Type: A Record
 - Host: `@`
-- Value: [old Namecheap IP]
+- Value: 68.65.122.77 [old Namecheap IP]
 - TTL: Automatic
 
 **Change to:**
 - Type: A Record
 - Host: `@`
-- Value: `76.76.21.21` (use the exact IP Vercel gave you)
+- Value: `216.198.79.1` (use the exact IP Vercel gave you)
 - TTL: Automatic or 300 (5 minutes)
 
 **Current CNAME Record (find and UPDATE):**
 - Type: CNAME Record
 - Host: `www`
-- Value: [old Namecheap value]
+- Value: allostasis.ai. [old Namecheap value]
 - TTL: Automatic
 
 **Change to:**
 - Type: CNAME Record
 - Host: `www`
-- Value: `cname.vercel-dns.com` (use exact value Vercel gave you)
+- Value: `9f75ae52ef921d78.vercel-dns-017.com.` (use exact value Vercel gave you)
 - TTL: Automatic or 300
 
 **DO NOT TOUCH:**
@@ -326,7 +326,7 @@ CNAME Record:
 
 ---
 
-### Task 5.4: Wait for DNS Propagation
+### Task 5.4: Wait for DNS Propagation  ✅ DONE
 **Location:** Terminal or online tool
 **Time:** 5 minutes - 48 hours (usually 15-30 minutes)
 
@@ -350,7 +350,7 @@ https://www.whatsmydns.net/
 
 ---
 
-### Task 5.5: Verify Domain in Vercel
+### Task 5.5: Verify Domain in Vercel  ✅ DONE
 **Location:** Browser (Vercel Dashboard)
 **Navigate to:** Project → Settings → Domains
 
@@ -361,13 +361,13 @@ https://www.whatsmydns.net/
 **If still pending:** DNS hasn't propagated yet, wait longer
 
 **Goal:** Vercel confirms domain ownership
-**Status:** ⏸️ PENDING - After DNS propagation
+**Status:** ✅ DONE - After DNS propagation
 
 ---
 
-## PHASE 6: PRODUCTION TESTING
+## PHASE 6: PRODUCTION TESTING ✅ COMPLETED
 
-### Task 6.1: Test Custom Domain Site
+### Task 6.1: Test Custom Domain Site ✅ DONE
 **Location:** Browser
 **URLs to test:**
 - https://allostasis.ai
@@ -389,7 +389,7 @@ https://www.whatsmydns.net/
 
 ---
 
-### Task 6.2: Test Production Contact Form
+### Task 6.2: Test Production Contact Form ✅ DONE
 **Location:** Browser
 **URL:** https://allostasis.ai/contact
 
@@ -408,7 +408,7 @@ https://www.whatsmydns.net/
 
 ---
 
-### Task 6.3: Test from Different Locations/Devices
+### Task 6.3: Test from Different Locations/Devices ✅ DONE 
 **Location:** Multiple devices (optional but recommended)
 
 **Test on:**
@@ -462,7 +462,7 @@ Configure these in Vercel dashboard (Settings → Environment Variables):
 
 ---
 
-### Task 7.2: Clean Up Archived Scripts
+### Task 7.2: Clean Up Archived Scripts  ✅ DONE
 **Location:** Terminal
 
 **Already completed:**
@@ -482,7 +482,7 @@ rm -rf archive/
 
 ---
 
-### Task 7.3: Update .env.local.example
+### Task 7.3: Update .env.local.examples  ✅ DONE
 **Location:** Code editor
 **File:** `/Users/julee/GitHub/allostasis/.env.local.example`
 
@@ -575,16 +575,16 @@ rm -rf archive/
 ### Completed Tasks:
 - [x] Phase 1: Pre-flight checks (1.1-1.3)
 - [x] Phase 3: Vercel account & project setup (3.1-3.5)
-- [x] Archived deployment scripts to ./archive/
+- [x] Task 2.1: Verify next.config.ts configuration
+- [x] Task 2.2: Verify .gitignore
+- [x] Task 2.4: Commit archive changes
+- [x] Task 4.1-4.2: Test Vercel deployment
+- [x] Task 5.1-5.5: Configure custom domain & DNS
+- [x] Task 7.2: Clean Up Archived Scripts (Archived deployment scripts to ./archive/)
+- [x] Task 6.1-6.3: Production testing
 
 ### Remaining Tasks:
-- [ ] Task 2.1: Verify next.config.ts configuration
-- [ ] Task 2.2: Verify .gitignore
-- [ ] Task 2.4: Commit archive changes
-- [ ] Task 4.1-4.2: Test Vercel deployment
-- [ ] Task 5.1-5.5: Configure custom domain & DNS
-- [ ] Task 6.1-6.3: Production testing
-- [ ] Task 7.1-7.4: Documentation & cleanup
+- [ ] Task 7.1, 7.3-7.4: Documentation & cleanup
 
 ---
 
