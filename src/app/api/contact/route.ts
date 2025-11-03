@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { checkRateLimit } from './rate-limit';
 
+// Force this route to be dynamic (server-side) - required for Vercel
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // Helper function to sanitize input
 function sanitizeInput(input: string): string {
   // Remove any potential XSS attempts
