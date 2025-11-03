@@ -57,13 +57,27 @@ npm run dev
 
 ## PHASE 2: CODE PREPARATION
 
-### Task 2.1: Update next.config.ts
+### Task 2.1: Update next.config Files (CRITICAL: Check ALL Config Files!)
 **Location:** Code editor
-**File:** `/Users/julee/GitHub/allostasis/next.config.ts`
-**Change:** Remove or comment out `output: 'export'` line if it exists
-**Current state:** File shows minimal config, may not need changes
+
+**⚠️ IMPORTANT: Multiple Config Files May Exist**
+Next.js may have multiple config files. Check ALL of them:
+- `next.config.ts`
+- `next.config.js`
+- `next.config.mjs` ← **This file takes precedence!**
+
+**Command to find all config files:**
+```bash
+ls -la | grep next.config
+```
+
+**Files in this project:**
+- `/Users/julee/GitHub/allostasis/next.config.ts` - Empty/minimal config ✅
+- `/Users/julee/GitHub/allostasis/next.config.mjs` - **Had `output: 'export'` ❌**
+
+**Change Required:** Remove `output: 'export'` from **next.config.mjs**
 **Goal:** Ensure Next.js uses server-side rendering mode (not static export)
-**Status:** ⏸️ PENDING - Need to verify
+**Status:** ✅ FIXED - Removed `output: 'export'` from next.config.mjs
 
 ---
 
@@ -648,5 +662,87 @@ rm -rf archive/
 
 ---
 
+## TROUBLESHOOTING: ISSUES ENCOUNTERED & SOLUTIONS
+
+### Issue #1: 405 Method Not Allowed on /api/contact
+
+**Symptoms:**
+```
+POST https://allostasis-psi.vercel.app/api/contact 405 (Method Not Allowed)
+Note: Running on static hosting - form submitted but email sending requires server
+```
+
+**Diagnosis:**
+- Function Invocations in Vercel showed 0
+- API route was not being deployed as serverless function
+- Site was being deployed as static-only
+
+**Root Cause:**
+API route needed explicit declaration to be dynamic/server-side.
+
+**Solution:**
+Added to `src/app/api/contact/route.ts`:
+```typescript
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+```
+
+**Status:** This alone wasn't enough - see Issue #2
+
+---
+
+### Issue #2: Build Error - "output: export" Cannot Use dynamic
+
+**Symptoms:**
+```
+Error: export const dynamic = "force-dynamic" on page "/api/contact"
+cannot be used with "output: export"
+```
+
+**Diagnosis:**
+- Build failed after adding `dynamic = 'force-dynamic'`
+- Error indicated `output: 'export'` was still set somewhere
+- Checked `next.config.ts` - it was clean
+- **CRITICAL DISCOVERY:** Found TWO config files!
+
+**Root Cause:**
+Multiple Next.js config files existed in project root:
+- `next.config.ts` (empty/minimal) ← We checked this one ✅
+- `next.config.mjs` (had `output: 'export'`) ← **This one was actually being used!** ❌
+
+**The .mjs file takes precedence over .ts file!**
+
+**Solution:**
+1. **Always check for ALL config files:**
+   ```bash
+   ls -la | grep next.config
+   ```
+
+2. **Remove `output: 'export'` from next.config.mjs:**
+   ```javascript
+   // Before
+   const nextConfig = {
+     output: 'export',  // ← REMOVE THIS
+     images: { unoptimized: true },
+     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+   };
+
+   // After
+   const nextConfig = {
+     // Removed 'output: export' to enable API routes
+     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+   };
+   ```
+
+**Lesson Learned:**
+⚠️ **ALWAYS check for duplicate/multiple config files!**
+- `next.config.mjs` takes precedence over `next.config.ts`
+- `next.config.js` takes precedence over `next.config.ts`
+- Use `ls -la | grep next.config` to find all config files
+
+**Status:** ✅ FIXED - Removed `output: 'export'` from next.config.mjs
+
+---
+
 **Last Updated:** November 3, 2025
-**Deployment Status:** In Progress - Phase 5 (Domain Configuration)
+**Deployment Status:** In Progress - Phase 4 (Fixing Build Issues)
