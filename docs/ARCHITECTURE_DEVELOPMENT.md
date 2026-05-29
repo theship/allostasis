@@ -125,7 +125,7 @@ Server-side rendering must stay enabled (no `output: 'export'`).
 
 ## 🛠 Technical stack
 
-- **Framework:** Next.js 15.4.7 (App Router) · **Language:** TypeScript 5 · **Styling:** Tailwind CSS v3
+- **Framework:** Next.js 15.5.18 (App Router) · **Language:** TypeScript 5 · **Styling:** Tailwind CSS v3
 - **Fonts:** `next/font` (Fraunces, Newsreader, JetBrains Mono) · **Email:** Nodemailer · **Testing:** Playwright
 
 ## 🔧 Development
