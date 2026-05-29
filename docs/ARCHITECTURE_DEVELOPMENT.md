@@ -1,197 +1,153 @@
 # Architecture & Development Guide
 
+> **Positioning:** Allostasis architects the **organizational semantic layer** — the
+> principles, workflows, vocabulary, and reference knowledge AI agents need to act correctly.
+> This guide reflects the May 2026 redo. The pre-redo guide is archived at
+> [`archive/ARCHITECTURE_DEVELOPMENT.2025-08.md`](archive/ARCHITECTURE_DEVELOPMENT.2025-08.md).
+
 ## 📁 Project Structure
 
 ```
 allostasis/
 ├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── api/contact/        # Contact form API with email sending
-│   │   └── [pages]/           # All site pages
-│   ├── components/             # Reusable components (Navbar, Footer, etc.)
-│   └── content/
-│       └── copy.ts            # ⭐ SINGLE SOURCE OF TRUTH for all site content
-├── public/                    # Static assets, images
-├── docs/                      # Documentation
-├── out/                       # Static export for deployment
-└── .env.local.example         # Environment variables template
+│   ├── app/
+│   │   ├── api/contact/        # SMTP contact API (route.ts + rate-limit.ts) — UNCHANGED
+│   │   ├── about/page.tsx      # /about
+│   │   ├── contact/page.tsx    # /contact (server) → ContactForm (client)
+│   │   ├── page.tsx            # / (Home)
+│   │   ├── layout.tsx          # fonts, site metadata, JSON-LD
+│   │   ├── sitemap.ts          # /sitemap.xml (3 routes)
+│   │   ├── robots.ts           # /robots.txt
+│   │   ├── opengraph-image.tsx # site-wide OG/Twitter card
+│   │   └── globals.css
+│   ├── components/             # Navbar, Footer, FrameworkLayers, ContactForm, ExternalLink
+│   ├── content/copy.ts         # ⭐ SINGLE SOURCE OF TRUTH for all copy + links + metadata
+│   └── lib/text.tsx            # renderEmphasis() — **bold** markup → <strong>
+├── .playwright/                # E2E specs (a11y, redirects, external-links)
+├── docs/                       # documentation (+ archive/)
+├── next.config.mjs             # MDX wiring + 301 redirects (active config)
+└── tailwind.config.js          # design tokens (palette, type scale, fonts)
 ```
 
-## 🎨 Content Management
+## 🧭 Information architecture
 
-**ALL site content is centralized in `/src/content/copy.ts`**
+The redo **consolidated eight routes to three built routes plus one external link.**
 
-This single file contains:
-- Navigation structure
-- Page headlines and copy
-- Form labels and options  
-- Button text and CTAs
-- Footer content
-- SEO metadata
-- Component text
+| Built route | Page |
+|---|---|
+| `/` | Home — hero · the problem · what we do · the five-layer framework · tools fit · how we engage · closing CTA |
+| `/about` | About Julee Burdekin |
+| `/contact` | Contact — qualifying form wrapping the existing SMTP API |
 
-To update any text on the site, edit `src/content/copy.ts`. No need to hunt through components!
+**Writing / Point of View are external links** (not built routes), stored in `copy.ts` `links`:
+- **Writing** (nav + "Read the writing →") → `https://gnowledge-karden.ghost.io/tag/appliedai/`
+- **Point of View** (hero, framework, About) → `https://gnowledge-karden.ghost.io/build-your-semantic-infrastructure-first/`
+- **LinkedIn** (footer + contact) → `https://www.linkedin.com/in/jburdekin/`
 
-### Content Structure in copy.ts
+Every external link opens in a new tab with `target="_blank"` + `rel="noopener noreferrer"` and an
+external affordance (↗ glyph + "(opens in new tab)" for screen readers) via `components/ExternalLink.tsx`.
+
+### 301 redirects (`next.config.mjs` → `redirects()`)
+
+Old URLs are live/indexed, so they 301-redirect to preserve inbound links and search equity:
+
+| Old route | → Target |
+|---|---|
+| `/specializations` | `/` |
+| `/approach` | `/` |
+| `/results` | `/` |
+| `/governance` | `/` |
+| `/engagement` | `/#engage` |
+| `/methods` | `https://gnowledge-karden.ghost.io/tag/appliedai/` (external) |
+
+> ⚠️ `next.config.mjs` is the **active** config (takes precedence over `next.config.ts`). It must
+> keep the `@next/mdx` wiring and must **not** reintroduce `output: 'export'` — that breaks `/api/contact`.
+
+### Proof/Results
+
+Omitted entirely (no case study yet). A `{/* TODO: Proof/Results section … */}` comment in
+`src/app/page.tsx` marks where it slots in later. The MDX wiring (`@next/mdx`, `mdx-components.tsx`)
+is left in place but unused — for a future in-house move of the writing.
+
+## 🎨 Content management
+
+**ALL user-facing copy is centralized in [`/src/content/copy.ts`](../src/content/copy.ts).**
+Components read from it; no hardcoded strings. Exports:
 
 ```typescript
 {
-  meta: {}           // SEO titles and descriptions
-  nav: []           // Navigation items
-  cta: {}           // Call-to-action buttons
-  home: {}          // Homepage content
-  specializations: {} // Industry verticals
-  approach: {}      // Methodology page
-  results: {}       // Case studies
-  governance: {}    // Compliance content
-  engagement: {}    // Working models
-  methods: {}       // Articles/documentation
-  contact: {}       // Form labels and messages
-  footer: {}        // Footer text
-  diagram: {}       // Process diagram labels
-  faq: []          // FAQ items
+  links,    // external destinations (writing, pov, linkedin)
+  cta,      // CTA labels
+  nav,      // nav items (with `external` flag)
+  meta,     // siteTitle/siteDescription + per-route title/description (home, about, contact)
+  home,     // hero, problem, whatWeDo, framework (5 layers), toolsFit, engage, closingCta
+  about,    // heading, paragraphs, links
+  contact,  // headline/intro + form schema (UNCHANGED field/API contract) + messages
+  footer,   // tagline, copyright
 }
 ```
 
-## 🎨 Design System
+## 🎨 Design system
 
-### Colors (Pantone Autumn 2025)
-- **Roast:** `#6B4C4A`
-- **Vapor:** `#B8B5AE`  
-- **Crown:** `#3E4A5C`
-- **Winterberry:** `#C04A62` (accent)
-- **Dark Scale:** `dark-50` through `dark-950`
+Refined **dark-editorial** direction (build spec §5). Tokens live in `tailwind.config.js` + CSS variables.
 
-### Typography
-- **UI Text:** Inter
-- **Code:** JetBrains Mono
-- **Sizes:** Responsive from text-sm to 8xl
+- **Typography (the design):** display serif **Fraunces** (`--font-display`) + readable body serif
+  **Newsreader** (`--font-body`), self-hosted via `next/font/google`. Mono **JetBrains Mono** for small
+  eyebrow labels / layer numbers. (No Inter/Roboto/Arial/system stacks; no Space Grotesk.)
+- **Palette:** warm deep-ink base (`ink.*`), warm paper foreground (`paper.*`), one disciplined
+  Winterberry **accent** in two tunings — `accent.DEFAULT`/`accent.fill` for CTAs (white text) and
+  `accent.text` (lighter, AA-safe) for links on the dark ground.
+- **Signature visual:** the five layers as a stack standing on a foundation — `FrameworkLayers.tsx`
+  (layer 01 at the base, building up; legible/ordered on mobile).
+- **Motion:** staggered `fade-up` page-load reveals on hero + layers; `prefers-reduced-motion` disables them.
 
-## 📧 Email Configuration
+## 🔍 SEO
 
-The contact form sends emails directly via SMTP (no third-party services).
+- Semantic HTML5 (`header`/`nav`/`main`/`article`/`section`), one `<h1>` per route.
+- Per-route metadata via the Metadata API (`export const metadata`), canonical URLs.
+- OpenGraph + Twitter cards; site-wide `opengraph-image.tsx` (`next/og`).
+- JSON-LD `Person` (Julee Burdekin) + `ProfessionalService` in the root layout.
+- `sitemap.ts` (3 routes) + `robots.ts`.
+- Targets woven into copy/metadata: organizational semantic layer, agent-readiness, knowledge graph
+  for AI, enterprise ontology, context engineering, semantic-platform selection (Semaphore, Graphwise).
 
-See [`EMAIL_SETUP.md`](EMAIL_SETUP.md) for configuration instructions.
+## 📧 Email / contact API
 
-### Features
-- Direct SMTP sending
-- Dual email system (admin + user confirmation)
-- Input sanitization
-- Rate limiting (10 requests/hour/IP)
-- No data retention by third parties
+The contact form posts to `src/app/api/contact/route.ts` (Nodemailer, direct SMTP, rate-limited,
+input-sanitized, dual admin + confirmation emails). **The field schema and API contract are unchanged**
+by the redo — only the page UI, headline/intro, and `challenge` options were repositioned. See
+[`EMAIL_SETUP.md`](EMAIL_SETUP.md).
 
 ## 🚀 Deployment
 
-### GitHub Pages Deployment
+Vercel, auto-deploy from `main`. See [`VERCEL-DEPLOYMENT-PLAN.md`](VERCEL-DEPLOYMENT-PLAN.md).
+Server-side rendering must stay enabled (no `output: 'export'`).
 
-The site builds to the `/out` folder which contains all static files ready for deployment.
+## 🛠 Technical stack
 
-```bash
-npm run build
-# Creates static site in /out directory
-```
-
-#### Deploy to GitHub Pages:
-
-1. **Build the site**:
-   ```bash
-   npm run build
-   ```
-
-2. **The `/out` folder contains your entire static site**:
-   - All HTML pages
-   - Optimized JavaScript/CSS
-   - Images and assets
-   - API routes (Note: contact form requires a server)
-
-3. **For GitHub Pages**:
-   - Option 1: Deploy the `/out` folder directly using GitHub Actions
-   - Option 2: Use a `gh-pages` branch with the contents of `/out`
-   - Option 3: Configure GitHub Pages to serve from a docs folder (copy `/out` contents)
-
-4. **Important**: The contact form requires server-side processing. For static hosting:
-   - Consider using a form service like Formspree or Netlify Forms
-   - Or deploy to Vercel/Netlify for serverless function support
-
-### Environment Variables
-
-Copy `.env.local.example` to `.env.local` and configure:
-
-```env
-# SMTP Settings (for contact form)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@domain.com
-SMTP_PASS=your-app-password
-SMTP_FROM=noreply@allostasis.ai
-SMTP_TO=julee@allostasis.ai
-```
-
-## 🛠 Technical Stack
-
-- **Framework:** Next.js 15.4.7 (App Router)
-- **Language:** TypeScript 5
-- **Styling:** Tailwind CSS v3
-- **Email:** Nodemailer (direct SMTP)
-- **Testing:** Playwright
+- **Framework:** Next.js 15.5.18 (App Router) · **Language:** TypeScript 5 · **Styling:** Tailwind CSS v3
+- **Fonts:** `next/font` (Fraunces, Newsreader, JetBrains Mono) · **Email:** Nodemailer · **Testing:** Playwright
 
 ## 🔧 Development
 
-### Key Commands
-
 ```bash
-npm run dev        # Start dev server on :3000
-npm run build      # Build for production
-npm run lint       # Run ESLint
-npm test          # Run tests
+npm run dev        # dev server on :3000
+npm run build      # production build
+npm run lint       # ESLint
+npm run typecheck  # tsc --noEmit
+npm test           # Playwright E2E
 ```
 
-### Making Changes
+### Making changes
+1. **Content:** edit `/src/content/copy.ts` (incl. external `links`).
+2. **Styling:** Tailwind tokens in `tailwind.config.js`, custom CSS in `src/app/globals.css`.
+3. **Routes:** add under `src/app/<route>/page.tsx`; add redirects to `next.config.mjs` if URLs change.
+4. **Components:** add to `src/components/`.
 
-1. **Content updates:** Edit `/src/content/copy.ts`
-2. **Styling:** Edit Tailwind classes or `/src/app/globals.css`
-3. **New pages:** Add to `/src/app/[page-name]/page.tsx`
-4. **Components:** Add to `/src/components/`
+### Tests (`.playwright/`)
+- `a11y.spec.ts` — landmarks, single `<h1>`, primary CTA, five-layer framework, field schema.
+- `redirects.spec.ts` — the 301 consolidation (incl. external `/methods`); retired routes don't 404.
+- `external-links.spec.ts` — `target`/`rel`/`href` on outbound links; no on-site `/writing` route.
 
-### Code Style
-
-- TypeScript for type safety
-- Tailwind for styling
-- No inline styles
-- All content from copy.ts
-- Mobile-first responsive design
-
-## 🔒 Security
-
-- Input sanitization on all forms
-- Rate limiting on API endpoints
-- No third-party tracking
-- No cookies or local storage
-- Direct SMTP (no email service providers)
-
-## 📱 Features
-
-- ✅ Fully responsive design
-- ✅ Dark theme with Pantone colors
-- ✅ Mobile hamburger navigation
-- ✅ Accordion-based methods section
-- ✅ Contact form with dual email system
-- ✅ Static export ready
-- ✅ SEO optimized
-- ✅ Accessibility features (ARIA labels, focus states)
-
-## 📋 Future Enhancements
-
-### Email System
-- **Configure noreply@ group as sender**: Currently using `julee@allostasis.ai` as sender. Future work includes:
-  - Setting up `noreply@allostasis.ai` group with proper send-as permissions
-  - Configuring Gmail to allow sending from group alias
-  - Alternative: Create dedicated user account for `noreply@` instead of group
-  - This will make email communications more professional with consistent branding
-
-## 🤝 Contributing
-
-1. Keep all content in `/src/content/copy.ts`
-2. Follow existing code patterns
-3. Test on mobile and desktop
-4. Ensure build passes before committing
+> Playwright's `html` reporter opens a blocking report server; run with `--reporter=line`
+> (and `PW_TEST_HTML_REPORT_OPEN=never`) for CI/non-interactive runs.
