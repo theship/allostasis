@@ -12,6 +12,10 @@ npm install     # install dependencies
 npm run dev     # development server on http://localhost:3000
 npm run build   # production build
 npm test        # Playwright E2E tests
+
+# For CI / non-interactive runs, use the line reporter — the default `html`
+# reporter opens a blocking report server that won't return on its own:
+PW_TEST_HTML_REPORT_OPEN=never npx playwright test --reporter=line
 ```
 
 ## 🧭 Information architecture
