@@ -4,63 +4,95 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['var(--font-jetbrains)', 'monospace'],
+        // Display: characterful serif (Fraunces). Body: highly readable serif (Newsreader).
+        // No Inter / Roboto / Arial / system stacks; no Space Grotesk (spec §5).
+        display: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-body)", "Georgia", "serif"],
+        body: ["var(--font-body)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        // Pantone Autumn 2025 palette
-        'roast': '#6B4C4A',  // French Roast brown
-        'vapor': '#B8B5AE',  // Vapor Blue (gray-blue)
-        'crown': '#3E4A5C',  // Crown Blue (deep navy)
-        'winterberry': '#C04A62', // Winterberry (muted red)
-        
-        // Dark mode base colors
-        'dark': {
-          50: '#fafafa',
-          100: '#f4f4f5',
-          200: '#e4e4e7',
-          300: '#d4d4d8',
-          400: '#a1a1aa',
-          500: '#71717a',
-          600: '#52525b',
-          700: '#3f3f46',
-          800: '#27272a',
-          900: '#18181b',
-          950: '#09090b',
-        }
+        // ---- Dark editorial palette: warm deep-ink base + warm paper foreground ----
+        ink: {
+          950: "#0d0c0a", // page background (warm near-black)
+          900: "#14120f",
+          800: "#1c1916",
+          700: "#272320",
+          600: "#383229",
+          500: "#4d463b",
+        },
+        paper: {
+          DEFAULT: "#ece6da",
+          50: "#f7f3ec",
+          100: "#ece6da", // primary body text on ink
+          200: "#d9d1c1",
+          300: "#bcb2a0",
+          400: "#968c7b", // muted captions / meta
+          500: "#6f665a",
+        },
+        // ONE disciplined accent — Winterberry, in two tunings:
+        //  - `accent` (deep) for fills/CTAs with white text
+        //  - `accent-text` (lighter) for links on the dark ground (AA-safe)
+        accent: {
+          DEFAULT: "#c0445c",
+          fill: "#c0445c",
+          text: "#e68a9b",
+          muted: "#8f4150",
+        },
+
+        // ---- Back-compat aliases (legacy class names still referenced in a few spots) ----
+        winterberry: "#c0445c",
+        roast: "#6B4C4A",
+        vapor: "#B8B5AE",
+        crown: "#3E4A5C",
+        dark: {
+          50: "#f7f3ec",
+          100: "#ece6da",
+          200: "#d9d1c1",
+          300: "#bcb2a0",
+          400: "#968c7b",
+          500: "#6f665a",
+          600: "#383229",
+          700: "#272320",
+          800: "#1c1916",
+          900: "#14120f",
+          950: "#0d0c0a",
+        },
       },
       fontSize: {
-        'xs': ['0.75rem', { lineHeight: '1rem' }],
-        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-        'base': ['1rem', { lineHeight: '1.75rem' }],
-        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '2rem' }],
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-        '5xl': ['3rem', { lineHeight: '1.2' }],
-        '6xl': ['3.75rem', { lineHeight: '1.1' }],
-        '7xl': ['4.5rem', { lineHeight: '1.1' }],
-        '8xl': ['6rem', { lineHeight: '1' }],
-        '9xl': ['8rem', { lineHeight: '1' }],
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.4" }],
+        base: ["1.0625rem", { lineHeight: "1.7" }],
+        lg: ["1.1875rem", { lineHeight: "1.7" }],
+        xl: ["1.375rem", { lineHeight: "1.6" }],
+        "2xl": ["1.625rem", { lineHeight: "1.4" }],
+        "3xl": ["2rem", { lineHeight: "1.25" }],
+        "4xl": ["2.5rem", { lineHeight: "1.15" }],
+        "5xl": ["3.25rem", { lineHeight: "1.08" }],
+        "6xl": ["4rem", { lineHeight: "1.04" }],
+        "7xl": ["5rem", { lineHeight: "1.0" }],
+      },
+      letterSpacing: {
+        tightish: "-0.02em",
+        tighter2: "-0.035em",
+      },
+      maxWidth: {
+        // Optimal reading measure for long-form prose (spec §5: ~62–72ch).
+        measure: "68ch",
+        prose: "65ch",
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'fade-up': 'fadeUp 0.5s ease-out',
-        'slide-in': 'slideIn 0.3s ease-out',
+        "fade-up": "fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "fade-in": "fadeIn 0.8s ease-out both",
       },
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
         fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        slideIn: {
-          '0%': { transform: 'translateX(-100%)' },
-          '100%': { transform: 'translateX(0)' },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
       },
     },
