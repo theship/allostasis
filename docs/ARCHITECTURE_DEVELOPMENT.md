@@ -1,8 +1,10 @@
 # Architecture & Development Guide
 
-> **Positioning:** Allostasis architects the **organizational semantic layer** — the
-> principles, workflows, vocabulary, and reference knowledge AI agents need to act correctly.
-> This guide reflects the May 2026 redo. The pre-redo guide is archived at
+> **Positioning (v06):** Your AI gives wrong answers because your systems disagree on what your
+> data means. Allostasis **finds where your meaning breaks** — conflicting definitions, missing
+> authority — and makes it legible to your AI, starting with a two-week AI Readiness Audit.
+> This guide reflects the June 2026 copy repositioning (v06) on top of the May 2026 redo. The
+> pre-redo guide is archived at
 > [`archive/ARCHITECTURE_DEVELOPMENT.2025-08.md`](archive/ARCHITECTURE_DEVELOPMENT.2025-08.md).
 
 ## 📁 Project Structure
@@ -20,9 +22,8 @@ allostasis/
 │   │   ├── robots.ts           # /robots.txt
 │   │   ├── opengraph-image.tsx # site-wide OG/Twitter card
 │   │   └── globals.css
-│   ├── components/             # Navbar, Footer, FrameworkLayers, ContactForm, ExternalLink
-│   ├── content/copy.ts         # ⭐ SINGLE SOURCE OF TRUTH for all copy + links + metadata
-│   └── lib/text.tsx            # renderEmphasis() — **bold** markup → <strong>
+│   ├── components/             # Navbar, Footer, ContactForm, ExternalLink
+│   └── content/copy.ts         # ⭐ SINGLE SOURCE OF TRUTH for all copy + links + metadata
 ├── .playwright/                # E2E specs (a11y, redirects, external-links)
 ├── docs/                       # documentation (+ archive/)
 ├── next.config.mjs             # MDX wiring + 301 redirects (active config)
@@ -35,13 +36,13 @@ The redo **consolidated eight routes to three built routes plus one external lin
 
 | Built route | Page |
 |---|---|
-| `/` | Home — hero · the problem · what we do · the five-layer framework · tools fit · how we engage · closing CTA |
+| `/` | Home — hero · sound familiar? (symptoms) · it's the meaning · what we do (3 moves) · what you get · no megaproject · where the tools fit · how we engage · closing CTA |
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact — qualifying form wrapping the existing SMTP API |
 
 **Writing / Point of View are external links** (not built routes), stored in `copy.ts` `links`:
-- **Writing** (nav + "Read the writing →") → `https://gnowledge-karden.ghost.io/tag/appliedai/`
-- **Point of View** (hero, framework, About) → `https://gnowledge-karden.ghost.io/build-your-semantic-infrastructure-first/`
+- **Writing** (nav) → `https://gnowledge-karden.ghost.io/tag/appliedai/`
+- **Point of View** (hero "See why the pilot stalled →" + About) → `https://gnowledge-karden.ghost.io/build-your-semantic-infrastructure-first/`
 - **LinkedIn** (footer + contact) → `https://www.linkedin.com/in/jburdekin/`
 
 Every external link opens in a new tab with `target="_blank"` + `rel="noopener noreferrer"` and an
@@ -80,10 +81,10 @@ Components read from it; no hardcoded strings. Exports:
   cta,      // CTA labels
   nav,      // nav items (with `external` flag)
   meta,     // siteTitle/siteDescription + per-route title/description (home, about, contact)
-  home,     // hero, problem, whatWeDo, framework (5 layers), toolsFit, engage, closingCta
-  about,    // heading, paragraphs, links
+  home,     // hero, soundFamiliar, meaning, whatWeDo, whatYouGet, noMegaproject, toolsFit, engage, closingCta
+  about,    // heading, paragraphs, pullquote, closing, links
   contact,  // headline/intro + form schema (UNCHANGED field/API contract) + messages
-  footer,   // tagline, copyright
+  footer,   // tagline (locked: "allostasis: stability through change."), copyright
 }
 ```
 
@@ -97,9 +98,10 @@ Refined **dark-editorial** direction (build spec §5). Tokens live in `tailwind.
 - **Palette:** warm deep-ink base (`ink.*`), warm paper foreground (`paper.*`), one disciplined
   Winterberry **accent** in two tunings — `accent.DEFAULT`/`accent.fill` for CTAs (white text) and
   `accent.text` (lighter, AA-safe) for links on the dark ground.
-- **Signature visual:** the five layers as a stack standing on a foundation — `FrameworkLayers.tsx`
-  (layer 01 at the base, building up; legible/ordered on mobile).
-- **Motion:** staggered `fade-up` page-load reveals on hero + layers; `prefers-reduced-motion` disables them.
+- **Editorial motifs:** accent left-border rules set off the "Sound familiar?" symptom quotes and
+  the About pullquote; numbered (01–03) "What we do" moves. (The earlier five-layer stack visual was
+  retired with the v06 repositioning.)
+- **Motion:** staggered `fade-up` page-load reveals on the hero; `prefers-reduced-motion` disables them.
 
 ## 🔍 SEO
 
@@ -108,8 +110,9 @@ Refined **dark-editorial** direction (build spec §5). Tokens live in `tailwind.
 - OpenGraph + Twitter cards; site-wide `opengraph-image.tsx` (`next/og`).
 - JSON-LD `Person` (Julee Burdekin) + `ProfessionalService` in the root layout.
 - `sitemap.ts` (3 routes) + `robots.ts`.
-- Targets woven into copy/metadata: organizational semantic layer, agent-readiness, knowledge graph
-  for AI, enterprise ontology, context engineering, semantic-platform selection (Semaphore, Graphwise).
+- Targets woven into copy/metadata: AI readiness, why AI gives wrong answers, data semantics,
+  authoritative definitions, data contracts, semantic layer / data catalog selection (dbt, Cube,
+  Collibra, Atlan), knowledge graph for AI, enterprise ontology.
 
 ## 📧 Email / contact API
 
@@ -145,7 +148,7 @@ npm test           # Playwright E2E
 4. **Components:** add to `src/components/`.
 
 ### Tests (`.playwright/`)
-- `a11y.spec.ts` — landmarks, single `<h1>`, primary CTA, five-layer framework, field schema.
+- `a11y.spec.ts` — landmarks, single `<h1>`, primary CTA, v06 home positioning, field schema.
 - `redirects.spec.ts` — the 301 consolidation (incl. external `/methods`); retired routes don't 404.
 - `external-links.spec.ts` — `target`/`rel`/`href` on outbound links; no on-site `/writing` route.
 

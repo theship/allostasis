@@ -3,7 +3,7 @@ import siteCopy from "@/content/copy";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: siteCopy.meta.pages.contact.title,
+  title: { absolute: siteCopy.meta.pages.contact.title },
   description: siteCopy.meta.pages.contact.description,
   alternates: { canonical: "/contact" },
   openGraph: {

@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import siteCopy from "@/content/copy";
-import FrameworkLayers from "@/components/FrameworkLayers";
 import ExternalLink from "@/components/ExternalLink";
-import { renderEmphasis } from "@/lib/text";
 
 export const metadata: Metadata = {
-  title: siteCopy.meta.pages.home.title,
+  title: { absolute: siteCopy.meta.pages.home.title },
   description: siteCopy.meta.pages.home.description,
   alternates: { canonical: "/" },
   openGraph: {
@@ -51,16 +49,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------- The problem ---------- */}
+      {/* ---------- Sound familiar? (symptom list) ---------- */}
+      <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
+            {c.soundFamiliar.heading}
+          </h2>
+          <p className="mt-6 max-w-measure font-body text-lg leading-relaxed text-paper-200">
+            {c.soundFamiliar.intro}
+          </p>
+          <ul className="mt-8 max-w-3xl space-y-4">
+            {c.soundFamiliar.items.map((item, i) => (
+              <li
+                key={i}
+                className="border-l-2 border-accent/50 pl-5 font-body text-lg italic leading-relaxed text-paper-200"
+              >
+                “{item}”
+              </li>
+            ))}
+          </ul>
+          <p className="mt-10 max-w-measure font-display text-xl font-semibold leading-snug tracking-tightish text-paper-50">
+            {c.soundFamiliar.closing}
+          </p>
+        </div>
+      </section>
+
+      {/* ---------- It is not the AI. It is the meaning. ---------- */}
       <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
           <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
-            {c.problem.heading}
+            {c.meaning.heading}
           </h2>
           <div className="mt-8 max-w-measure space-y-6">
-            {c.problem.paragraphs.map((p, i) => (
+            {c.meaning.paragraphs.map((p, i) => (
               <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
-                {renderEmphasis(p)}
+                {p}
               </p>
             ))}
           </div>
@@ -71,7 +94,10 @@ export default function HomePage() {
       <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
           <span className="eyebrow">{c.whatWeDo.heading}</span>
-          <div className="mt-10 grid gap-12 md:grid-cols-3 md:gap-10">
+          <p className="mt-5 max-w-measure font-display text-2xl font-semibold leading-snug tracking-tightish text-paper-50">
+            {c.whatWeDo.intro}
+          </p>
+          <div className="mt-12 grid gap-12 md:grid-cols-3 md:gap-10">
             {c.whatWeDo.items.map((item) => (
               <div key={item.number}>
                 <span aria-hidden="true" className="font-mono text-sm text-accent-text/80">
@@ -89,27 +115,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------- The framework (signature visual) ---------- */}
+      {/* ---------- What you get / You do not need a megaproject ---------- */}
       <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
-            {c.framework.heading}
-          </h2>
-          <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-16">
-            <FrameworkLayers />
-            <div className="lg:pt-6">
-              <p className="max-w-prose font-body text-lg leading-relaxed text-paper-200">
-                {c.framework.closing}
-              </p>
-              <ExternalLink href={c.framework.link.href} className="link-accent mt-6">
-                {c.framework.link.label} →
-              </ExternalLink>
-            </div>
+        <div className="mx-auto grid max-w-5xl gap-12 md:grid-cols-2 md:gap-16">
+          <div>
+            <h2 className="font-display text-2xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-3xl">
+              {c.whatYouGet.heading}
+            </h2>
+            <p className="mt-6 font-body text-lg leading-relaxed text-paper-200">
+              {c.whatYouGet.body}
+            </p>
+          </div>
+          <div>
+            <h2 className="font-display text-2xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-3xl">
+              {c.noMegaproject.heading}
+            </h2>
+            <p className="mt-6 font-body text-lg leading-relaxed text-paper-200">
+              {c.noMegaproject.body}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ---------- Where this fits the tools you already know ---------- */}
+      {/* ---------- Where the tools fit ---------- */}
       <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
           <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
@@ -118,9 +146,6 @@ export default function HomePage() {
           <p className="mt-8 max-w-measure font-body text-lg leading-relaxed text-paper-200">
             {c.toolsFit.body}
           </p>
-          <ExternalLink href={c.toolsFit.link.href} className="link-accent mt-6">
-            {c.toolsFit.link.label} →
-          </ExternalLink>
         </div>
       </section>
 
@@ -132,12 +157,9 @@ export default function HomePage() {
           <h2 className="font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
             {c.engage.heading}
           </h2>
-          <div className="mt-12 grid gap-10 md:grid-cols-3">
+          <div className="mt-12 grid gap-10 md:grid-cols-2 md:gap-12">
             {c.engage.offers.map((offer) => (
-              <div
-                key={offer.title}
-                className="flex flex-col border-t border-accent/40 pt-5"
-              >
+              <div key={offer.title} className="flex flex-col border-t border-accent/40 pt-5">
                 <h3 className="font-display text-xl font-semibold leading-snug tracking-tightish text-paper-50">
                   {offer.title}
                 </h3>
@@ -147,7 +169,10 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <Link href={c.engage.cta.href} className="btn-secondary mt-12">
+          <p className="mt-10 max-w-measure font-body text-base italic leading-relaxed text-paper-300">
+            {c.engage.note}
+          </p>
+          <Link href={c.engage.cta.href} className="btn-secondary mt-10">
             {c.engage.cta.label} →
           </Link>
         </div>

@@ -1,9 +1,10 @@
 # Allostasis AI
 
-Marketing site for **Allostasis AI** — a knowledge-engineering practice that architects the
-**organizational semantic layer**: the principles, workflows, vocabulary, and reference knowledge
-AI agents need to act correctly. The site's job is to be found by people searching for this work
-and to make the seniority of the practitioner (Julee Burdekin) undeniable.
+Marketing site for **Allostasis AI** — a knowledge-engineering practice that **finds where your
+organization's meaning breaks** (conflicting definitions, missing authority — the ambiguity your AI
+reads) and makes it legible, starting with a two-week **AI Readiness Audit**. The site's job is to
+be found by people searching for this work and to make the seniority of the practitioner
+(Julee Burdekin) undeniable.
 
 ## 🚀 Quick Start
 
@@ -24,7 +25,7 @@ Three built routes plus one external link:
 
 | Route | Page |
 |---|---|
-| `/` | Home — hero, the problem, what we do, **the five-layer framework**, tools fit, how we engage, closing CTA |
+| `/` | Home — hero, "sound familiar?" symptoms, it's the meaning, what we do (3 moves), what you get, no megaproject, where the tools fit, how we engage, closing CTA |
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact (qualifying form → SMTP API) |
 | **Writing** (nav) | _External_ → the Ghost blog's [Applied AI tag](https://gnowledge-karden.ghost.io/tag/appliedai/) |
@@ -41,7 +42,7 @@ There is **no** on-site `/writing` or `/point-of-view` route — those link out 
 
 **All site copy lives in one file:** [`/src/content/copy.ts`](src/content/copy.ts)
 
-Edit it to update any text — headlines, CTAs, the five layers, form labels, footer, SEO metadata.
+Edit it to update any text — headlines, CTAs, the symptom list, form labels, footer, SEO metadata.
 External destinations (Writing, Point of View, LinkedIn) live in the `links` export so they're
 swappable when content moves in-house. Components never hardcode user-facing strings.
 
@@ -50,7 +51,7 @@ swappable when content moves in-house. Components never hardcode user-facing str
 Refined dark-editorial direction (spec §5):
 - **Type is the design** — display serif **Fraunces** + readable body serif **Newsreader**, self-hosted via `next/font`. (No Inter/Roboto/Arial/system stacks.)
 - Warm deep-ink base + warm paper foreground, **one** disciplined Winterberry accent. Tokens in [`tailwind.config.js`](tailwind.config.js).
-- Signature visual: the **five layers** rendered as a stack standing on a foundation ([`FrameworkLayers.tsx`](src/components/FrameworkLayers.tsx)).
+- Editorial motifs: accent-ruled symptom quotes and About pullquote; numbered (01–03) "What we do" moves. (The earlier five-layer stack visual was retired in the v06 repositioning.)
 - Subtle staggered page-load reveals; `prefers-reduced-motion` honored.
 
 ## 🔍 SEO

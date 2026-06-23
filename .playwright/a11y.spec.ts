@@ -15,20 +15,18 @@ for (const route of builtRoutes) {
     await expect(
       page
         .getByLabel("Primary")
-        .getByRole("link", { name: /Request an Agent-Readiness Audit/i })
+        .getByRole("link", { name: /Request an AI Readiness Audit/i })
     ).toBeVisible();
   });
 }
 
-test("home renders the new positioning and the five-layer framework", async ({ page }) => {
+test("home renders the v06 positioning", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(/semantic layer/i);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/pilot stalled/i);
+  await expect(page.getByRole("heading", { name: /Sound familiar\?/i })).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: /five layers of an agent-ready organization/i })
+    page.getByRole("heading", { name: /It is not the AI\. It is the meaning\./i })
   ).toBeVisible();
-  // Foundation-first ordered list with all five layers.
-  await expect(page.getByRole("listitem").filter({ hasText: /Vision & principles/ })).toBeVisible();
-  await expect(page.locator('ol[aria-label*="five layers"] > li')).toHaveCount(5);
   await expect(page.getByRole("heading", { name: /How we engage/i })).toBeVisible();
 });
 

@@ -2,6 +2,42 @@
 
 All notable structural, positioning, and architectural changes to the Allostasis AI site.
 
+## 2026-06-23 — Copy repositioning v06 (`redo/semantic-layer`)
+
+Replaced site copy with the v06 brief (`20260623-allostasis-site-copy-v06.md`). Same stack, routes,
+nav, 301 redirects, contact field schema, and SMTP API — content/positioning only.
+
+### Positioning
+- Reframed from "architecting the organizational semantic layer" to **"your AI gives wrong answers
+  because your systems disagree on what your data means — we find where your meaning breaks and make
+  it legible."** Lead with the failed-pilot moment; cast a wider net with a symptom list.
+- **Locked tagline:** `allostasis: stability through change.` (was "maintaining stability through change").
+
+### Home (rebuilt sections)
+- New: hero ("Your AI pilot stalled…"), **Sound familiar?** symptom list, **It is not the AI. It is
+  the meaning.** explainer, What we do (3 moves), What you get, You do not need a megaproject,
+  Where the tools fit, How we engage (**The Audit** / **The Build** + fractional note), closing CTA.
+- **Retired the five-layer framework** (signature visual): removed `home.framework`, deleted
+  `components/FrameworkLayers.tsx` and the now-unused `lib/text.tsx` (`renderEmphasis`).
+- Primary CTA relabeled **"Request an AI Readiness Audit"**; hero secondary **"See why the pilot
+  stalled →"** → POV. Page `<title>`s set absolute (no double-branding).
+
+### About / Contact
+- About rewritten in first person (Adobe / Planet / Geospan), with a pullquote and closing line.
+- Contact headline/intro + `challenge` options repositioned (field schema + API contract unchanged).
+
+### SEO / metadata
+- Rewrote per-route titles/descriptions, `siteDescription`, OG image text, and JSON-LD
+  (`Person` description + `ProfessionalService` `knowsAbout`) to the v06 positioning.
+
+### Tests
+- Updated `a11y.spec.ts` (v06 home assertions, new CTA label) and `external-links.spec.ts`
+  (hero secondary "See why the pilot stalled"; removed the retired "Read the writing" link test).
+  22 passing.
+
+### Also
+- Bumped Next.js 15.4.7 → **15.5.18** to clear Vercel's security gate (latest 15.x patch).
+
 ## 2026-05-29 — Semantic-layer redo (`redo/semantic-layer`)
 
 Full content/design/IA redo on top of the existing Next.js + Vercel + SMTP stack (no re-platform).
