@@ -17,18 +17,10 @@ test("Writing nav link is external with correct target/rel/href", async ({ page 
 
 test("hero secondary CTA points to the POV anchor post, new tab + rel", async ({ page }) => {
   await page.goto("/");
-  const pov = page.getByRole("link", { name: /Read the point of view/i }).first();
+  const pov = page.getByRole("link", { name: /See why the pilot stalled/i }).first();
   await expect(pov).toHaveAttribute("target", "_blank");
   await expect(pov).toHaveAttribute("rel", /noopener noreferrer/);
   await expect(pov).toHaveAttribute("href", GHOST_POV);
-});
-
-test("'Read the writing' link points to the Ghost Applied AI tag", async ({ page }) => {
-  await page.goto("/");
-  const writing = page.getByRole("link", { name: /Read the writing/i }).first();
-  await expect(writing).toHaveAttribute("href", GHOST_TAG);
-  await expect(writing).toHaveAttribute("target", "_blank");
-  await expect(writing).toHaveAttribute("rel", /noopener noreferrer/);
 });
 
 test("About POV link is external with rel", async ({ page }) => {

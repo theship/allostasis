@@ -6,7 +6,7 @@ import { ImageResponse } from "next/og";
 // good enough for the card; revisit if a Fraunces OG is wanted later. // TODO
 
 export const alt =
-  "Allostasis — the organizational semantic layer for agent-readiness";
+  "Allostasis — find where your meaning breaks, and make it legible to your AI";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          Build the semantic layer your agents are already trying to read.
+          Your AI gives wrong answers because your systems disagree on what your data means.
         </div>
         <div
           style={{
@@ -58,8 +58,8 @@ export default function OpengraphImage() {
             maxWidth: 900,
           }}
         >
-          The organizational semantic layer — principles, workflows,
-          vocabulary, and reference knowledge agents need to act correctly.
+          We find where your meaning breaks, and make it legible to your AI.
+          Start with a two-week AI Readiness Audit.
         </div>
       </div>
     ),

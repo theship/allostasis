@@ -20,7 +20,7 @@
 ## 🎯 Key concepts
 
 ### Single-source content (`/src/content/copy.ts`)
-All user-facing copy lives in one file — headlines, the five layers, CTAs, form labels, footer, and
+All user-facing copy lives in one file — headlines, the symptom list, CTAs, form labels, footer, and
 per-route SEO metadata. External destinations (Writing, Point of View, LinkedIn) live in the `links`
 export so they're swappable when content moves in-house. Components never hardcode strings.
 
@@ -30,10 +30,10 @@ copy.ts
 ├── cta       (CTA labels)
 ├── nav       (items; `external` flag for Writing)
 ├── meta      (siteTitle/Description + per-route metadata: home, about, contact)
-├── home      (hero, problem, whatWeDo, framework[5 layers], toolsFit, engage, closingCta)
-├── about     (heading, paragraphs, links)
+├── home      (hero, soundFamiliar, meaning, whatWeDo, whatYouGet, noMegaproject, toolsFit, engage, closingCta)
+├── about     (heading, paragraphs, pullquote, closing, links)
 ├── contact   (headline/intro + form schema [field/API contract unchanged] + messages)
-└── footer    (tagline, copyright)
+└── footer    (tagline [locked], copyright)
 ```
 
 ### Information architecture
