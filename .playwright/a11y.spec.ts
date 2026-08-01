@@ -1,33 +1,85 @@
 import { test, expect } from "@playwright/test";
 
-// The redo consolidates eight routes to three built routes (spec §3).
-const builtRoutes = ["/", "/about", "/contact"];
+// Four built routes after the field-guide inversion (build spec v2.1 §1).
+const builtRoutes = ["/", "/agent-readiness", "/about", "/contact"];
 
 for (const route of builtRoutes) {
   test(`landmarks + single h1 + primary CTA: ${route}`, async ({ page }) => {
     await page.goto(route);
-    await expect(page.locator("header")).toBeVisible();
-    await expect(page.locator("main")).toBeVisible();
-    await expect(page.locator("footer")).toBeVisible();
-    // Exactly one <h1> per route (spec §6).
+    // Assert on landmark ROLES, not tags: the guide nests <header> inside
+    // <article>/<section>, which is valid and not a banner landmark.
+    await expect(page.getByRole("banner")).toBeVisible();
+    await expect(page.getByRole("main")).toBeVisible();
+    await expect(page.getByRole("contentinfo")).toBeVisible();
+    // Exactly one <h1> per route.
     await expect(page.locator("main h1")).toHaveCount(1);
-    // New primary CTA in the primary nav.
     await expect(
       page
         .getByLabel("Primary")
-        .getByRole("link", { name: /Request an AI Readiness Audit/i })
+        .getByRole("link", { name: /Request an Agent-Readiness Audit/i })
     ).toBeVisible();
   });
 }
 
-test("home renders the v06 positioning", async ({ page }) => {
+test("home is the slim router: hero, thesis, engage, closing CTA", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(/pilot stalled/i);
-  await expect(page.getByRole("heading", { name: /Sound familiar\?/i })).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: /It is not the AI\. It is the meaning\./i })
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    /only see what your objects carry/i
+  );
+  await expect(page.getByRole("heading", { name: /The vision gap/i })).toBeVisible();
   await expect(page.getByRole("heading", { name: /How we engage/i })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /how much of your vision your agents can actually see/i })
+  ).toBeVisible();
+});
+
+test("home hero CTAs resolve to the guide and contact", async ({ page }) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("link", { name: /Read the Field Guide/i }).first()
+  ).toHaveAttribute("href", "/agent-readiness");
+  await expect(
+    page.getByRole("link", { name: /Request an Agent-Readiness Audit/i }).first()
+  ).toHaveAttribute("href", "/contact");
+});
+
+test("nav Field Guide link works", async ({ page }) => {
+  await page.goto("/");
+  await page
+    .getByLabel("Primary")
+    .getByRole("link", { name: "Field Guide", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/agent-readiness$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    /six layers, seven tests/i
+  );
+});
+
+test("footer links to the Field Guide", async ({ page }) => {
+  await page.goto("/");
+  await expect(
+    page.getByLabel("Footer").getByRole("link", { name: "Field Guide" })
+  ).toHaveAttribute("href", "/agent-readiness");
+});
+
+test("the three offers render identically on / and /agent-readiness", async ({ page }) => {
+  const offerNames = [
+    "The Agent-Readiness Audit",
+    "The Semantic Architecture Engagement",
+    "Fractional Knowledge Engineering",
+  ];
+  for (const route of ["/", "/agent-readiness"]) {
+    await page.goto(route);
+    for (const name of offerNames) {
+      await expect(
+        page.getByRole("heading", { name, exact: true })
+      ).toBeVisible();
+    }
+    // The DIAGNOSTIC body is the §6 text, from the single copy.ts source.
+    await expect(page.locator("main")).toContainText(
+      "three data contracts your leadership needs to ratify"
+    );
+  }
 });
 
 test("about page names the practitioner", async ({ page }) => {

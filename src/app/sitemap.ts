@@ -1,15 +1,17 @@
 import type { MetadataRoute } from "next";
+import siteCopy from "@/content/copy";
 
 const SITE_URL = "https://allostasis.ai";
 
-// Covers the three built routes only (spec §6). Writing/Point of View are external.
+// The four built routes. Writing remains an external link and is not listed.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["/", "/about", "/contact"];
-  const lastModified = new Date("2026-05-29");
+  const lastModified = new Date(siteCopy.fieldGuide.updatedISO);
+  const routes = ["/", "/agent-readiness", "/about", "/contact"];
+
   return routes.map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified,
     changeFrequency: "monthly",
-    priority: route === "/" ? 1 : 0.8,
+    priority: route === "/" ? 1 : route === "/agent-readiness" ? 0.9 : 0.8,
   }));
 }

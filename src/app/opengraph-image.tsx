@@ -6,7 +6,7 @@ import { ImageResponse } from "next/og";
 // good enough for the card; revisit if a Fraunces OG is wanted later. // TODO
 
 export const alt =
-  "Allostasis — find where your meaning breaks, and make it legible to your AI";
+  "Allostasis — your agents can only see what your objects carry";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          Your AI gives wrong answers because your systems disagree on what your data means.
+          Your agents can only see what your objects carry.
         </div>
         <div
           style={{
@@ -58,8 +58,8 @@ export default function OpengraphImage() {
             maxWidth: 900,
           }}
         >
-          We find where your meaning breaks, and make it legible to your AI.
-          Start with a two-week AI Readiness Audit.
+          Where your data objects don&apos;t carry your leadership&apos;s vision,
+          agents guess. We find the vision gap and close it.
         </div>
       </div>
     ),

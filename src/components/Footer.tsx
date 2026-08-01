@@ -19,13 +19,16 @@ export default function Footer() {
             </p>
           </div>
 
-          <nav aria-label="Footer" className="flex items-center gap-6">
-            <Link
-              href="/contact"
-              className="font-sans text-sm font-medium text-paper-300 transition-colors hover:text-paper-50"
-            >
-              Contact
-            </Link>
+          <nav aria-label="Footer" className="flex flex-wrap items-center gap-6">
+            {siteCopy.footer.links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="font-sans text-sm font-medium text-paper-300 transition-colors hover:text-paper-50"
+              >
+                {link.label}
+              </Link>
+            ))}
             <a
               href={linkedin}
               target="_blank"
