@@ -8,13 +8,19 @@ import Footer from "@/components/Footer";
 const SITE_URL = "https://allostasis.ai";
 
 // Display: characterful serif. Body: highly readable serif tuned for long measures.
+// Weights are pinned to what the design actually uses, so we ship static instances
+// instead of full variable ranges — the font payload is the LCP driver on the long
+// guide page. Display is only ever `font-semibold` (600); mono only ever 400.
 const display = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  axes: ["opsz"],
+  weight: "600",
 });
 
+// Body carries 400 (prose) and 500 (`font-medium` nav/buttons), plus real italic for
+// taglines. Left variable: pinning these weights produced no payload win, since the
+// static instances come back the same size as the variable faces.
 const body = Newsreader({
   subsets: ["latin"],
   variable: "--font-body",
@@ -27,6 +33,7 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -61,7 +68,7 @@ const jsonLd = {
       name: "Julee Burdekin",
       jobTitle: "Knowledge Engineer",
       description:
-        "Finds where a company's meaning breaks — conflicting definitions, missing authority — and makes it legible, so the business and its AI can trust the same answers.",
+        "Closes the vision gap — the distance between what leadership means and what a company's data objects actually say — so the agents reading those objects stop guessing.",
       url: `${SITE_URL}/about`,
       worksFor: { "@id": `${SITE_URL}/#allostasis` },
     },
@@ -75,14 +82,14 @@ const jsonLd = {
       founder: { "@id": `${SITE_URL}/#julee-burdekin` },
       areaServed: "Worldwide",
       knowsAbout: [
-        "AI readiness",
-        "Data semantics",
-        "Authoritative definitions",
+        "Agent-readiness",
+        "Organizational legibility",
+        "Data objects",
         "Data contracts",
-        "Semantic layer",
-        "Data catalog",
         "Enterprise ontology",
         "Knowledge graph for AI",
+        "Semantic layer",
+        "Agent evals",
       ],
     },
   ],

@@ -32,14 +32,6 @@ export default function AboutPage() {
           ))}
         </div>
 
-        <p className="mt-12 max-w-measure border-l-2 border-accent/50 pl-5 font-display text-2xl font-semibold leading-snug tracking-tightish text-paper-50">
-          {c.pullquote}
-        </p>
-
-        <p className="mt-8 max-w-measure font-body text-lg leading-relaxed text-paper-200">
-          {c.closing}
-        </p>
-
         <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
           {c.links.map((link) =>
             link.external ? (

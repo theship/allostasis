@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 const GHOST_TAG = "https://gnowledge-karden.ghost.io/tag/appliedai/";
-const GHOST_POV =
-  "https://gnowledge-karden.ghost.io/build-your-semantic-infrastructure-first/";
 
-// All outbound links open in a new tab with rel="noopener noreferrer" (spec §4.3 / §6 / §8.2).
+// After the field-guide inversion, the ONLY permitted Ghost URL is the demoted
+// external Writing nav link. The "point of view" destination is now on-domain
+// at /agent-readiness (build spec v2.1 §1, §8.4).
 
 test("Writing nav link is external with correct target/rel/href", async ({ page }) => {
   await page.goto("/");
@@ -15,20 +15,34 @@ test("Writing nav link is external with correct target/rel/href", async ({ page 
   await expect(writing).toHaveAttribute("href", GHOST_TAG);
 });
 
-test("hero secondary CTA points to the POV anchor post, new tab + rel", async ({ page }) => {
+test("Writing is demoted to after Field Guide in the nav", async ({ page }) => {
   await page.goto("/");
-  const pov = page.getByRole("link", { name: /See why the pilot stalled/i }).first();
-  await expect(pov).toHaveAttribute("target", "_blank");
-  await expect(pov).toHaveAttribute("rel", /noopener noreferrer/);
-  await expect(pov).toHaveAttribute("href", GHOST_POV);
+  const labels = await page
+    .getByLabel("Primary")
+    .getByRole("listitem")
+    .allInnerTexts();
+  const flat = labels.map((l) => l.trim());
+  const guideIndex = flat.findIndex((l) => l.startsWith("Field Guide"));
+  const writingIndex = flat.findIndex((l) => l.startsWith("Writing"));
+  expect(guideIndex).toBeGreaterThanOrEqual(0);
+  expect(writingIndex).toBeGreaterThan(guideIndex);
 });
 
-test("About POV link is external with rel", async ({ page }) => {
+test("About 'point of view' link now resolves on-domain to the guide", async ({ page }) => {
   await page.goto("/about");
-  const pov = page.getByRole("link", { name: /Read the point of view/i }).first();
-  await expect(pov).toHaveAttribute("href", GHOST_POV);
-  await expect(pov).toHaveAttribute("target", "_blank");
-  await expect(pov).toHaveAttribute("rel", /noopener noreferrer/);
+  await expect(
+    page.getByRole("link", { name: /Read the Field Guide/i }).first()
+  ).toHaveAttribute("href", "/agent-readiness");
+});
+
+test("no retired Ghost point-of-view URL remains on any built route", async ({ page }) => {
+  for (const route of ["/", "/agent-readiness", "/about", "/contact"]) {
+    await page.goto(route);
+    const povLinks = page.locator(
+      'a[href*="build-your-semantic-infrastructure-first"]'
+    );
+    await expect(povLinks).toHaveCount(0);
+  }
 });
 
 test("no on-site /writing or /point-of-view route exists", async ({ request }) => {
