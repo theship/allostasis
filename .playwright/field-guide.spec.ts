@@ -14,8 +14,8 @@ const LAYERS = [
 
 const GROUP_HEADINGS = [
   "The substrate: what your agents read",
-  "The build decisions — auditable properties of how you've organized the work",
-  "The loop — how you know any of it is working",
+  "The build decisions: auditable properties of how you've organized the work",
+  "The loop: how you know any of it is working",
 ];
 
 const TESTS = [
@@ -132,6 +132,14 @@ test.describe("/agent-readiness", () => {
     expect(body).not.toMatch(/lorem ipsum/i);
     // The bio block renders name + title only until the operator supplies copy.
     expect(body).toContain("Julee Burdekin, founder of Allostasis.");
+  });
+
+  test("contains no em-dashes", async ({ page }) => {
+    // House style: colons introduce lists and subtitle headings; longer sentences
+    // are split rather than joined with an em-dash. Keep the guide dash-free.
+    await page.goto("/agent-readiness");
+    const body = await page.locator("main").innerText();
+    expect(body).not.toContain("—");
   });
 
   test("uses six-layers / seven-tests language, never five", async ({ page }) => {
