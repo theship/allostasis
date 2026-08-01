@@ -85,14 +85,14 @@ export const offers = [
     kicker: "02 · BUILD",
     name: "The Semantic Architecture Engagement",
     body:
-      "A defined project to close the gaps the audit found: principles written to be cited, the vocabulary contracted and the domain model ratified as a control surface for agent reasoning, the deterministic boundary drawn and encoded as machinery, workflows rebuilt as execution surfaces from observed runs, and judgment ownership made explicit in the architecture — integrated with whatever platform you run, and owned by your team after we leave. Scoped from the audit; we bring in senior specialists as the work requires.",
+      "A defined project to close the gaps the audit found: principles written to be cited, the vocabulary contracted and the domain model ratified as a control surface for agent reasoning, the deterministic boundary drawn and encoded as machinery, workflows rebuilt as execution surfaces from observed runs, and judgment ownership made explicit in the architecture. It integrates with whatever platform you run, and your team owns it after we leave. Scoped from the audit; we bring in senior specialists as the work requires.",
     meta: "Defined project, scoped from the audit",
   },
   {
     kicker: "03 · RETAINER",
     name: "Fractional Knowledge Engineering",
     body:
-      "Ongoing senior partnership for organizations scaling agent use, where the semantic layer needs continuous architecture, governance, and evals — not a one-time fix. Monthly retainer, with quarterly leadership briefings that translate rescue counts and consistency metrics into P&L language.",
+      "Ongoing senior partnership for organizations scaling agent use, where the semantic layer needs continuous architecture, governance, and evals. Not a one-time fix. Monthly retainer, with quarterly leadership briefings that translate rescue counts and consistency metrics into P&L language.",
     meta: "Monthly retainer",
   },
 ];
@@ -215,7 +215,7 @@ export const fieldGuide = {
   layersIntro: {
     heading: "Six layers, in process order with seven tests",
     body:
-      "An agent-ready organization is built in process order: first the substrate agents read, then three decisions about how the work is organized, then the loop that proves the rest is working. The three middle layers look like engineering choices, but they're auditable properties of your organization — an org can fail every one of them before a single agent is deployed. Each layer below has a failure pattern, a test, and Passing the bar. None of the tests needs new tooling; run all seven and you'll have an honest map of where you stand.",
+      "An agent-ready organization is built in process order: first the substrate agents read, then three decisions about how the work is organized, then the loop that proves the rest is working. The three middle layers look like engineering choices, but they're auditable properties of your organization. An org can fail every one of them before a single agent is deployed. Each layer below has a failure pattern, a test, and Passing the bar. None of the tests needs new tooling; run all seven and you'll have an honest map of where you stand.",
   },
 
   // Exactly 3 — rendered as section headers before the first layer of each group.
@@ -224,9 +224,9 @@ export const fieldGuide = {
     {
       id: "decisions",
       heading:
-        "The build decisions — auditable properties of how you've organized the work",
+        "The build decisions: auditable properties of how you've organized the work",
     },
-    { id: "loop", heading: "The loop — how you know any of it is working" },
+    { id: "loop", heading: "The loop: how you know any of it is working" },
   ] as Array<{ id: LayerGroupId; heading: string }>,
 
   // Exactly 6. Layer 01 carries `parts` (01a/01b) instead of flat sub-blocks.
@@ -328,7 +328,7 @@ export const fieldGuide = {
       good: {
         label: "Passing the bar",
         body:
-          "A written boundary: detection, gating, and prioritization run as tested, versioned machinery; agents are invoked downstream of it, on a queue of things worth investigating. The boundary itself is an object — reviewable, arguable, improvable.",
+          "A written boundary: detection, gating, and prioritization run as tested, versioned machinery; agents are invoked downstream of it, on a queue of things worth investigating. The boundary itself is an object: reviewable, arguable, improvable.",
       },
     },
     {
@@ -361,11 +361,11 @@ export const fieldGuide = {
       tagline: "Sub-tasks return results. They never return reasoning.",
       group: "decisions",
       intro:
-        "The principle is older than agents: judgment needs a single accountable owner. Distribute a decision across a committee — human or agent — and every member can be locally right while the outcome is incoherent: correct cause identified, disconnected action recommended, an outlook that follows from neither. The current architectural expression of the principle is one agent that owns the reasoning end to end; it may delegate focused investigations to sub-agents and machinery, but delegations return results, never conclusions. Whether judgment in your organization has a named owner — or is distributed and therefore deniable — is auditable before any agent exists. If your humans can't say who owns the call, your agents won't either.",
+        "The principle is older than agents: judgment needs a single accountable owner. Distribute a decision across a committee, with human or agent members, and every member can be locally right while the outcome is incoherent: correct cause identified, disconnected action recommended, an outlook that follows from neither. The current architectural expression of the principle is one agent that owns the reasoning end to end; it may delegate focused investigations to sub-agents and machinery, but delegations return results, never conclusions. Judgment is probably not owned by one person in your group. But folks take ownership of decisions. Clarifying who is the owner, decider, one responsible makes it easy to identify judgements. Just like for humans, having this charted out makes reasoning much clearer for agents.",
       failurePattern: {
         label: "Failure pattern",
         body:
-          "Each step in the chain is defensible and the whole is incoherent. The diagnosis names the real cause; the recommendation addresses a different one; the forecast assumes the recommendation worked. No single mind — human or agent — ever held the end-to-end picture, so nobody notices the seams. Coherence failures are the hardest kind to catch, because every component passes its own review.",
+          "Each step in the chain is defensible and the whole is incoherent. The diagnosis names the real cause; the recommendation addresses a different one; the forecast assumes the recommendation worked. No single mind, whether human or agent, ever held the end-to-end picture, so nobody notices the seams. Coherence failures are the hardest kind to catch, because every component passes its own review.",
       },
       test: {
         label: "The coherence-probe test",
@@ -385,16 +385,16 @@ export const fieldGuide = {
         "Every layer above feeds this one. This one points back at the layer that failed.",
       group: "loop",
       intro:
-        "Most teams discover their agent was wrong the way they discover a roof leak: from underneath, during a storm, in front of a customer. But notice what well-built agent systems already do at runtime: pull a hypothesis, test it against real data, mark it supported or contradicted, move on. That loop is why they work. This layer runs the same loop over the whole stack — and the payoff of process order is that failures become addressable: a wrong tradeoff points at 01a, an invented relationship at 02, noise-chasing at 03, a rescue at 04, an incoherent chain at 05. Every failure becomes a graded case; the case points at the object that caused it; the eval set grows from your operations instead of someone's imagination.",
+        "Most teams discover their agent was wrong the way they discover a roof leak: from underneath, during a storm, in front of a customer. But notice what well-built agent systems already do at runtime: pull a hypothesis, test it against real data, mark it supported or contradicted, move on. That loop is why they work. This layer runs the same loop over the whole stack. The payoff of process order is that failures become addressable: a wrong tradeoff points at 01a, an invented relationship at 02, noise-chasing at 03, a rescue at 04, an incoherent chain at 05. Every failure becomes a graded case; the case points at the object that caused it; the eval set grows from your operations instead of someone's imagination.",
       failurePattern: {
         label: "Failure pattern",
         body:
-          "\"The agent seems better lately.\" No baseline, no metric, no way to distinguish improvement from luck — so the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
+          "\"The agent seems better lately.\" No baseline, no metric, no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
       },
       test: {
         label: "The silent-failure-probe test",
         body:
-          "Take a real agent mistake from the last month and ask one question: how did you find out? If the answer is a customer, an escalation, or someone happening to notice, you don't have a feedback loop — you have an incident process. Then ask the harder version: how many like it are running right now that nobody has caught?",
+          "Take a real agent mistake from the last month and ask one question: how did you find out? If the answer is a customer, an escalation, or someone happening to notice, you don't have a feedback loop. You have an incident process. Then ask the harder version: how many like it are running right now that nobody has caught?",
       },
       good: {
         label: "Passing the bar",
@@ -413,7 +413,7 @@ export const fieldGuide = {
   honestProblem: {
     heading: "The honest problem",
     paragraphs: [
-      "Agent-readiness has no mature measurement standard. The benchmarks the field publishes measure model capability, not organizational legibility. No public benchmark tells you whether your company, specifically, can be read. The semantic-platform vendors are right about the problem and sell tooling for the last 20% of it. The other 80% — the ontology, the governed vocabulary, the reasoning carried into objects, the boundaries and ownership the middle layers describe — has no product category, which is why it has no owner inside most org charts.",
+      "Agent-readiness has no mature measurement standard. The benchmarks the field publishes measure model capability, not organizational legibility. No public benchmark tells you whether your company, specifically, can be read. The semantic-platform vendors are right about the problem and sell tooling for the last 20% of it. The other 80% has no product category: the ontology, the governed vocabulary, the reasoning carried into objects, the boundaries and ownership the middle layers describe. That is why it has no owner inside most org charts.",
       // TODO(operator): optional strengthening citation on AI-program measurement
       // immaturity (verify current McKinsey State of AI ROI-measurement figures before
       // citing). Section ships fine without it.
