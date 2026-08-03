@@ -101,7 +101,7 @@ export const offers = [
 // Compresses to roughly two screens: hero → thesis → engage → closing CTA.
 export const home = {
   hero: {
-    headline: "A well-fed agent is more alert",
+    headline: "A better informed agent performs better",
     subhead:
       "For CTOs, platform leads, and founders deploying AI agents against their own organization: every agent builds its picture of how you work from the data objects it can reach. Where those objects don't carry your vision, the agent fills the gap with a guess confidently, at scale. We map where your vision is leaking out of the objects your agents read, and what it takes to close the gap.",
     primaryCta: { label: cta.fieldGuideLabel, href: routes.fieldGuide },
