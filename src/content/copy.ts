@@ -48,13 +48,13 @@ export const nav = [
 export const meta = {
   siteTitle: "Allostasis AI",
   siteDescription:
-    "Your agents act on your data objects — and only on those. Where the objects don't carry your leadership's vision, agents guess. We find the vision gap and close it.",
+    "Your agents act on your data objects — and only on those. Where the objects don't carry your vision, agents guess. We find the vision gap and close it.",
   pages: {
     home: {
       title:
         "Allostasis · Agent-readiness for organizations that run agents on themselves",
       description:
-        "Your agents act on your data objects — and only on those. Where the objects don't carry your leadership's vision, agents guess. We find the gap and close it. Read the Agent-Readiness Field Guide — six layers, seven tests you can run this week — or request an audit.",
+        "Your agents act on your data objects — and only on those. Where the objects don't carry your vision, agents guess. We find the gap and close it. Read the Agent-Readiness Field Guide — six layers, seven tests you can run this week — or request an audit.",
     },
     about: {
       title: "About Julee Burdekin · Allostasis",
@@ -101,9 +101,9 @@ export const offers = [
 // Compresses to roughly two screens: hero → thesis → engage → closing CTA.
 export const home = {
   hero: {
-    headline: "Your agents can only see what your objects carry.",
+    headline: "A well-fed agent is more alert",
     subhead:
-      "For CTOs, platform leads, and founders deploying AI agents against their own organization: every agent builds its picture of how you work from the data objects it can reach. Where those objects don't carry your leadership's vision, the agent fills the gap with a guess — confidently, at scale. We map where your vision is leaking out of the objects your agents read, and what it takes to close the gap.",
+      "For CTOs, platform leads, and founders deploying AI agents against their own organization: every agent builds its picture of how you work from the data objects it can reach. Where those objects don't carry your vision, the agent fills the gap with a guess confidently, at scale. We map where your vision is leaking out of the objects your agents read, and what it takes to close the gap.",
     primaryCta: { label: cta.fieldGuideLabel, href: routes.fieldGuide },
     secondaryCta: { label: cta.primaryLabel, href: routes.contact },
   },
