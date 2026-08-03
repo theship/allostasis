@@ -1,42 +1,32 @@
 import { test, expect } from "@playwright/test";
 
-const GHOST_TAG = "https://gnowledge-karden.ghost.io/tag/appliedai/";
-const GHOST_POV =
-  "https://gnowledge-karden.ghost.io/build-your-semantic-infrastructure-first/";
+const BUILT_ROUTES = ["/", "/agent-readiness", "/about", "/contact"];
 
-// All outbound links open in a new tab with rel="noopener noreferrer" (spec §4.3 / §6 / §8.2).
+// The Writing nav item has been retired: nothing on the site links out to the
+// Ghost blog. The "point of view" destination is on-domain at /agent-readiness.
 
-test("Writing nav link is external with correct target/rel/href", async ({ page }) => {
-  await page.goto("/");
-  const writing = page.getByLabel("Primary").getByRole("link", { name: /Writing/i });
-  await expect(writing).toHaveAttribute("target", "_blank");
-  await expect(writing).toHaveAttribute("rel", /noopener/);
-  await expect(writing).toHaveAttribute("rel", /noreferrer/);
-  await expect(writing).toHaveAttribute("href", GHOST_TAG);
+test("no link to the Ghost blog remains anywhere on the site", async ({ page }) => {
+  for (const route of BUILT_ROUTES) {
+    await page.goto(route);
+    await expect(page.locator('a[href*="gnowledge-karden"]')).toHaveCount(0);
+  }
 });
 
-test("hero secondary CTA points to the POV anchor post, new tab + rel", async ({ page }) => {
+test("nav is Home / Field Guide / About / Contact, with no Writing item", async ({ page }) => {
   await page.goto("/");
-  const pov = page.getByRole("link", { name: /Read the point of view/i }).first();
-  await expect(pov).toHaveAttribute("target", "_blank");
-  await expect(pov).toHaveAttribute("rel", /noopener noreferrer/);
-  await expect(pov).toHaveAttribute("href", GHOST_POV);
+  const labels = (
+    await page.getByLabel("Primary").getByRole("listitem").allInnerTexts()
+  ).map((l) => l.trim());
+  expect(labels.some((l) => /^Writing/.test(l))).toBe(false);
+  const order = ["Home", "Field Guide", "About", "Contact"];
+  order.forEach((label, i) => expect(labels[i]).toContain(label));
 });
 
-test("'Read the writing' link points to the Ghost Applied AI tag", async ({ page }) => {
-  await page.goto("/");
-  const writing = page.getByRole("link", { name: /Read the writing/i }).first();
-  await expect(writing).toHaveAttribute("href", GHOST_TAG);
-  await expect(writing).toHaveAttribute("target", "_blank");
-  await expect(writing).toHaveAttribute("rel", /noopener noreferrer/);
-});
-
-test("About POV link is external with rel", async ({ page }) => {
+test("About 'point of view' link now resolves on-domain to the guide", async ({ page }) => {
   await page.goto("/about");
-  const pov = page.getByRole("link", { name: /Read the point of view/i }).first();
-  await expect(pov).toHaveAttribute("href", GHOST_POV);
-  await expect(pov).toHaveAttribute("target", "_blank");
-  await expect(pov).toHaveAttribute("rel", /noopener noreferrer/);
+  await expect(
+    page.getByRole("link", { name: /Read the Field Guide/i }).first()
+  ).toHaveAttribute("href", "/agent-readiness");
 });
 
 test("no on-site /writing or /point-of-view route exists", async ({ request }) => {

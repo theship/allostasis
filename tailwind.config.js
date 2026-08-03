@@ -77,8 +77,8 @@ export default {
         tighter2: "-0.035em",
       },
       maxWidth: {
-        // Optimal reading measure for long-form prose (spec §5: ~62–72ch).
-        measure: "68ch",
+        // Reading measure for long-form prose.
+        measure: "80ch",
         prose: "65ch",
       },
       animation: {

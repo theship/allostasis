@@ -1,8 +1,11 @@
 # Architecture & Development Guide
 
-> **Positioning:** Allostasis architects the **organizational semantic layer** — the
-> principles, workflows, vocabulary, and reference knowledge AI agents need to act correctly.
-> This guide reflects the May 2026 redo. The pre-redo guide is archived at
+> **Positioning (build spec v2.1 — the field-guide inversion):** An agent with a vision performs better.
+> Agents act on the data objects they can reach. Where those objects don't carry your vision, agents guess. The
+> spine is **the vision gap / data objects / data contracts**, and the canonical artifact is the
+> **Agent-Readiness Field Guide** at `/agent-readiness` — six layers in process order, seven tests.
+> This guide reflects the July 2026 field-guide inversion, on top of the v06 copy pass and the May
+> 2026 redo. The pre-redo guide is archived at
 > [`archive/ARCHITECTURE_DEVELOPMENT.2025-08.md`](archive/ARCHITECTURE_DEVELOPMENT.2025-08.md).
 
 ## 📁 Project Structure
@@ -12,18 +15,19 @@ allostasis/
 ├── src/
 │   ├── app/
 │   │   ├── api/contact/        # SMTP contact API (route.ts + rate-limit.ts) — UNCHANGED
+│   │   ├── agent-readiness/    # /agent-readiness — the Field Guide (+ route OG image)
 │   │   ├── about/page.tsx      # /about
 │   │   ├── contact/page.tsx    # /contact (server) → ContactForm (client)
-│   │   ├── page.tsx            # / (Home)
+│   │   ├── page.tsx            # / (Home — the slim router)
 │   │   ├── layout.tsx          # fonts, site metadata, JSON-LD
-│   │   ├── sitemap.ts          # /sitemap.xml (3 routes)
+│   │   ├── sitemap.ts          # /sitemap.xml (4 routes)
 │   │   ├── robots.ts           # /robots.txt
 │   │   ├── opengraph-image.tsx # site-wide OG/Twitter card
 │   │   └── globals.css
-│   ├── components/             # Navbar, Footer, FrameworkLayers, ContactForm, ExternalLink
-│   ├── content/copy.ts         # ⭐ SINGLE SOURCE OF TRUTH for all copy + links + metadata
-│   └── lib/text.tsx            # renderEmphasis() — **bold** markup → <strong>
-├── .playwright/                # E2E specs (a11y, redirects, external-links)
+│   ├── components/             # Navbar, Footer, ContactForm, ExternalLink,
+│   │                           # LayerCard (guide), OfferCards (shared home + guide)
+│   └── content/copy.ts         # ⭐ SINGLE SOURCE OF TRUTH for all copy + links + metadata
+├── .playwright/                # E2E specs (a11y, field-guide, redirects, external-links)
 ├── docs/                       # documentation (+ archive/)
 ├── next.config.mjs             # MDX wiring + 301 redirects (active config)
 └── tailwind.config.js          # design tokens (palette, type scale, fonts)
@@ -31,17 +35,22 @@ allostasis/
 
 ## 🧭 Information architecture
 
-The redo **consolidated eight routes to three built routes plus one external link.**
+**Four built routes.** The May 2026 redo consolidated eight legacy routes to
+three; the field-guide inversion then added `/agent-readiness` as the canonical point-of-view
+destination, moving it **on-domain** from the external Ghost blog.
 
 | Built route | Page |
 |---|---|
-| `/` | Home — hero · the problem · what we do · the five-layer framework · tools fit · how we engage · closing CTA |
+| `/` | Home — the slim router: hero · the vision gap (thesis) · how we engage · closing CTA |
+| `/agent-readiness` | **Field Guide** — header · opening · the reframe · six layers in three groups (2–3–1) with seven tests · mid-CTA band · the honest problem · pull-quote · how to work with us · bio · closing CTA |
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact — qualifying form wrapping the existing SMTP API |
 
-**Writing / Point of View are external links** (not built routes), stored in `copy.ts` `links`:
-- **Writing** (nav + "Read the writing →") → `https://gnowledge-karden.ghost.io/tag/appliedai/`
-- **Point of View** (hero, framework, About) → `https://gnowledge-karden.ghost.io/build-your-semantic-infrastructure-first/`
+Nav order: **Home · Field Guide · About · Contact** + the audit CTA button.
+
+**Nothing links out to the Ghost blog.** The Writing nav item was retired; "point of view" resolves
+on-domain to the Field Guide:
+- **Point of View** → `/agent-readiness` (was a Ghost URL; retired)
 - **LinkedIn** (footer + contact) → `https://www.linkedin.com/in/jburdekin/`
 
 Every external link opens in a new tab with `target="_blank"` + `rel="noopener noreferrer"` and an
@@ -58,7 +67,11 @@ Old URLs are live/indexed, so they 301-redirect to preserve inbound links and se
 | `/results` | `/` |
 | `/governance` | `/` |
 | `/engagement` | `/#engage` |
-| `/methods` | `https://gnowledge-karden.ghost.io/tag/appliedai/` (external) |
+| `/methods` | `https://gnowledge-karden.ghost.io/tag/appliedai/` (external) — see note below |
+
+> ℹ️ The `/methods` 301 still targets the Ghost blog even though the site no longer links there.
+> It preserves search equity for the retired essays route. Consider repointing it to
+> `/agent-readiness` if the blog is being retired entirely.
 
 > ⚠️ `next.config.mjs` is the **active** config (takes precedence over `next.config.ts`). It must
 > keep the `@next/mdx` wiring and must **not** reintroduce `output: 'export'` — that breaks `/api/contact`.
@@ -76,16 +89,29 @@ Components read from it; no hardcoded strings. Exports:
 
 ```typescript
 {
-  links,    // external destinations (writing, pov, linkedin)
-  cta,      // CTA labels
-  nav,      // nav items (with `external` flag)
-  meta,     // siteTitle/siteDescription + per-route title/description (home, about, contact)
-  home,     // hero, problem, whatWeDo, framework (5 layers), toolsFit, engage, closingCta
-  about,    // heading, paragraphs, links
-  contact,  // headline/intro + form schema (UNCHANGED field/API contract) + messages
-  footer,   // tagline, copyright
+  routes,     // internal destinations (home, fieldGuide, about, contact)
+  links,      // EXTERNAL destinations only (linkedin)
+  cta,        // CTA labels
+  nav,        // nav items (with `external` flag)
+  meta,       // siteTitle/siteDescription + per-route title/description
+  offers,     // ⭐ the three engagement offers — SINGLE SOURCE, used by home AND guide
+  home,       // hero, thesis, engage, closingCta
+  fieldGuide, // meta, kicker/title/subtitle, updated(+ISO), readingTimeMinutes, opening,
+              // reframe, layersIntro, layerGroups[3], layers[6], midCta, honestProblem,
+              // pullQuote, offersSection, bioBlock, closingCta
+  about,      // heading, paragraphs, links
+  contact,    // headline/intro + form schema (UNCHANGED field/API contract) + messages
+  footer,     // tagline (locked: "allostasis: stability through change" — no period), copyright, links
 }
 ```
+
+**Typed guide model** (`LayerBlock`, `LayerPart`, `Layer`, `LayerGroupId` are exported from
+`copy.ts`). Each layer carries `number`, `name`, `tagline`, `group`, and a required `intro`. Layer 01
+uses `parts` (01a Vision & principles, 01b Vocabulary & contracts) instead of flat sub-blocks;
+layers 02–06 use `failurePattern` / `test` / `good`. **Seven tests total** — Layer 01 carries two.
+
+> The three offers exist **once**, in `offers`. `OfferCards.tsx` renders them on both `/` and
+> `/agent-readiness` — never fork the offer copy into a page.
 
 ## 🎨 Design system
 
@@ -97,19 +123,27 @@ Refined **dark-editorial** direction (build spec §5). Tokens live in `tailwind.
 - **Palette:** warm deep-ink base (`ink.*`), warm paper foreground (`paper.*`), one disciplined
   Winterberry **accent** in two tunings — `accent.DEFAULT`/`accent.fill` for CTAs (white text) and
   `accent.text` (lighter, AA-safe) for links on the dark ground.
-- **Signature visual:** the five layers as a stack standing on a foundation — `FrameworkLayers.tsx`
-  (layer 01 at the base, building up; legible/ordered on mobile).
-- **Motion:** staggered `fade-up` page-load reveals on hero + layers; `prefers-reduced-motion` disables them.
+- **Field Guide (signature):** numbered layer cards (01–06) under three quieter group headings that
+  carry the 2–3–1 arc. Layer 01 nests its 01a/01b parts visibly inside one card. The **test**
+  sub-block is foregrounded with an accent left rule + panel — the tests are why the page exists.
+  Register is a maintained reference document, not a landing page: no sticky CTAs, no popups.
+- **Heading levels on the guide:** h1 title → h2 sections → h3 group headings → h4 layer names →
+  h5 part names. Sub-block labels are styled paragraphs, keeping the outline free of skipped levels.
+- **Motion:** staggered `fade-up` page-load reveals on the hero; `prefers-reduced-motion` disables them.
 
 ## 🔍 SEO
 
 - Semantic HTML5 (`header`/`nav`/`main`/`article`/`section`), one `<h1>` per route.
 - Per-route metadata via the Metadata API (`export const metadata`), canonical URLs.
-- OpenGraph + Twitter cards; site-wide `opengraph-image.tsx` (`next/og`).
-- JSON-LD `Person` (Julee Burdekin) + `ProfessionalService` in the root layout.
-- `sitemap.ts` (3 routes) + `robots.ts`.
-- Targets woven into copy/metadata: organizational semantic layer, agent-readiness, knowledge graph
-  for AI, enterprise ontology, context engineering, semantic-platform selection (Semaphore, Graphwise).
+- OpenGraph + Twitter cards; site-wide `opengraph-image.tsx` plus a route-specific card at
+  `agent-readiness/opengraph-image.tsx` (`next/og`).
+- JSON-LD `Person` (Julee Burdekin) + `ProfessionalService` in the root layout; **`TechArticle`** on
+  `/agent-readiness`, with `dateModified` synced to `fieldGuide.updatedISO` (which also drives the
+  visible "Updated" line and `sitemap.ts` `lastModified` — bump it when the guide is edited).
+- `sitemap.ts` (4 routes) + `robots.ts`.
+- Targets woven into copy/metadata: agent-readiness, organizational legibility, the vision gap,
+  data objects, data contracts, enterprise ontology, knowledge graph for AI, semantic layer,
+  agent evals.
 
 ## 📧 Email / contact API
 
@@ -145,7 +179,12 @@ npm test           # Playwright E2E
 4. **Components:** add to `src/components/`.
 
 ### Tests (`.playwright/`)
-- `a11y.spec.ts` — landmarks, single `<h1>`, primary CTA, five-layer framework, field schema.
+- `a11y.spec.ts` — landmark **roles** (banner/main/contentinfo — the guide nests `<header>` inside
+  `<article>`, so tag selectors would be ambiguous), single `<h1>`, primary CTA, the slim home,
+  hero CTA targets, nav/footer Field Guide links, offer parity across `/` and the guide, field schema.
+- `field-guide.spec.ts` — H1, all six layer headings, three group headings **in order**, the nested
+  01a/01b parts, per-layer intro paragraphs, all seven test labels, mid-CTA band, pull-quote,
+  offers, no user-visible TODO/placeholder text, and six/seven (never five) language.
 - `redirects.spec.ts` — the 301 consolidation (incl. external `/methods`); retired routes don't 404.
 - `external-links.spec.ts` — `target`/`rel`/`href` on outbound links; no on-site `/writing` route.
 

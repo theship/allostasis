@@ -20,24 +20,34 @@
 ## 🎯 Key concepts
 
 ### Single-source content (`/src/content/copy.ts`)
-All user-facing copy lives in one file — headlines, the five layers, CTAs, form labels, footer, and
-per-route SEO metadata. External destinations (Writing, Point of View, LinkedIn) live in the `links`
-export so they're swappable when content moves in-house. Components never hardcode strings.
+All user-facing copy lives in one file — headlines, the Field Guide's six layers and seven tests,
+CTAs, form labels, footer, and per-route SEO metadata. Internal destinations live in `routes`;
+the only external one (LinkedIn) in `links`. Components never hardcode strings.
 
 ```
 copy.ts
-├── links     (writing, pov, linkedin)
-├── cta       (CTA labels)
-├── nav       (items; `external` flag for Writing)
-├── meta      (siteTitle/Description + per-route metadata: home, about, contact)
-├── home      (hero, problem, whatWeDo, framework[5 layers], toolsFit, engage, closingCta)
-├── about     (heading, paragraphs, links)
-├── contact   (headline/intro + form schema [field/API contract unchanged] + messages)
-└── footer    (tagline, copyright)
+├── routes     (home, fieldGuide, about, contact)
+├── links      (EXTERNAL only: linkedin)
+├── cta        (CTA labels)
+├── nav        (Home, Field Guide, About, Contact)
+├── meta       (siteTitle/Description + per-route metadata)
+├── offers     (⭐ the three engagement offers — SINGLE SOURCE: home AND guide)
+├── home       (hero, thesis, engage, closingCta)
+├── fieldGuide (opening, reframe, layersIntro, layerGroups[3], layers[6],
+│               midCta, honestProblem, pullQuote, offersSection, bioBlock, closingCta)
+├── about      (heading, paragraphs, links)
+├── contact    (headline/intro + form schema [field/API contract unchanged] + messages)
+└── footer     (tagline [locked], copyright, links)
 ```
 
+The guide is **six layers, seven tests** — Layer 01 splits into 01a/01b and carries two tests.
+Bump `fieldGuide.updatedISO` when editing the guide: it drives the visible "Updated" line, the
+`TechArticle` `dateModified`, and the sitemap's `lastModified`.
+
 ### Information architecture
-Three built routes (`/`, `/about`, `/contact`) + an external **Writing** link to the Ghost blog.
+Four built routes: `/`, `/agent-readiness`, `/about`, `/contact`. The Field Guide at
+`/agent-readiness` is the canonical point-of-view destination, on-domain. Nothing links out to the
+Ghost blog.
 The previous eight routes are consolidated via 301 redirects. Details and the redirect table are in
 [ARCHITECTURE_DEVELOPMENT.md](ARCHITECTURE_DEVELOPMENT.md).
 

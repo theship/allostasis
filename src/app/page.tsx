@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import siteCopy from "@/content/copy";
-import FrameworkLayers from "@/components/FrameworkLayers";
-import ExternalLink from "@/components/ExternalLink";
-import { renderEmphasis } from "@/lib/text";
+import OfferCards from "@/components/OfferCards";
 
 export const metadata: Metadata = {
-  title: siteCopy.meta.pages.home.title,
+  title: { absolute: siteCopy.meta.pages.home.title },
   description: siteCopy.meta.pages.home.description,
   alternates: { canonical: "/" },
   openGraph: {
@@ -42,114 +40,45 @@ export default function HomePage() {
             style={{ animationDelay: "240ms" }}
           >
             <Link href={c.hero.primaryCta.href} className="btn-primary">
-              {c.hero.primaryCta.label}
+              {c.hero.primaryCta.label} →
             </Link>
-            <ExternalLink href={c.hero.secondaryCta.href} className="btn-secondary">
-              {c.hero.secondaryCta.label} →
-            </ExternalLink>
+            <Link href={c.hero.secondaryCta.href} className="btn-secondary">
+              {c.hero.secondaryCta.label}
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ---------- The problem ---------- */}
+      {/* ---------- The thesis: the vision gap ---------- */}
       <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
-          <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
-            {c.problem.heading}
+          <h2 className="font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
+            {c.thesis.heading}
           </h2>
-          <div className="mt-8 max-w-measure space-y-6">
-            {c.problem.paragraphs.map((p, i) => (
+          <div className="prose-flow mt-8 max-w-measure space-y-6">
+            {c.thesis.paragraphs.map((p, i) => (
               <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
-                {renderEmphasis(p)}
+                {p}
               </p>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ---------- What we do ---------- */}
-      <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
-        <div className="mx-auto max-w-5xl">
-          <span className="eyebrow">{c.whatWeDo.heading}</span>
-          <div className="mt-10 grid gap-12 md:grid-cols-3 md:gap-10">
-            {c.whatWeDo.items.map((item) => (
-              <div key={item.number}>
-                <span aria-hidden="true" className="font-mono text-sm text-accent-text/80">
-                  {item.number}
-                </span>
-                <h3 className="mt-3 font-display text-xl font-semibold leading-snug tracking-tightish text-paper-50">
-                  {item.title}
-                </h3>
-                <p className="mt-3 font-body text-base leading-relaxed text-paper-300">
-                  {item.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- The framework (signature visual) ---------- */}
-      <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
-            {c.framework.heading}
-          </h2>
-          <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-16">
-            <FrameworkLayers />
-            <div className="lg:pt-6">
-              <p className="max-w-prose font-body text-lg leading-relaxed text-paper-200">
-                {c.framework.closing}
-              </p>
-              <ExternalLink href={c.framework.link.href} className="link-accent mt-6">
-                {c.framework.link.label} →
-              </ExternalLink>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- Where this fits the tools you already know ---------- */}
-      <section className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
-            {c.toolsFit.heading}
-          </h2>
-          <p className="mt-8 max-w-measure font-body text-lg leading-relaxed text-paper-200">
-            {c.toolsFit.body}
-          </p>
-          <ExternalLink href={c.toolsFit.link.href} className="link-accent mt-6">
-            {c.toolsFit.link.label} →
-          </ExternalLink>
+          <Link href={c.thesis.link.href} className="link-accent mt-8">
+            {c.thesis.link.label} →
+          </Link>
         </div>
       </section>
 
       {/* TODO: Proof/Results section — add when first case study lands */}
 
-      {/* ---------- How we engage ---------- */}
+      {/* ---------- How we engage (shared offers) ---------- */}
       <section id="engage" className="border-t border-ink-800 px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
           <h2 className="font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
             {c.engage.heading}
           </h2>
-          <div className="mt-12 grid gap-10 md:grid-cols-3">
-            {c.engage.offers.map((offer) => (
-              <div
-                key={offer.title}
-                className="flex flex-col border-t border-accent/40 pt-5"
-              >
-                <h3 className="font-display text-xl font-semibold leading-snug tracking-tightish text-paper-50">
-                  {offer.title}
-                </h3>
-                <p className="mt-3 font-body text-base leading-relaxed text-paper-300">
-                  {offer.body}
-                </p>
-              </div>
-            ))}
+          <div className="mt-12">
+            <OfferCards />
           </div>
-          <Link href={c.engage.cta.href} className="btn-secondary mt-12">
-            {c.engage.cta.label} →
-          </Link>
         </div>
       </section>
 

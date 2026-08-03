@@ -4,7 +4,7 @@ import siteCopy from "@/content/copy";
 import ExternalLink from "@/components/ExternalLink";
 
 export const metadata: Metadata = {
-  title: siteCopy.meta.pages.about.title,
+  title: { absolute: siteCopy.meta.pages.about.title },
   description: siteCopy.meta.pages.about.description,
   alternates: { canonical: "/about" },
   openGraph: {
@@ -24,7 +24,7 @@ export default function AboutPage() {
           {c.heading}
         </h1>
 
-        <div className="mt-10 max-w-measure space-y-6">
+        <div className="prose-flow mt-10 max-w-measure space-y-6">
           {c.paragraphs.map((p, i) => (
             <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
               {p}
