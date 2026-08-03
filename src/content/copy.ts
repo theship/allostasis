@@ -458,7 +458,7 @@ export const about = {
   paragraphs: [
     "I'm Julee Burdekin. I have spent my career across data-rich companies doing one thing: making their information mean the same thing everywhere, so the business can trust its own answers. Now their AI depends on the same thing.",
     "At Adobe, I built multi-axis metadata so a customer could land on exactly the right API for their language and their tools. At Planet, I designed a naming convention that kept satellite imagery identifiable from the ground station all the way to the analyst's workbench, so the critical insights the founders knew were magical survived the trip. At Geospan, and elsewhere, the same work.",
-    "It is not a tooling purchase. It is not a cleanup project. It is recovering what your organization means, and making it legible. To your people first. Now to your AI. I am technical. I work in your real systems, from your CRM to your code. I bring in a small bench of senior specialists where the work calls for them. What starts as my experience is delivered as a team.",
+    "It is not a tooling purchase. It is not a cleanup project. It is recovering what your organization means, and making it legible to your AI. I am technical. I work in your real systems, from your CRM to your code. I bring in a small bench of senior specialists where the work calls for them. What starts as my experience is delivered as a team.",
     "It acts on what you give it. Whatever your data does not say clearly, the AI will say for you. Allostasis is the practice of keeping your meaning stable while everything around it changes.",
   ],
   links: [
