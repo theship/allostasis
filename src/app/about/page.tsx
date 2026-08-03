@@ -24,7 +24,7 @@ export default function AboutPage() {
           {c.heading}
         </h1>
 
-        <div className="mt-10 max-w-measure space-y-6">
+        <div className="prose-flow mt-10 max-w-measure space-y-6">
           {c.paragraphs.map((p, i) => (
             <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
               {p}

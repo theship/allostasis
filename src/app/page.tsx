@@ -55,7 +55,7 @@ export default function HomePage() {
           <h2 className="font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
             {c.thesis.heading}
           </h2>
-          <div className="mt-8 max-w-measure space-y-6">
+          <div className="prose-flow mt-8 max-w-measure space-y-6">
             {c.thesis.paragraphs.map((p, i) => (
               <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
                 {p}

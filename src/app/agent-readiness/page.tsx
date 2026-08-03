@@ -77,7 +77,7 @@ export default function AgentReadinessPage() {
 
       {/* ---------- Opening ---------- */}
       <section className="mx-auto mt-16 max-w-5xl">
-        <div className="max-w-measure space-y-6">
+        <div className="prose-flow max-w-measure space-y-6">
           {g.opening.paragraphs.map((p, i) => (
             <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
               {p}
@@ -91,7 +91,7 @@ export default function AgentReadinessPage() {
         <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
           {g.reframe.heading}
         </h2>
-        <div className="mt-8 max-w-measure space-y-6">
+        <div className="prose-flow mt-8 max-w-measure space-y-6">
           {g.reframe.paragraphs.map((p, i) => (
             <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
               {p}
@@ -146,7 +146,7 @@ export default function AgentReadinessPage() {
         <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
           {g.honestProblem.heading}
         </h2>
-        <div className="mt-8 max-w-measure space-y-6">
+        <div className="prose-flow mt-8 max-w-measure space-y-6">
           {g.honestProblem.paragraphs.map((p, i) => (
             <p key={i} className="font-body text-lg leading-relaxed text-paper-200">
               {p}
