@@ -1,7 +1,7 @@
 # Architecture & Development Guide
 
-> **Positioning (build spec v2.1 — the field-guide inversion):** Your agents can only see what your
-> data objects carry. Where those objects don't carry your leadership's vision, agents guess. The
+> **Positioning (build spec v2.1 — the field-guide inversion):** A well-fed agent is more alert.
+> Agents act on the data objects they can reach. Where those objects don't carry your vision, agents guess. The
 > spine is **the vision gap / data objects / data contracts**, and the canonical artifact is the
 > **Agent-Readiness Field Guide** at `/agent-readiness` — six layers in process order, seven tests.
 > This guide reflects the July 2026 field-guide inversion, on top of the v06 copy pass and the May

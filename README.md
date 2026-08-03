@@ -3,7 +3,7 @@
 Marketing site for **Allostasis AI** — a knowledge-engineering practice for agent-readiness.
 
 Every agent builds its picture of how a company works from the **data objects** it can reach. Almost
-none of those objects were designed to carry the leadership vision that produced them, so they drift
+none of those objects were designed to carry the vision that produced them, so they drift
 — and where an object doesn't carry the vision, the agent fills the gap with a confident guess. We
 call that distance **the vision gap**. Closing it is architecture work, not transcription work, and
 it's the part of agent-readiness no one in the org chart currently owns.
