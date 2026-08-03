@@ -112,7 +112,7 @@ export const home = {
     heading: "The vision gap",
     paragraphs: [
       "Everything valuable in your company begins as leadership vision, and realizing it generates data objects all over the org — specs, code, pipelines, CRM records, support threads. Almost none of those objects were designed to carry the vision that produced them, so they drift: the same entity named three ways, definitions current in one system and stale in another, reasoning that lives in someone's head while the object records only the steps.",
-      "Humans absorb that drift with judgment. Agents can't — they act on the objects literally, at scale, and carry every ambiguity into every task downstream. We call the distance between what leadership means and what the objects say the vision gap. Closing it is architecture work, not transcription work — and it's the part of agent-readiness no one in the org chart currently owns.",
+      "Humans absorb that drift with judgment. Agents can't. They act on the objects literally, at scale, and carry every ambiguity into every task downstream. We call the distance between what leadership means and what the objects say the vision gap. Closing it is architecture work, not transcription work. And it's the part of agent-readiness no one in the org chart currently owns.",
       "The full argument — six layers in process order, with seven tests you can run on your own organization this week — is in the Field Guide.",
     ],
     link: {
@@ -527,7 +527,7 @@ export const contact = {
   success: {
     title: "Request received",
     message:
-      "Thanks — your request has been submitted. I'll review it and get back to you, usually within 24–48 hours.",
+      "Thanks. Your request has been submitted. I'll review it and get back to you, usually within 24–48 hours.",
     emailNote: "📧 A confirmation email has been sent to your address.",
   },
   error: {
