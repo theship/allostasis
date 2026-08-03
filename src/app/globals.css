@@ -64,18 +64,47 @@
 }
 
 @layer components {
-  /* ---- Buttons ---- */
+  /* ---- Buttons ----
+     Buttons set `leading-none`: the inherited 1.7/1.4 line-heights are for
+     running prose and only inflate the line box here, since height comes from
+     padding.
+
+     Newsreader's ascent sits far above its cap height, so centring the line box
+     still leaves the visible cap-to-baseline block riding high. Splitting the
+     vertical padding by 0.14em drops it onto the optical centre (measured: the
+     cap block goes from ~4.7px high to ~0). The em unit keeps it correct at any
+     font-size; the rem base keeps the rendered height unchanged. */
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-accent px-7 py-3.5 font-sans text-base font-medium text-white transition-all duration-300 hover:bg-accent-muted hover:shadow-lg hover:shadow-accent/20 focus-visible:outline-offset-4;
+    @apply inline-flex items-center justify-center rounded-full bg-accent px-7 font-sans text-base font-medium leading-none text-white transition-all duration-300 hover:bg-accent-muted hover:shadow-lg hover:shadow-accent/20 focus-visible:outline-offset-4;
+    padding-top: calc(1.25rem + 0.14em);
+    padding-bottom: calc(1.25rem - 0.14em);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-ink-600 px-7 py-3.5 font-sans text-base font-medium text-paper-200 transition-all duration-300 hover:border-accent-text hover:text-paper-50;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-ink-600 px-7 font-sans text-base font-medium leading-none text-paper-200 transition-all duration-300 hover:border-accent-text hover:text-paper-50;
+    padding-top: calc(1.25rem + 0.14em);
+    padding-bottom: calc(1.25rem - 0.14em);
+  }
+
+  /* Compact variant (navbar CTA). Declared after the base classes so its
+     padding wins on equal specificity — keeps the same optical correction. */
+  .btn-sm {
+    @apply px-5 text-sm leading-none;
+    padding-top: calc(0.8rem + 0.14em);
+    padding-bottom: calc(0.8rem - 0.14em);
   }
 
   /* Editorial inline/standalone links with the accent */
   .link-accent {
     @apply inline-flex items-baseline gap-1 font-sans font-medium text-accent-text underline decoration-accent/40 decoration-1 underline-offset-4 transition-colors hover:decoration-accent-text;
+  }
+
+  /* Long-form prose flow. The measure leaves the right edge short of the
+     column, so every paragraph after the first indents to balance it —
+     an editorial indent rather than a flush block. First paragraphs stay
+     flush left. */
+  .prose-flow > p + p {
+    margin-left: 2vw;
   }
 
   /* Small uppercase eyebrow label */
