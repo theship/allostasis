@@ -112,7 +112,7 @@ export const home = {
     heading: "The vision gap",
     paragraphs: [
       "Everything valuable in your company begins as leadership vision, and realizing it generates data objects all over the org — specs, code, pipelines, CRM records, support threads. Almost none of those objects were designed to carry the vision that produced them, so they drift: the same entity named three ways, definitions current in one system and stale in another, reasoning that lives in someone's head while the object records only the steps.",
-      "Humans absorb that drift with judgment. Agents can't. They act on the objects literally, at scale, and carry every ambiguity into every task downstream. We call the distance between what leadership means and what the objects say the vision gap. Closing it is architecture work, not transcription work. And it's the part of agent-readiness no one in the org chart currently owns.",
+      "Humans absorb drifts in judgment. Agents can't. They act on the objects literally, at scale, and carry every ambiguity into every task downstream. We call the distance between what leadership means and what the objects say the vision gap. Closing it is architecture work, not transcription work. And it's the part of agent-readiness no one in the org chart currently owns.",
       "The full argument — six layers in process order, with seven tests you can run on your own organization this week — is in the Field Guide.",
     ],
     link: {
@@ -207,7 +207,7 @@ export const fieldGuide = {
     paragraphs: [
       "The instinct when an agent fails is to write more documentation. It's the wrong instinct, and it's why \"we documented everything and the agent still guesses\" is such a common report.",
       "Here's the mechanism. Everything load-bearing in a company starts as somebody's model: a founder's thesis, a product lead's model of the customer, a researcher's understanding of why the system works. Executing on that model generates information all over the org: specs, code, pipelines, CRM records, support threads. Each of those is a data object, and almost none of them were designed to carry the reasoning that produced them. So the objects drift: the same entity named three ways, a definition current in one system and stale in another, the rationale for a workflow living in someone's head while the object records only the steps.",
-      "Humans absorb that drift with judgment. We ask a colleague, read the room, find that spreadsheet. Agents act on the objects literally, at scale. Drift that used to cost onboarding time and support tickets now costs wrong decisions made confidently. And splitting the work across multiple agents makes it worse, not better: every handoff is a place context dies.",
+      "Humans absorb drifts in judgment. We ask a colleague, read the room, find that spreadsheet. Agents act on the objects literally, at scale. Drift that used to cost onboarding time and support tickets now costs wrong decisions made confidently. And splitting the work across multiple agents makes it worse, not better: every handoff is a place context dies.",
       "We call the distance between what leadership means and what the objects say the vision gap. Agent-readiness is the work of closing it: architecture work, not transcription work. That distinction drives everything that follows.",
     ],
   },
