@@ -94,6 +94,14 @@
     @apply inline-flex items-baseline gap-1 font-sans font-medium text-accent-text underline decoration-accent/40 decoration-1 underline-offset-4 transition-colors hover:decoration-accent-text;
   }
 
+  /* Long-form prose flow. The measure leaves the right edge short of the
+     column, so every paragraph after the first indents to balance it —
+     an editorial indent rather than a flush block. First paragraphs stay
+     flush left. */
+  .prose-flow > p + p {
+    margin-left: 2vw;
+  }
+
   /* Small uppercase eyebrow label */
   .eyebrow {
     @apply font-mono text-xs uppercase tracking-[0.25em] text-paper-400;
