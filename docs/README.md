@@ -22,14 +22,14 @@
 ### Single-source content (`/src/content/copy.ts`)
 All user-facing copy lives in one file — headlines, the Field Guide's six layers and seven tests,
 CTAs, form labels, footer, and per-route SEO metadata. Internal destinations live in `routes`;
-external ones (Writing, LinkedIn) in `links`. Components never hardcode strings.
+the only external one (LinkedIn) in `links`. Components never hardcode strings.
 
 ```
 copy.ts
 ├── routes     (home, fieldGuide, about, contact)
-├── links      (EXTERNAL only: writing, linkedin)
+├── links      (EXTERNAL only: linkedin)
 ├── cta        (CTA labels)
-├── nav        (items; `external` flag for Writing)
+├── nav        (Home, Field Guide, About, Contact)
 ├── meta       (siteTitle/Description + per-route metadata)
 ├── offers     (⭐ the three engagement offers — SINGLE SOURCE: home AND guide)
 ├── home       (hero, thesis, engage, closingCta)
@@ -45,9 +45,9 @@ Bump `fieldGuide.updatedISO` when editing the guide: it drives the visible "Upda
 `TechArticle` `dateModified`, and the sitemap's `lastModified`.
 
 ### Information architecture
-Four built routes (`/`, `/agent-readiness`, `/about`, `/contact`) + an external **Writing** link to
-the Ghost blog. The Field Guide at `/agent-readiness` is the canonical point-of-view destination —
-on-domain, replacing the old external Ghost "point of view" link.
+Four built routes: `/`, `/agent-readiness`, `/about`, `/contact`. The Field Guide at
+`/agent-readiness` is the canonical point-of-view destination, on-domain. Nothing links out to the
+Ghost blog.
 The previous eight routes are consolidated via 301 redirects. Details and the redirect table are in
 [ARCHITECTURE_DEVELOPMENT.md](ARCHITECTURE_DEVELOPMENT.md).
 

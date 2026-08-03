@@ -35,7 +35,7 @@ allostasis/
 
 ## 🧭 Information architecture
 
-**Four built routes plus one external link.** The May 2026 redo consolidated eight legacy routes to
+**Four built routes.** The May 2026 redo consolidated eight legacy routes to
 three; the field-guide inversion then added `/agent-readiness` as the canonical point-of-view
 destination, moving it **on-domain** from the external Ghost blog.
 
@@ -46,11 +46,10 @@ destination, moving it **on-domain** from the external Ghost blog.
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact — qualifying form wrapping the existing SMTP API |
 
-Nav order: **Home · Field Guide · Writing↗ · About · Contact** + the audit CTA button.
+Nav order: **Home · Field Guide · About · Contact** + the audit CTA button.
 
-**Writing is the only external content link** (stored in `copy.ts` `links`); "point of view" now
-resolves on-domain to the Field Guide:
-- **Writing** (nav, demoted after Field Guide) → `https://gnowledge-karden.ghost.io/tag/appliedai/`
+**Nothing links out to the Ghost blog.** The Writing nav item was retired; "point of view" resolves
+on-domain to the Field Guide:
 - **Point of View** → `/agent-readiness` (was a Ghost URL; retired)
 - **LinkedIn** (footer + contact) → `https://www.linkedin.com/in/jburdekin/`
 
@@ -68,7 +67,11 @@ Old URLs are live/indexed, so they 301-redirect to preserve inbound links and se
 | `/results` | `/` |
 | `/governance` | `/` |
 | `/engagement` | `/#engage` |
-| `/methods` | `https://gnowledge-karden.ghost.io/tag/appliedai/` (external) |
+| `/methods` | `https://gnowledge-karden.ghost.io/tag/appliedai/` (external) — see note below |
+
+> ℹ️ The `/methods` 301 still targets the Ghost blog even though the site no longer links there.
+> It preserves search equity for the retired essays route. Consider repointing it to
+> `/agent-readiness` if the blog is being retired entirely.
 
 > ⚠️ `next.config.mjs` is the **active** config (takes precedence over `next.config.ts`). It must
 > keep the `@next/mdx` wiring and must **not** reintroduce `output: 'export'` — that breaks `/api/contact`.
@@ -87,7 +90,7 @@ Components read from it; no hardcoded strings. Exports:
 ```typescript
 {
   routes,     // internal destinations (home, fieldGuide, about, contact)
-  links,      // EXTERNAL destinations only (writing, linkedin)
+  links,      // EXTERNAL destinations only (linkedin)
   cta,        // CTA labels
   nav,        // nav items (with `external` flag)
   meta,       // siteTitle/siteDescription + per-route title/description
@@ -98,7 +101,7 @@ Components read from it; no hardcoded strings. Exports:
               // pullQuote, offersSection, bioBlock, closingCta
   about,      // heading, paragraphs, links
   contact,    // headline/intro + form schema (UNCHANGED field/API contract) + messages
-  footer,     // tagline (locked: "allostasis: stability through change."), copyright, links
+  footer,     // tagline (locked: "allostasis: stability through change" — no period), copyright, links
 }
 ```
 

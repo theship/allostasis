@@ -90,7 +90,7 @@ test("about page names the practitioner", async ({ page }) => {
 
 test("contact form keeps the qualifying field schema", async ({ page }) => {
   await page.goto("/contact");
-  for (const id of ["name", "email", "company", "role", "challenge", "timeline", "budget", "details"]) {
+  for (const id of ["name", "email", "phone", "company", "role", "challenge", "timeline", "budget", "details"]) {
     await expect(page.locator(`#${id}`)).toHaveCount(1);
   }
 });

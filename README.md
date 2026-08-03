@@ -27,7 +27,7 @@ PW_TEST_HTML_REPORT_OPEN=never npx playwright test --reporter=line
 
 ## 🧭 Information architecture
 
-Four built routes plus one external link. Nav order: **Home · Field Guide · Writing↗ · About · Contact**.
+Four built routes. Nav order: **Home · Field Guide · About · Contact**.
 
 | Route | Page |
 |---|---|
@@ -35,13 +35,12 @@ Four built routes plus one external link. Nav order: **Home · Field Guide · Wr
 | `/agent-readiness` | **Field Guide** — six layers in process order (grouped 2–3–1) with seven tests, the honest problem, offers, closing CTA |
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact (qualifying form → SMTP API) |
-| **Writing** (nav) | _External_ → the Ghost blog's [Applied AI tag](https://gnowledge-karden.ghost.io/tag/appliedai/) |
 
 The May 2026 redo consolidated the previous eight routes (`/specializations`, `/approach`,
 `/results`, `/governance`, `/engagement`, `/methods`, …); the retired URLs **301-redirect** to their
 new homes (see `next.config.mjs` and [docs/ARCHITECTURE_DEVELOPMENT.md](docs/ARCHITECTURE_DEVELOPMENT.md)).
-The "point of view" destination is now **on-domain** at `/agent-readiness` — Writing is the only
-remaining external content link. There is no on-site `/writing` or `/point-of-view` route.
+The "point of view" destination is now **on-domain** at `/agent-readiness`. Nothing on the site
+links out to the Ghost blog, and there is no on-site `/writing` or `/point-of-view` route.
 
 > Note: there is no Proof/Results section yet (no case study exists). A placeholder JSX comment
 > marks where it slots in once the first case study lands.
@@ -51,7 +50,7 @@ remaining external content link. There is no on-site `/writing` or `/point-of-vi
 **All site copy lives in one file:** [`/src/content/copy.ts`](src/content/copy.ts)
 
 Edit it to update any text — headlines, CTAs, the Field Guide's layers and tests, form labels,
-footer, SEO metadata. Internal destinations live in `routes`; external ones (Writing, LinkedIn) in
+footer, SEO metadata. Internal destinations live in `routes`; the only external one (LinkedIn) is in
 `links`. Components never hardcode user-facing strings.
 
 Two rules worth knowing:
