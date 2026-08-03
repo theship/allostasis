@@ -24,7 +24,7 @@ for (const route of builtRoutes) {
 test("home is the slim router: hero, thesis, engage, closing CTA", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    /a better informed agent performs better/i
+    /an agent with a vision performs better/i
   );
   await expect(page.getByRole("heading", { name: /The vision gap/i })).toBeVisible();
   await expect(page.getByRole("heading", { name: /How we engage/i })).toBeVisible();

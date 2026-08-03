@@ -1,6 +1,6 @@
 # Architecture & Development Guide
 
-> **Positioning (build spec v2.1 — the field-guide inversion):** A better informed agent performs better.
+> **Positioning (build spec v2.1 — the field-guide inversion):** An agent with a vision performs better.
 > Agents act on the data objects they can reach. Where those objects don't carry your vision, agents guess. The
 > spine is **the vision gap / data objects / data contracts**, and the canonical artifact is the
 > **Agent-Readiness Field Guide** at `/agent-readiness` — six layers in process order, seven tests.

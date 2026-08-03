@@ -6,7 +6,7 @@ import { ImageResponse } from "next/og";
 // good enough for the card; revisit if a Fraunces OG is wanted later. // TODO
 
 export const alt =
-  "Allostasis — a better informed agent performs better";
+  "Allostasis — an agent with a vision performs better";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          A better informed agent performs better
+          An agent with a vision performs better
         </div>
         <div
           style={{
