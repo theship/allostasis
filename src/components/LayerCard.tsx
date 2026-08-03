@@ -23,7 +23,7 @@ function SubBlock({
 }) {
   if (variant === "test") {
     return (
-      <div className="mt-6 border-l-2 border-accent bg-ink-900/50 px-5 py-4">
+      <div className="mt-6 max-w-measure border-l-2 border-accent bg-ink-900/50 px-5 py-4">
         <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent-text">
           {block.label}
         </p>
@@ -35,7 +35,7 @@ function SubBlock({
   }
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 max-w-measure">
       <p className="eyebrow">{block.label}</p>
       <p className="mt-2.5 font-body text-base leading-relaxed text-paper-300">
         {block.body}
