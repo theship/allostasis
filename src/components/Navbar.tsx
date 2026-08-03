@@ -96,7 +96,7 @@ export default function Navbar() {
               );
             })}
             <li>
-              <Link href="/contact" className="btn-primary !px-5 !py-2.5 !text-sm">
+              <Link href="/contact" className="btn-primary btn-sm">
                 {siteCopy.cta.primaryLabel}
               </Link>
             </li>
