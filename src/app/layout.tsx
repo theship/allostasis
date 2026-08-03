@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Newsreader, JetBrains_Mono } from "next/font/google";
 import siteCopy from "@/content/copy";
 import Navbar from "@/components/Navbar";
@@ -58,6 +58,11 @@ export const metadata: Metadata = {
   },
 };
 
+// Tints the browser chrome on mobile to the page background.
+export const viewport: Viewport = {
+  themeColor: "#0d0c0a",
+};
+
 // JSON-LD: Person (the practitioner) + ProfessionalService (the practice).
 const jsonLd = {
   "@context": "https://schema.org",
@@ -79,6 +84,9 @@ const jsonLd = {
       url: SITE_URL,
       description: siteCopy.meta.siteDescription,
       email: "info@allostasis.ai",
+      // Google reads `logo` for the knowledge panel / rich results.
+      logo: `${SITE_URL}/icon-512.png`,
+      image: `${SITE_URL}/icon-512.png`,
       founder: { "@id": `${SITE_URL}/#julee-burdekin` },
       areaServed: "Worldwide",
       knowsAbout: [

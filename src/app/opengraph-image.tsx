@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { markDataUri } from "./og-mark";
 
 // On-brand static OG template applied site-wide (also used as the Twitter image
 // fallback). Per-route variants can be added later; spec §6 permits one template.
@@ -26,16 +27,18 @@ export default function OpengraphImage() {
             "radial-gradient(60% 60% at 18% 0%, rgba(192,68,92,0.18), transparent 70%)",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            fontSize: 40,
-            fontWeight: 600,
-            color: "#ece6da",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Allostasis
+        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <img src={markDataUri} width={72} height={72} alt="" />
+          <span
+            style={{
+              fontSize: 40,
+              fontWeight: 600,
+              color: "#ece6da",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Allostasis
+          </span>
         </div>
         <div
           style={{
