@@ -6,6 +6,7 @@ import siteCopy from "@/content/copy";
 const EMPTY = {
   name: "",
   email: "",
+  phone: "",
   company: "",
   role: "",
   challenge: "",
@@ -71,7 +72,7 @@ export default function ContactForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-3">
           <div>
             <label htmlFor="name" className="mb-2 block font-sans text-sm font-medium text-paper-200">
               {f.name.label} *
@@ -100,6 +101,21 @@ export default function ContactForm() {
               onChange={handleChange}
               className={fieldClass}
               placeholder={f.email.placeholder}
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="mb-2 block font-sans text-sm font-medium text-paper-200">
+              {f.phone.label}
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autoComplete="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              className={fieldClass}
+              placeholder={f.phone.placeholder}
             />
           </div>
         </div>

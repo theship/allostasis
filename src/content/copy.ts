@@ -8,7 +8,6 @@
 // router: name the reader, state the thesis, point at the guide and the audit.
 //
 // Built routes: / (home), /agent-readiness (Field Guide), /about, /contact.
-// Writing remains an EXTERNAL link to the Ghost blog (demoted in nav).
 
 // ---------- Destinations ----------
 export const routes = {
@@ -18,12 +17,12 @@ export const routes = {
   contact: "/contact",
 };
 
-// External destinations only. The "point of view" link is no longer external —
-// it now resolves to the on-domain Field Guide (routes.fieldGuide).
+// External destinations only. Nothing on the site links out to the Ghost blog
+// any more: the "point of view" destination is the on-domain Field Guide
+// (routes.fieldGuide), and the Writing nav item has been retired.
+// NOTE: the /methods 301 in next.config.mjs still targets the Ghost Applied AI
+// tag; see docs/ARCHITECTURE_DEVELOPMENT.md if that should move on-domain too.
 export const links = {
-  // Writing (nav) → Ghost Applied AI tag. The one permitted Ghost URL; the
-  // @next/mdx wiring stays in place for a future on-site migration.
-  writing: "https://gnowledge-karden.ghost.io/tag/appliedai/",
   linkedin: "https://www.linkedin.com/in/jburdekin/",
 };
 
@@ -39,7 +38,6 @@ export const cta = {
 export const nav = [
   { label: "Home", href: routes.home, external: false },
   { label: "Field Guide", href: routes.fieldGuide, external: false },
-  { label: "Writing", href: links.writing, external: true },
   { label: "About", href: routes.about, external: false },
   { label: "Contact", href: routes.contact, external: false },
 ];
@@ -85,7 +83,7 @@ export const offers = [
     kicker: "02 · BUILD",
     name: "The Semantic Architecture Engagement",
     body:
-      "A defined project to close the gaps the audit found: principles written to be cited, the vocabulary contracted and the domain model ratified as a control surface for agent reasoning, the deterministic boundary drawn and encoded as machinery, workflows rebuilt as execution surfaces from observed runs, and judgment ownership made explicit in the architecture. It integrates with whatever platform you run, and your team owns it after we leave. Scoped from the audit; we bring in senior specialists as the work requires.",
+      "A defined project to close the gaps the audit found: principles written to be cited, the vocabulary contracted and the domain model ratified as a control surface for agent reasoning, the deterministic boundary drawn and encoded as machinery, workflows rebuilt as execution surfaces from observed runs, and judgment ownership made explicit in the architecture. It integrates with whatever platform you run, and your team owns it after we leave. The project is scoped from the audit, and we bring in senior specialists as the work requires.",
     meta: "Defined project, scoped from the audit",
   },
   {
@@ -103,7 +101,7 @@ export const home = {
   hero: {
     headline: "An agent with a vision performs better",
     subhead:
-      "For CTOs, platform leads, and founders deploying AI agents against their own organization: every agent builds its picture of how you work from the data objects it can reach. Where those objects don't carry your vision, the agent fills the gap with a guess confidently, at scale. We map where your vision is leaking out of the objects your agents read, and what it takes to close the gap.",
+      "For CTOs, platform leads, and founders deploying AI agents against their own organization: every agent builds its picture of how you work from the data objects it can reach. Where those objects don't carry your vision, the agent fills the gap with a confident guess, at scale. We map where your vision is leaking out of the objects your agents read, and what it takes to close the gap.",
     primaryCta: { label: cta.fieldGuideLabel, href: routes.fieldGuide },
     secondaryCta: { label: cta.primaryLabel, href: routes.contact },
   },
@@ -253,7 +251,7 @@ export const fieldGuide = {
           test: {
             label: "The tradeoff-probe test",
             body:
-              "Pick one decision your leadership would consider obvious, one where \"it depends\" is the wrong answer. Give an agent only your written surfaces and pose the decision. If it hedges, or decides the way a generic company would, this part of the substrate is missing. Ten minutes, end to end.",
+              "Pick one decision your leadership would consider obvious, one where \"it depends\" is the wrong answer. Give an agent only your written surfaces and pose the decision. If it hedges, or decides the way a generic company would, this part of the substrate is missing.",
           },
           good: {
             label: "Passing the bar",
@@ -269,7 +267,7 @@ export const fieldGuide = {
           failurePattern: {
             label: "Failure pattern",
             body:
-              "The same term means different things in different systems. \"Customer\" in Salesforce is not \"customer\" in the billing schema is not \"customer\" in the support macros. Each object is locally correct. A human reconciles the three without noticing. An agent silently picks one. Or worse, collapses them into a lowest-common-denominator merge. Every downstream decision inherits the pick.",
+              "The same term means different things in different systems. \"Customer\" in Salesforce is not \"customer\" in the billing schema is not \"customer\" in the support macros. Each object is locally correct. A human reconciles the three without noticing. An agent silently picks one. Or worse, it collapses them into a lowest-common-denominator merge. Every downstream decision inherits the pick.",
           },
           test: {
             label: "The ten-term-diff test",
@@ -305,7 +303,7 @@ export const fieldGuide = {
       good: {
         label: "Passing the bar",
         body:
-          "An explicit domain model with entities, relationships, metric dependencies that is built with your domain experts, versioned, and wired in as the boundary of agent investigation rather than background reading. This is where ontology and knowledge-graph discipline lives, applied one altitude up from the data platform.",
+          "An explicit domain model of entities, relationships, and metric dependencies, built with your domain experts, versioned, and wired in as the boundary of agent investigation rather than background reading. This is where ontology and knowledge-graph discipline lives, applied one altitude up from the data platform.",
       },
     },
     {
@@ -338,7 +336,7 @@ export const fieldGuide = {
         "The documented workflow describes what the work actually is not who used to do it.",
       group: "decisions",
       intro:
-        "There's at least one person in your org whose undocumented knowledge is what keeps a process running, and that knowledge is real. But there's a trap in transcribing it directly. The workflow a human runs is shaped by human role boundaries. A pipeline that mimics those roles inherits their seams. Context dies in the handoff. The durable property to audit is whether your documented workflows were ever validated against observation. Did anyone watch the work being attempted by a capable person outside the group, or by an agent? Did they and record where the documentation failed? Is the wiki org-chart folklore?",
+        "There's at least one person in your org whose undocumented knowledge is what keeps a process running, and that knowledge is real. But there's a trap in transcribing it directly. The workflow a human runs is shaped by human role boundaries. A pipeline that mimics those roles inherits their seams. Context dies in the handoff. The durable property to audit is whether your documented workflows were ever validated against observation. Did anyone watch the work being attempted by a capable person outside the group, or by an agent? Did they record where the documentation failed? Is the wiki org-chart folklore?",
       failurePattern: {
         label: "Failure pattern",
         body:
@@ -352,7 +350,7 @@ export const fieldGuide = {
       good: {
         label: "Passing the bar",
         body:
-          "Workflows written as execution surfaces. Inputs are named. Outputs are specified. Edge cases are documented in advance. Stated boundary make clear where the agent must stop and ask. Boundaries are derived from watching the work run. Every rescue folded back into the object that failed to prevent it.",
+          "Workflows written as execution surfaces. Inputs are named. Outputs are specified. Edge cases are documented in advance. Stated boundaries make clear where the agent must stop and ask. Boundaries are derived from watching the work run. Every rescue folded back into the object that failed to prevent it.",
       },
     },
     {
@@ -389,7 +387,7 @@ export const fieldGuide = {
       failurePattern: {
         label: "Failure pattern",
         body:
-          "\"The agent seems better lately.\" No baseline, no metric, no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
+          "\"The agent seems better lately.\" With no baseline or metric, you have no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
       },
       test: {
         label: "The silent-failure-probe test",
@@ -399,7 +397,7 @@ export const fieldGuide = {
       good: {
         label: "Passing the bar",
         body:
-          "A graded set of real cases with known-good answers: rescues from Layer 04, divergences from 01b, coherence failures from 05. Rerun whenever the surfaces beneath them change. Someone owns the number. Report regularly. Tracking direction of change. And with each failing case, trace to the specific layer and object that caused it. That traceability is the whole reason to structure the layers this way.",
+          "A graded set of real cases with known-good answers: rescues from Layer 04, divergences from 01b, coherence failures from 05. Rerun whenever the surfaces beneath them change. Someone owns the number. Report regularly. Track the direction of change. And with each failing case, trace to the specific layer and object that caused it. That traceability is the whole reason to structure the layers this way.",
       },
     },
   ] as Layer[],
@@ -459,7 +457,7 @@ export const about = {
     "I'm Julee Burdekin. I have spent my career across data-rich companies doing one thing: making their information mean the same thing everywhere, so the business can trust its own answers. Now their AI depends on the same thing.",
     "At Adobe, I built multi-axis metadata so a customer could land on exactly the right API for their language and their tools. At Planet, I designed a naming convention that kept satellite imagery identifiable from the ground station all the way to the analyst's workbench, so the critical insights the founders knew were magical survived the trip. At Geospan, and elsewhere, the same work.",
     "It is not a tooling purchase. It is not a cleanup project. It is recovering what your organization means, and making it legible to your AI. I am technical. I work in your real systems, from your CRM to your code. I bring in a small bench of senior specialists where the work calls for them. What starts as my experience is delivered as a team.",
-    "It acts on what you give it. Whatever your data does not say clearly, the AI will say for you. Allostasis is the practice of keeping your meaning stable while everything around it changes.",
+    "The AI acts on what you give it. Whatever your data does not say clearly, the AI will say for you. Allostasis is the practice of keeping your meaning stable while everything around it changes.",
   ],
   links: [
     { label: "Read the Field Guide", href: routes.fieldGuide, external: false },
@@ -477,6 +475,7 @@ export const contact = {
     fields: {
       name: { label: "Name", placeholder: "Your name", required: true },
       email: { label: "Email", placeholder: "you@company.com", required: true },
+      phone: { label: "Phone", placeholder: "Optional", required: false },
       company: { label: "Company", placeholder: "Company name", required: true },
       role: { label: "Role", placeholder: "Your role", required: false },
       challenge: {
@@ -537,8 +536,8 @@ export const contact = {
 
 // ---------- Footer ----------
 export const footer = {
-  tagline: "allostasis: stability through change.",
-  copyright: "© 2026 Allostasis AI.",
+  tagline: "allostasis: stability through change",
+  copyright: "© 2026 Allostasis AI",
   links: [
     { label: "Field Guide", href: routes.fieldGuide },
     { label: "Contact", href: routes.contact },

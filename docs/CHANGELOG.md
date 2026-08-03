@@ -53,7 +53,7 @@ page becomes the substantive artifact **on-domain**, and the homepage shrinks to
   `/agent-readiness`, and `/about`: **96 / 100 / 100 / 100** (was 90–91 on performance).
 
 ### Deviations from the spec (deliberate)
-- **Footer tagline** kept as "allostasis: stability through change." per the operator, rather than
+- **Footer tagline** kept as "allostasis: stability through change" per the operator, rather than
   spec §0.5's "maintaining stability through change" (which predates the v06 lock).
 - **"Updated" line** renders "July 2026" (spec §2's value and the actual edit date) rather than
   §3.1's "August 2026", to avoid post-dating the document.
@@ -67,7 +67,7 @@ nav, 301 redirects, contact field schema, and SMTP API — content/positioning o
 - Reframed from "architecting the organizational semantic layer" to **"your AI gives wrong answers
   because your systems disagree on what your data means — we find where your meaning breaks and make
   it legible."** Lead with the failed-pilot moment; cast a wider net with a symptom list.
-- **Locked tagline:** `allostasis: stability through change.` (was "maintaining stability through change").
+- **Locked tagline:** `allostasis: stability through change` (was "maintaining stability through change").
 
 ### Home (rebuilt sections)
 - New: hero ("Your AI pilot stalled…"), **Sound familiar?** symptom list, **It is not the AI. It is

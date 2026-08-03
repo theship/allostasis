@@ -88,7 +88,8 @@ export async function POST(request: Request) {
     // Sanitize all input fields
     const sanitizedData = {
       name: sanitizeInput(body.name),
-      email: sanitizeInput(body.email), 
+      email: sanitizeInput(body.email),
+      phone: sanitizeInput(body.phone || ''),
       company: sanitizeInput(body.company),
       role: sanitizeInput(body.role || ''),
       challenge: sanitizeInput(body.challenge),
@@ -115,6 +116,7 @@ export async function POST(request: Request) {
 CONTACT INFORMATION
 Name: ${sanitizedData.name}
 Email: ${sanitizedData.email}
+Phone: ${sanitizedData.phone || 'Not specified'}
 Company: ${sanitizedData.company}
 Role: ${sanitizedData.role || 'Not specified'}
 
@@ -140,6 +142,7 @@ ${JSON.stringify(sanitizedData, null, 2)}`,
             <ul>
               <li><strong>Name:</strong> ${sanitizedData.name}</li>
               <li><strong>Email:</strong> ${sanitizedData.email}</li>
+              <li><strong>Phone:</strong> ${sanitizedData.phone || 'Not specified'}</li>
               <li><strong>Company:</strong> ${sanitizedData.company}</li>
               <li><strong>Role:</strong> ${sanitizedData.role || 'Not specified'}</li>
             </ul>
