@@ -45,14 +45,16 @@ export const nav = [
 // ---------- Metadata (per built route) ----------
 export const meta = {
   siteTitle: "Allostasis AI",
+  // Search-snippet descriptions: kept under ~160 chars so Google doesn't truncate,
+  // value proposition front-loaded, no em-dashes.
   siteDescription:
-    "Your agents act on your data objects — and only on those. Where the objects don't carry your vision, agents guess. We find the vision gap and close it.",
+    "Your agents act on your data objects, and only on those. Where the objects don't carry your vision, agents guess. We find the vision gap and close it.",
   pages: {
     home: {
       title:
         "Allostasis · Agent-readiness for organizations that run agents on themselves",
       description:
-        "Your agents act on your data objects — and only on those. Where the objects don't carry your vision, agents guess. We find the gap and close it. Read the Agent-Readiness Field Guide — six layers, seven tests you can run this week — or request an audit.",
+        "Where your data objects don't carry your vision, agents guess. We find the vision gap and close it. Read the Field Guide: six layers, seven tests.",
     },
     about: {
       title: "About Julee Burdekin · Allostasis",
@@ -62,7 +64,7 @@ export const meta = {
     contact: {
       title: "Contact · Allostasis",
       description:
-        "The first step toward an Agent-Readiness Audit — a fixed-scope diagnostic that shows you where your agents are guessing.",
+        "The first step toward an Agent-Readiness Audit: a fixed-scope diagnostic that shows you where your agents are guessing.",
     },
   },
 };
@@ -173,7 +175,7 @@ export const fieldGuide = {
     title:
       "Organizational Legibility: Six Layers, Seven Tests · Agent-Readiness Field Guide · Allostasis",
     description:
-      "A working reference on where agent context comes from, where it breaks, and how to test for the breaks. Six layers in process order, with seven tests you can run in-house.",
+      "A working reference on where agent context comes from, where it breaks, and how to test for it. Six layers in process order, seven tests you can run in-house.",
     ogTitle: "Organizational legibility: six layers, seven tests",
     ogDescription: "Field Guide · Allostasis",
   },
