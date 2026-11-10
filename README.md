@@ -9,7 +9,7 @@ call that distance **the vision gap**. Closing it is architecture work, not tran
 it's the part of agent-readiness no one in the org chart currently owns.
 
 The site's substantive artifact is the **[Agent-Readiness Field Guide](src/app/agent-readiness/page.tsx)**
-at `/agent-readiness` — six layers in process order, seven tests a team can run in-house — and the
+at `/agent-readiness` — three layers in process order, seven experiments a team can run in-house — and the
 homepage is a router that points at it and at the audit.
 
 ## 🚀 Quick Start
@@ -32,7 +32,7 @@ Four built routes. Nav order: **Home · Field Guide · About · Contact**.
 | Route | Page |
 |---|---|
 | `/` | Home — the slim router: hero, the vision gap (thesis), how we engage, closing CTA |
-| `/agent-readiness` | **Field Guide** — six layers in process order (grouped 2–3–1) with seven tests, the honest problem, offers, closing CTA |
+| `/agent-readiness` | **Field Guide** — three layers in process order (content, domain of interest, operations) carrying seven experiments, the honest problem, offers, closing CTA |
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact (qualifying form → SMTP API) |
 
@@ -56,16 +56,17 @@ footer, SEO metadata. Internal destinations live in `routes`; the only external 
 Two rules worth knowing:
 - **The three engagement offers exist once**, in the `offers` export, and are rendered on both `/`
   and `/agent-readiness` by `OfferCards.tsx`. Never fork that copy into a page.
-- **The guide is six layers and seven tests.** Layer 01 splits into 01a/01b and carries two of the
-  tests. If you edit the guide, bump `fieldGuide.updatedISO` — it drives the visible "Updated" line,
-  the `TechArticle` `dateModified`, and the sitemap's `lastModified`.
+- **The guide is three layers and seven experiments.** Layers are `content`, `domain`, `operations`;
+  experiments are numbered 1-7 flat across the whole guide. If you edit the guide, bump
+  `fieldGuide.updatedISO` — it drives the visible "Updated" line, the `TechArticle` `dateModified`,
+  and the sitemap's `lastModified`.
 
 ## 🎨 Design
 
 Refined dark-editorial direction (spec §5):
 - **Type is the design** — display serif **Fraunces** + readable body serif **Newsreader**, self-hosted via `next/font`. (No Inter/Roboto/Arial/system stacks.)
 - Warm deep-ink base + warm paper foreground, **one** disciplined Winterberry accent. Tokens in [`tailwind.config.js`](tailwind.config.js).
-- Signature element: the Field Guide's numbered layer cards (01–06) under three quieter group headings, with the **test** sub-block foregrounded behind an accent rule. Layer 01 nests its 01a/01b parts inside one card.
+- Signature element: the Field Guide's three numbered layer cards (01–03), each nesting its experiments, with the **procedure** sub-block foregrounded behind an accent rule.
 - Reference-document register on the guide — no sticky CTAs, no popups, one quiet mid-page CTA band.
 - Subtle staggered page-load reveals; `prefers-reduced-motion` honored.
 

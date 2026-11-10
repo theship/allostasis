@@ -51,7 +51,7 @@ test("nav Field Guide link works", async ({ page }) => {
     .click();
   await expect(page).toHaveURL(/\/agent-readiness$/);
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    /six layers, seven tests/i
+    /three layers, seven experiments/i
   );
 });
 

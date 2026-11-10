@@ -3,7 +3,7 @@
 > **Positioning (build spec v2.1 — the field-guide inversion):** An agent with a vision performs better.
 > Agents act on the data objects they can reach. Where those objects don't carry your vision, agents guess. The
 > spine is **the vision gap / data objects / data contracts**, and the canonical artifact is the
-> **Agent-Readiness Field Guide** at `/agent-readiness` — six layers in process order, seven tests.
+> **Agent-Readiness Field Guide** at `/agent-readiness` — three layers in process order, seven experiments.
 > This guide reflects the July 2026 field-guide inversion, on top of the v06 copy pass and the May
 > 2026 redo. The pre-redo guide is archived at
 > [`archive/ARCHITECTURE_DEVELOPMENT.2025-08.md`](archive/ARCHITECTURE_DEVELOPMENT.2025-08.md).
@@ -42,7 +42,7 @@ destination, moving it **on-domain** from the external Ghost blog.
 | Built route | Page |
 |---|---|
 | `/` | Home — the slim router: hero · the vision gap (thesis) · how we engage · closing CTA |
-| `/agent-readiness` | **Field Guide** — header · opening · the reframe · six layers in three groups (2–3–1) with seven tests · mid-CTA band · the honest problem · pull-quote · how to work with us · bio · closing CTA |
+| `/agent-readiness` | **Field Guide** — header · opening · the reframe · three layers (content, domain of interest, operations) carrying seven experiments · mid-CTA band · the honest problem · pull-quote · how to work with us · bio · closing CTA |
 | `/about` | About Julee Burdekin |
 | `/contact` | Contact — qualifying form wrapping the existing SMTP API |
 
@@ -97,18 +97,19 @@ Components read from it; no hardcoded strings. Exports:
   offers,     // ⭐ the three engagement offers — SINGLE SOURCE, used by home AND guide
   home,       // hero, thesis, engage, closingCta
   fieldGuide, // meta, kicker/title/subtitle, updated(+ISO), readingTimeMinutes, opening,
-              // reframe, layersIntro, layerGroups[3], layers[6], midCta, honestProblem,
-              // pullQuote, offersSection, bioBlock, closingCta
+              // reframe, layersIntro, layers[3] (each with its experiments), midCta,
+              // honestProblem, pullQuote, offersSection, bioBlock, closingCta
   about,      // heading, paragraphs, links
   contact,    // headline/intro + form schema (UNCHANGED field/API contract) + messages
   footer,     // tagline (locked: "allostasis: stability through change" — no period), copyright, links
 }
 ```
 
-**Typed guide model** (`LayerBlock`, `LayerPart`, `Layer`, `LayerGroupId` are exported from
-`copy.ts`). Each layer carries `number`, `name`, `tagline`, `group`, and a required `intro`. Layer 01
-uses `parts` (01a Vision & principles, 01b Vocabulary & contracts) instead of flat sub-blocks;
-layers 02–06 use `failurePattern` / `test` / `good`. **Seven tests total** — Layer 01 carries two.
+**Typed guide model** (`LayerBlock`, `Experiment`, `Layer`, `LayerId` are exported from `copy.ts`).
+Each layer carries `id`, `number`, `name`, `tagline`, `intro`, and its `experiments[]`. Each
+experiment carries `number` (1-7, flat across the whole guide), `name`, optional `tagline`, `intro`,
+and three sub-blocks: `failurePattern` / `procedure` / `good`. **Three layers, seven experiments** —
+distributed 2 / 1 / 4.
 
 > The three offers exist **once**, in `offers`. `OfferCards.tsx` renders them on both `/` and
 > `/agent-readiness` — never fork the offer copy into a page.
@@ -123,12 +124,12 @@ Refined **dark-editorial** direction (build spec §5). Tokens live in `tailwind.
 - **Palette:** warm deep-ink base (`ink.*`), warm paper foreground (`paper.*`), one disciplined
   Winterberry **accent** in two tunings — `accent.DEFAULT`/`accent.fill` for CTAs (white text) and
   `accent.text` (lighter, AA-safe) for links on the dark ground.
-- **Field Guide (signature):** numbered layer cards (01–06) under three quieter group headings that
-  carry the 2–3–1 arc. Layer 01 nests its 01a/01b parts visibly inside one card. The **test**
-  sub-block is foregrounded with an accent left rule + panel — the tests are why the page exists.
+- **Field Guide (signature):** three numbered layer cards (01–03), each nesting its experiments.
+  The **procedure** sub-block is foregrounded with an accent left rule + panel — the experiments are
+  why the page exists.
   Register is a maintained reference document, not a landing page: no sticky CTAs, no popups.
-- **Heading levels on the guide:** h1 title → h2 sections → h3 group headings → h4 layer names →
-  h5 part names. Sub-block labels are styled paragraphs, keeping the outline free of skipped levels.
+- **Heading levels on the guide:** h1 title → h2 sections → h3 layer names → h4 experiment names.
+  Sub-block labels are styled paragraphs, keeping the outline free of skipped levels.
 - **Motion:** staggered `fade-up` page-load reveals on the hero; `prefers-reduced-motion` disables them.
 
 ## 🔍 SEO
@@ -182,9 +183,10 @@ npm test           # Playwright E2E
 - `a11y.spec.ts` — landmark **roles** (banner/main/contentinfo — the guide nests `<header>` inside
   `<article>`, so tag selectors would be ambiguous), single `<h1>`, primary CTA, the slim home,
   hero CTA targets, nav/footer Field Guide links, offer parity across `/` and the guide, field schema.
-- `field-guide.spec.ts` — H1, all six layer headings, three group headings **in order**, the nested
-  01a/01b parts, per-layer intro paragraphs, all seven test labels, mid-CTA band, pull-quote,
-  offers, no user-visible TODO/placeholder text, and six/seven (never five) language.
+- `field-guide.spec.ts` — H1, the three layer headings **in order**, all seven experiments numbered
+  1-7, per-layer and per-experiment intro paragraphs, all seven probe labels, mid-CTA band,
+  pull-quote, offers, no user-visible TODO/placeholder text, no em-dashes, and three-layer /
+  seven-experiment language.
 - `redirects.spec.ts` — the 301 consolidation (incl. external `/methods`); retired routes don't 404.
 - `external-links.spec.ts` — `target`/`rel`/`href` on outbound links; no on-site `/writing` route.
 

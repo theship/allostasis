@@ -2,6 +2,35 @@
 
 All notable structural, positioning, and architectural changes to the Allostasis AI site.
 
+## 2026-11-10 — Field Guide restructured to three layers, seven experiments
+
+Content-model change in `copy.ts`, in preparation for a manual copy pass. Structure only: every
+existing failure pattern, procedure, and "Passing the bar" carries over verbatim.
+
+### Structure
+- **Six layers in three groups → three layers.** The retired group headings become the layers
+  themselves: **Content** (the objects you expose to an agent), **Domain of interest** (a dynamic
+  knowledge graph that bounds what agents may investigate), and **Operations** (an instrumented,
+  auditable process). Rendered in process order.
+- **Seven tests → seven experiments, numbered 1-7 flat.** The 01a/01b split is gone; each former
+  layer (and each half of old Layer 01) is now one experiment. Distributed 2 / 1 / 4 across the
+  three layers.
+- `LayerPart` and `LayerGroupId` retired; new `Experiment` and `LayerId` types. A layer now carries
+  `experiments[]`; the old `test` sub-block is now `procedure`, labelled with the probe name
+  ("The tradeoff probe", "The ten-term diff", and so on).
+
+### Copy
+- Title, metadata, OG, subtitle, `layersIntro`, mid-CTA, honest problem, offers, and the homepage
+  thesis all move from "six layers / seven tests" to "three layers / seven experiments".
+- Cross-references inside the prose renumbered (e.g. "points at 01a" → "points at experiment 1").
+- Three layer intros seeded from the retired group headings and layer copy, each flagged with a
+  `// TODO(operator)` comment for rewriting.
+
+### Components / tests
+- `LayerCard.tsx` renders a layer and nests its experiments; `page.tsx` drops the group-heading
+  machinery. Heading levels: h3 layers, h4 experiments.
+- `field-guide.spec.ts` rewritten for the new shape. 37 passing.
+
 ## 2026-07-30 — The field-guide inversion (build spec v2.1)
 
 Content + IA delta on the existing app. The site previously sold with homepage assertion and linked

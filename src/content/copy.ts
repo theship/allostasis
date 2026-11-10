@@ -4,7 +4,7 @@
 // Positioning spine (build spec v2.1 — "the field-guide inversion"):
 //   the vision gap / data objects / data contracts.
 // The canonical long-form artifact is the Agent-Readiness Field Guide at
-// /agent-readiness — six layers in process order, seven tests. The homepage is a
+// /agent-readiness — three layers in process order, seven experiments. The homepage
 // router: name the reader, state the thesis, point at the guide and the audit.
 //
 // Built routes: / (home), /agent-readiness (Field Guide), /about, /contact.
@@ -54,7 +54,7 @@ export const meta = {
       title:
         "Allostasis · Agent-readiness for organizations that run agents on themselves",
       description:
-        "Where your data objects don't carry your vision, agents guess. We find the vision gap and close it. Read the Field Guide: six layers, seven tests.",
+        "Where your data objects don't carry your vision, agents guess. We find the vision gap and close it. Read the Field Guide: three layers, seven experiments.",
     },
     about: {
       title: "About Julee Burdekin · Allostasis",
@@ -77,7 +77,7 @@ export const offers = [
     kicker: "01 · DIAGNOSTIC",
     name: "The Agent-Readiness Audit",
     body:
-      "A fixed-scope, fixed-price diagnostic. You get: a scored map of all six layers against our rubric (which you keep); the ten-term diff run across your actual systems, with every divergence documented; a rescue-count baseline on named workflows; a map of which steps in those workflows are deterministic and currently left to agent judgment; and three data contracts your leadership needs to ratify to unblock the program. The fastest way to know where you stand.",
+      "A fixed-scope, fixed-price diagnostic. You get: a scored map of all three layers against our rubric (which you keep); the ten-term diff run across your actual systems, with every divergence documented; a rescue-count baseline on named workflows; a map of which steps in those workflows are deterministic and currently left to agent judgment; and three data contracts your leadership needs to ratify to unblock the program. The fastest way to know where you stand.",
     // TODO(operator): add duration ("N weeks") to this meta line when decided — do not invent.
     meta: "Fixed scope, fixed price",
   },
@@ -113,7 +113,7 @@ export const home = {
     paragraphs: [
       "Everything valuable in your company begins as leadership vision, and realizing it generates data objects all over the org — specs, code, pipelines, CRM records, support threads. Almost none of those objects were designed to carry the vision that produced them, so they drift: the same entity named three ways, definitions current in one system and stale in another, reasoning that lives in someone's head while the object records only the steps.",
       "Humans absorb drifts in judgment. Agents can't. They act on the objects literally, at scale, and carry every ambiguity into every task downstream. We call the distance between what leadership means and what the objects say the vision gap. Closing it is architecture work, not transcription work. And it's the part of agent-readiness no one in the org chart currently owns.",
-      "The full argument — six layers in process order, with seven tests you can run on your own organization this week — is in the Field Guide.",
+      "The full argument — three layers in process order, with seven experiments you can run on your own organization this week — is in the Field Guide.",
     ],
     link: {
       label: "Read: How Much of Your Vision Can Your Agents Actually See?",
@@ -133,61 +133,59 @@ export const home = {
   },
 };
 
-// ---------- Field Guide types (build spec v2.1 §2) ----------
+// ---------- Field Guide types ----------
 export type LayerBlock = {
-  /** Sub-block heading, e.g. "Failure pattern" / "The tradeoff-probe test" / "Passing the bar". */
+  /** Sub-block heading: "Failure pattern" / the probe name / "Passing the bar". */
   label: string;
   body: string;
 };
 
-/** Used only by Layer 01, which splits into 01a and 01b. */
-export type LayerPart = {
-  id: "01a" | "01b";
+export type LayerId = "content" | "domain" | "operations";
+
+/** One of the seven experiments. Numbered 1-7 across the whole guide, flat. */
+export type Experiment = {
+  number: "1" | "2" | "3" | "4" | "5" | "6" | "7";
+  /** What the experiment is about, e.g. "Vision & principles". */
   name: string;
+  tagline?: string;
   intro: string;
   failurePattern: LayerBlock;
-  test: LayerBlock;
+  /** The experiment itself; `label` is the probe name. */
+  procedure: LayerBlock;
   good: LayerBlock;
 };
 
-export type LayerGroupId = "substrate" | "decisions" | "loop";
-
+/** One of the three layers. Each carries its own experiments. */
 export type Layer = {
-  number: "01" | "02" | "03" | "04" | "05" | "06";
+  id: LayerId;
+  number: "01" | "02" | "03";
   name: string;
   tagline: string;
-  group: LayerGroupId;
-  /** REQUIRED for every layer — the paragraph between tagline and sub-blocks. */
   intro: string;
-  /** Present only on Layer 01. */
-  parts?: LayerPart[];
-  /** Present on Layers 02–06 (absent when `parts` is used). */
-  failurePattern?: LayerBlock;
-  test?: LayerBlock;
-  good?: LayerBlock;
+  experiments: Experiment[];
 };
 
 // ---------- Field Guide (/agent-readiness) ----------
-// The canonical long-form artifact. Six layers in process order, grouped 2–3–1;
-// seven tests total (Layer 01 carries two, in parts 01a and 01b).
+// The canonical long-form artifact. Three layers in process order: content,
+// domain of interest, operations. Seven experiments, numbered 1-7, flat.
 export const fieldGuide = {
   meta: {
     title:
-      "Organizational Legibility: Six Layers, Seven Tests · Agent-Readiness Field Guide · Allostasis",
+      "Organizational Legibility: Three Layers, Seven Experiments · Agent-Readiness Field Guide · Allostasis",
     description:
-      "A working reference on where agent context comes from, where it breaks, and how to test for it. Six layers in process order, seven tests you can run in-house.",
-    ogTitle: "Organizational legibility: six layers, seven tests",
+      "A working reference on where agent context comes from, where it breaks, and how to test for it. Three layers, seven experiments you can run in-house.",
+    ogTitle: "Organizational legibility: three layers, seven experiments",
     ogDescription: "Field Guide · Allostasis",
   },
 
   kicker: "Field Guide",
-  title: "Organizational legibility: six layers, seven tests",
+  title: "Organizational legibility: three layers, seven experiments",
   subtitle:
-    "A working reference on where agent context comes from, where it breaks, and how to test for the breaks. Every test here runs in-house, with the tools and access you already have.",
+    "A working reference on where agent context comes from, where it breaks, and how to test for the breaks. Every experiment here runs in-house, with the tools and access you already have.",
 
   // Maintained by hand; bump on edits. `updatedISO` backs the JSON-LD dateModified.
-  updated: "July 2026",
-  updatedISO: "2026-07-30",
+  updated: "November 2026",
+  updatedISO: "2026-11-10",
   // Computed from the guide's body copy (~2,500 words @ 225wpm); recompute on edits.
   readingTimeMinutes: 11,
 
@@ -213,35 +211,27 @@ export const fieldGuide = {
   },
 
   layersIntro: {
-    heading: "Six layers, in process order with seven tests",
+    heading: "Three layers, in process order with seven experiments",
     body:
-      "An agent-ready organization is built in process order: first the substrate agents read, then three decisions about how the work is organized, then the loop that proves the rest is working. The three middle layers look like engineering choices, but they're auditable properties of your organization. An org can fail every one of them before a single agent is deployed. Each layer below has a failure pattern, a test, and Passing the bar. None of the tests needs new tooling; run all seven and you'll have an honest map of where you stand.",
+      "An agent-ready organization is built in process order: first the content agents read, then the domain of interest you bound them to, then the operations that prove the rest is working. Each layer below carries its own experiments, and each experiment has a failure pattern, a procedure, and Passing the bar. None of them needs new tooling; run all seven and you'll have an honest map of where you stand.",
   },
 
-  // Exactly 3 — rendered as section headers before the first layer of each group.
-  layerGroups: [
-    { id: "substrate", heading: "The substrate: what your agents read" },
-    {
-      id: "decisions",
-      heading:
-        "The build decisions: auditable properties of how you've organized the work",
-    },
-    { id: "loop", heading: "The loop: how you know any of it is working" },
-  ] as Array<{ id: LayerGroupId; heading: string }>,
-
-  // Exactly 6. Layer 01 carries `parts` (01a/01b) instead of flat sub-blocks.
+  // Exactly 3 layers, in process order. Experiments are numbered 1-7 across
+  // the whole guide, so the numbering is flat even though they nest here.
   layers: [
     {
+      id: "content",
       number: "01",
-      name: "The legible substrate",
+      name: "Content",
       tagline:
-        "Meaning carried into objects: first the judgment, then the vocabulary.",
-      group: "substrate",
+        "The objects you expose to an agent: declarations, interfaces and contracts, and human-qualified vocabulary.",
+      // TODO(operator): layer intro seeded from the retired group headings and
+      // layer copy — rewrite in your own words.
       intro:
-        "This layer is half the work. It has two parts, because objects have to carry two different kinds of meaning: how your leadership decides, and what your terms denote. Miss the first and agents reason like a generic company. Miss the second and they reason precisely about entities that don't quite exist.",
-      parts: [
+        "These are the objects an agent can actually read, and the program it builds from them is assembled out of declarations, constraints, and qualifiers. Two kinds of meaning have to survive the trip: how your leadership decides, and what your terms denote. Miss the first and agents reason like a generic company. Miss the second and they reason precisely about entities that don't quite exist.",
+      experiments: [
         {
-          id: "01a",
+          number: "1",
           name: "Vision & principles",
           intro:
             "Every organization runs on a set of positions its leadership treats as settled: what to optimize, what to refuse, which tradeoffs are already decided. Very little of that is usually written anywhere an agent can retrieve it. When an agent hits a genuine tradeoff, it should be reasoning from your positions not from the median opinion of its training data.",
@@ -250,8 +240,8 @@ export const fieldGuide = {
             body:
               "The vision exists in pitch decks, all-hands recordings, and the founder's head. The agent consumes all of it and flattens it into probability mass. So when it hits a real tradeoff, the resolution is the internet's average answer, not yours.",
           },
-          test: {
-            label: "The tradeoff-probe test",
+          procedure: {
+            label: "The tradeoff probe",
             body:
               "Pick one decision your leadership would consider obvious, one where \"it depends\" is the wrong answer. Give an agent only your written surfaces and pose the decision. If it hedges, or decides the way a generic company would, this part of the substrate is missing.",
           },
@@ -262,7 +252,7 @@ export const fieldGuide = {
           },
         },
         {
-          id: "01b",
+          number: "2",
           name: "Vocabulary & contracts",
           intro:
             "Your organization has almost certainly stated everything an agent needs. The problem is that each fact is stated five times, in four places, and three of those are stale. Humans route around this on social signal: ask in the channel, someone points at the real source, the group self-corrects in thirty seconds. An agent retrieves what ranks well. What ranks well is often what was written most confidently, longest ago.",
@@ -271,8 +261,8 @@ export const fieldGuide = {
             body:
               "The same term means different things in different systems. \"Customer\" in Salesforce is not \"customer\" in the billing schema is not \"customer\" in the support macros. Each object is locally correct. A human reconciles the three without noticing. An agent silently picks one. Or worse, it collapses them into a lowest-common-denominator merge. Every downstream decision inherits the pick.",
           },
-          test: {
-            label: "The ten-term-diff test",
+          procedure: {
+            label: "The ten-term diff",
             body:
               "List your ten most load-bearing business terms. Pull their working definitions from three systems, for example: schema, CRM, docs, and then diff them. Every divergence is a place your agents are already choosing a meaning for you. Budget an afternoon, and expect the diff to be uncomfortable.",
           },
@@ -285,127 +275,150 @@ export const fieldGuide = {
       ],
     },
     {
+      id: "domain",
       number: "02",
-      name: "The knowledge graph as domain bounds",
+      name: "Domain of interest",
       tagline:
-        "The KG as the control plane that defines your agents' domain of interest.",
-      group: "substrate",
+        "A dynamic knowledge graph that bounds what your agents may investigate.",
+      // TODO(operator): layer intro seeded from the retired group headings and
+      // layer copy — rewrite in your own words.
       intro:
-        "Layer 01 fixes what your terms mean. This layer fixes how they relate. Relationships are where unstructured corpora fail hardest: left to raw tables and prose, an agent infers your domain's structure statistically, and it will invent relationships that don't exist in your business. The alternative is to sit your domain experts down and ratify the graph explicitly: which entities exist, how geography connects to account connects to product, which metric drives which. Done properly, the graph isn't something the agent consults. It's the surface the agent navigates. Every ratified edge is a hypothesis the agent may investigate. Paths not in the graph aren't legal moves. That bound is what turns an open-ended fishing expedition into a tractable investigation.",
-      failurePattern: {
-        label: "Failure pattern",
-        body:
-          "The agent's answer cites a causal chain nobody in the org recognizes. It may be plausible-sounding, statistically derived. But it's wrong about how the business actually works. Nobody can point to the relationship it violated, because the relationships were never objects.",
-      },
-      test: {
-        label: "The traversal-probe test",
-        body:
-          "Pick a real symptom from last quarter: a metric that moved. Ask an agent, with only your written surfaces, to lay out the plausible causes and how it would check each one. Compare its causal map to the one your best analyst carries in their head. Every relationship the agent missed or invented is an edge you never ratified.",
-      },
-      good: {
-        label: "Passing the bar",
-        body:
-          "An explicit domain model of entities, relationships, and metric dependencies, built with your domain experts, versioned, and wired in as the boundary of agent investigation rather than background reading. This is where ontology and knowledge-graph discipline lives, applied one altitude up from the data platform.",
-      },
+        "Content fixes what your terms mean. This layer fixes how they relate, and how far an agent may roam. A ratified graph is not something the agent consults; it is the surface the agent navigates. Every edge is a hypothesis it may investigate, and paths that are not in the graph are not legal moves. That bound is what turns an open-ended fishing expedition into a tractable investigation.",
+      experiments: [
+        {
+          number: "3",
+          name: "The knowledge graph as domain bounds",
+          tagline:
+            "The KG as the control plane that defines your agents' domain of interest.",
+          intro:
+            "Relationships are where unstructured corpora fail hardest: left to raw tables and prose, an agent infers your domain's structure statistically, and it will invent relationships that don't exist in your business. The alternative is to sit your domain experts down and ratify the graph explicitly: which entities exist, how geography connects to account connects to product, which metric drives which. Done properly, the graph isn't something the agent consults. It's the surface the agent navigates. Every ratified edge is a hypothesis the agent may investigate. Paths not in the graph aren't legal moves. That bound is what turns an open-ended fishing expedition into a tractable investigation.",
+          failurePattern: {
+            label: "Failure pattern",
+            body:
+              "The agent's answer cites a causal chain nobody in the org recognizes. It may be plausible-sounding, statistically derived. But it's wrong about how the business actually works. Nobody can point to the relationship it violated, because the relationships were never objects.",
+          },
+          procedure: {
+            label: "The traversal probe",
+            body:
+              "Pick a real symptom from last quarter: a metric that moved. Ask an agent, with only your written surfaces, to lay out the plausible causes and how it would check each one. Compare its causal map to the one your best analyst carries in their head. Every relationship the agent missed or invented is an edge you never ratified.",
+          },
+          good: {
+            label: "Passing the bar",
+            body:
+              "An explicit domain model of entities, relationships, and metric dependencies, built with your domain experts, versioned, and wired in as the boundary of agent investigation rather than background reading. This is where ontology and knowledge-graph discipline lives, applied one altitude up from the data platform.",
+          },
+        },
+      ],
     },
     {
+      id: "operations",
       number: "03",
-      name: "The deterministic boundary",
-      tagline: "Someone has decided what is not an AI task.",
-      group: "decisions",
-      intro:
-        "Every real process has deterministic parts and judgment parts, and the most expensive mistake in agent deployment is paying a model to do unreliably what a pipeline does perfectly. Statistics and machinery should run before any agent is pulled in: detecting that a threshold was crossed, that a number moved, that a gate passed. Whether your organization has drawn this boundary anywhere, and written it down, is a fact about your org's auditability today, agents or no agents.",
-      failurePattern: {
-        label: "Failure pattern",
-        body:
-          "An agent is deciding what counts as a signal. Sometimes it applies a method; sometimes it barely looks at the data. Sometimes it's a real signal; sometimes it's noise dressed as insight. Nobody can say which, because nobody decided which questions were ever the agent's to answer.",
-      },
-      test: {
-        label: "The misallocation-inventory test",
-        body:
-          "List every step your agents (or your agent plans) currently assign to model judgment. Mark each one: could a pipeline with a threshold do this? Every \"yes\" is a reliability hole you're paying token prices for. If nobody can produce the list, the boundary doesn't exist.",
-      },
-      good: {
-        label: "Passing the bar",
-        body:
-          "A written boundary: detection, gating, and prioritization run as tested, versioned machinery; agents are invoked downstream of it, on a queue of things worth investigating. The boundary itself is an object: reviewable, arguable, improvable.",
-      },
-    },
-    {
-      number: "04",
-      name: "Workflows from observation, not the org chart",
+      name: "Operations",
       tagline:
-        "The documented workflow describes what the work actually is not who used to do it.",
-      group: "decisions",
+        "An instrumented, auditable process.",
+      // TODO(operator): layer intro seeded from the retired group headings and
+      // layer copy — rewrite in your own words.
       intro:
-        "There's at least one person in your org whose undocumented knowledge is what keeps a process running, and that knowledge is real. But there's a trap in transcribing it directly. The workflow a human runs is shaped by human role boundaries. A pipeline that mimics those roles inherits their seams. Context dies in the handoff. The durable property to audit is whether your documented workflows were ever validated against observation. Did anyone watch the work being attempted by a capable person outside the group, or by an agent? Did they record where the documentation failed? Is the wiki org-chart folklore?",
-      failurePattern: {
-        label: "Failure pattern",
-        body:
-          "The wiki says what the workflow is about. A description written for a human who can fill gaps is not an execution surface for an agent that can't. The gaps are invisible until something without tribal knowledge attempts the work.",
-      },
-      test: {
-        label: "The cold-start-run test",
-        body:
-          "Give an agent a real (safe) instance of a documented workflow and only the documentation. Count the human rescues every time someone steps in with context that wasn't in the objects. More than zero rescues means the workflow is described, not executable. The rescue count is your metric: it's concrete, it trends, and it's hard to argue with.",
-      },
-      good: {
-        label: "Passing the bar",
-        body:
-          "Workflows written as execution surfaces. Inputs are named. Outputs are specified. Edge cases are documented in advance. Stated boundaries make clear where the agent must stop and ask. Boundaries are derived from watching the work run. Every rescue folded back into the object that failed to prevent it.",
-      },
-    },
-    {
-      number: "05",
-      name: "A single owner of judgment",
-      tagline: "Sub-tasks return results. They never return reasoning.",
-      group: "decisions",
-      intro:
-        "The principle is older than agents: judgment needs a single accountable owner. Distribute a decision across a committee, with human or agent members, and every member can be locally right while the outcome is incoherent: correct cause identified, disconnected action recommended, an outlook that follows from neither. The current architectural expression of the principle is one agent that owns the reasoning end to end; it may delegate focused investigations to sub-agents and machinery, but delegations return results, never conclusions. Judgment is probably not owned by one person in your group. But folks take ownership of decisions. Clarifying who is the owner, decider, one responsible makes it easy to identify judgements. Just like for humans, having this charted out makes reasoning much clearer for agents.",
-      failurePattern: {
-        label: "Failure pattern",
-        body:
-          "Each step in the chain is defensible and the whole is incoherent. The diagnosis names the real cause; the recommendation addresses a different one; the forecast assumes the recommendation worked. No single mind, whether human or agent, ever held the end-to-end picture, so nobody notices the seams. Coherence failures are the hardest kind to catch, because every component passes its own review.",
-      },
-      test: {
-        label: "The coherence-probe test",
-        body:
-          "Take a recent multi-step output from an agent pipeline, or from your human process. Read only the conclusion chain: does the recommended action actually address the identified cause? Does the projected outcome follow from the action? Then ask the sharper question: who owned this end to end? If the answer is a list of names, the answer is nobody.",
-      },
-      good: {
-        label: "Passing the bar",
-        body:
-          "One named owner for each decision class, human and agent alike. In agent architecture: a single reasoning agent holding the full context, with sub-agents scoped to investigations whose results, not whose judgments, flow back. The delegation boundary is written down, like everything else in this guide.",
-      },
-    },
-    {
-      number: "06",
-      name: "Evals & feedback",
-      tagline:
-        "Every layer above feeds this one. This one points back at the layer that failed.",
-      group: "loop",
-      intro:
-        "Most teams discover their agent was wrong the way they discover a roof leak: from underneath, during a storm, in front of a customer. But notice what well-built agent systems already do at runtime: pull a hypothesis, test it against real data, mark it supported or contradicted, move on. That loop is why they work. This layer runs the same loop over the whole stack. The payoff of process order is that failures become addressable: a wrong tradeoff points at 01a, an invented relationship at 02, noise-chasing at 03, a rescue at 04, an incoherent chain at 05. Every failure becomes a graded case; the case points at the object that caused it; the eval set grows from your operations instead of someone's imagination.",
-      failurePattern: {
-        label: "Failure pattern",
-        body:
-          "\"The agent seems better lately.\" With no baseline or metric, you have no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
-      },
-      test: {
-        label: "The silent-failure-probe test",
-        body:
-          "Take a real agent mistake from the last month and ask one question: how did you find out? If the answer is a customer, an escalation, or someone happening to notice, you don't have a feedback loop. You have an incident process. Then ask the harder version: how many like it are running right now that nobody has caught?",
-      },
-      good: {
-        label: "Passing the bar",
-        body:
-          "A graded set of real cases with known-good answers: rescues from Layer 04, divergences from 01b, coherence failures from 05. Rerun whenever the surfaces beneath them change. Someone owns the number. Report regularly. Track the direction of change. And with each failing case, trace to the specific layer and object that caused it. That traceability is the whole reason to structure the layers this way.",
-      },
+        "What runs as machinery rather than judgment, what the documented workflow actually is, who owns the call, and how you know any of it is working. These look like engineering choices, but they are human-auditable properties of your organization. An org can fail every one of them before a single agent is deployed.",
+      experiments: [
+        {
+          number: "4",
+          name: "The deterministic boundary",
+          tagline:
+            "Someone has decided what is not an AI task.",
+          intro:
+            "Every real process has deterministic parts and judgment parts, and the most expensive mistake in agent deployment is paying a model to do unreliably what a pipeline does perfectly. Statistics and machinery should run before any agent is pulled in: detecting that a threshold was crossed, that a number moved, that a gate passed. Whether your organization has drawn this boundary anywhere, and written it down, is a fact about your org's auditability today, agents or no agents.",
+          failurePattern: {
+            label: "Failure pattern",
+            body:
+              "An agent is deciding what counts as a signal. Sometimes it applies a method; sometimes it barely looks at the data. Sometimes it's a real signal; sometimes it's noise dressed as insight. Nobody can say which, because nobody decided which questions were ever the agent's to answer.",
+          },
+          procedure: {
+            label: "The misallocation inventory",
+            body:
+              "List every step your agents (or your agent plans) currently assign to model judgment. Mark each one: could a pipeline with a threshold do this? Every \"yes\" is a reliability hole you're paying token prices for. If nobody can produce the list, the boundary doesn't exist.",
+          },
+          good: {
+            label: "Passing the bar",
+            body:
+              "A written boundary: detection, gating, and prioritization run as tested, versioned machinery; agents are invoked downstream of it, on a queue of things worth investigating. The boundary itself is an object: reviewable, arguable, improvable.",
+          },
+        },
+        {
+          number: "5",
+          name: "Workflows from observation, not the org chart",
+          tagline:
+            "The documented workflow describes what the work actually is not who used to do it.",
+          intro:
+            "There's at least one person in your org whose undocumented knowledge is what keeps a process running, and that knowledge is real. But there's a trap in transcribing it directly. The workflow a human runs is shaped by human role boundaries. A pipeline that mimics those roles inherits their seams. Context dies in the handoff. The durable property to audit is whether your documented workflows were ever validated against observation. Did anyone watch the work being attempted by a capable person outside the group, or by an agent? Did they record where the documentation failed? Is the wiki org-chart folklore?",
+          failurePattern: {
+            label: "Failure pattern",
+            body:
+              "The wiki says what the workflow is about. A description written for a human who can fill gaps is not an execution surface for an agent that can't. The gaps are invisible until something without tribal knowledge attempts the work.",
+          },
+          procedure: {
+            label: "The cold-start run",
+            body:
+              "Give an agent a real (safe) instance of a documented workflow and only the documentation. Count the human rescues every time someone steps in with context that wasn't in the objects. More than zero rescues means the workflow is described, not executable. The rescue count is your metric: it's concrete, it trends, and it's hard to argue with.",
+          },
+          good: {
+            label: "Passing the bar",
+            body:
+              "Workflows written as execution surfaces. Inputs are named. Outputs are specified. Edge cases are documented in advance. Stated boundaries make clear where the agent must stop and ask. Boundaries are derived from watching the work run. Every rescue folded back into the object that failed to prevent it.",
+          },
+        },
+        {
+          number: "6",
+          name: "A single owner of judgment",
+          tagline:
+            "Sub-tasks return results. They never return reasoning.",
+          intro:
+            "The principle is older than agents: judgment needs a single accountable owner. Distribute a decision across a committee, with human or agent members, and every member can be locally right while the outcome is incoherent: correct cause identified, disconnected action recommended, an outlook that follows from neither. The current architectural expression of the principle is one agent that owns the reasoning end to end; it may delegate focused investigations to sub-agents and machinery, but delegations return results, never conclusions. Judgment is probably not owned by one person in your group. But folks take ownership of decisions. Clarifying who is the owner, decider, one responsible makes it easy to identify judgements. Just like for humans, having this charted out makes reasoning much clearer for agents.",
+          failurePattern: {
+            label: "Failure pattern",
+            body:
+              "Each step in the chain is defensible and the whole is incoherent. The diagnosis names the real cause; the recommendation addresses a different one; the forecast assumes the recommendation worked. No single mind, whether human or agent, ever held the end-to-end picture, so nobody notices the seams. Coherence failures are the hardest kind to catch, because every component passes its own review.",
+          },
+          procedure: {
+            label: "The coherence probe",
+            body:
+              "Take a recent multi-step output from an agent pipeline, or from your human process. Read only the conclusion chain: does the recommended action actually address the identified cause? Does the projected outcome follow from the action? Then ask the sharper question: who owned this end to end? If the answer is a list of names, the answer is nobody.",
+          },
+          good: {
+            label: "Passing the bar",
+            body:
+              "One named owner for each decision class, human and agent alike. In agent architecture: a single reasoning agent holding the full context, with sub-agents scoped to investigations whose results, not whose judgments, flow back. The delegation boundary is written down, like everything else in this guide.",
+          },
+        },
+        {
+          number: "7",
+          name: "Evals & feedback",
+          tagline:
+            "Every layer above feeds this one. This one points back at the layer that failed.",
+          intro:
+            "Most teams discover their agent was wrong the way they discover a roof leak: from underneath, during a storm, in front of a customer. But notice what well-built agent systems already do at runtime: pull a hypothesis, test it against real data, mark it supported or contradicted, move on. That loop is why they work. This layer runs the same loop over the whole stack. The payoff of process order is that failures become addressable: a wrong tradeoff points at experiment 1, an invented relationship at 3, noise-chasing at 4, a rescue at 5, an incoherent chain at 6. Every failure becomes a graded case; the case points at the object that caused it; the eval set grows from your operations instead of someone's imagination.",
+          failurePattern: {
+            label: "Failure pattern",
+            body:
+              "\"The agent seems better lately.\" With no baseline or metric, you have no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
+          },
+          procedure: {
+            label: "The silent-failure probe",
+            body:
+              "Take a real agent mistake from the last month and ask one question: how did you find out? If the answer is a customer, an escalation, or someone happening to notice, you don't have a feedback loop. You have an incident process. Then ask the harder version: how many like it are running right now that nobody has caught?",
+          },
+          good: {
+            label: "Passing the bar",
+            body:
+              "A graded set of real cases with known-good answers: rescues from experiment 5, divergences from experiment 2, coherence failures from experiment 6. Rerun whenever the surfaces beneath them change. Someone owns the number. Report regularly. Track the direction of change. And with each failing case, trace to the specific layer and object that caused it. That traceability is the whole reason to structure the layers this way.",
+          },
+        },
+      ],
     },
   ] as Layer[],
 
   midCta: {
-    body: "The audit is the scored, full-coverage version of these seven tests.",
+    body: "The audit is the scored, full-coverage version of these seven experiments.",
     buttonLabel: cta.primaryLabel,
     href: routes.contact,
   },
@@ -417,7 +430,7 @@ export const fieldGuide = {
       // TODO(operator): optional strengthening citation on AI-program measurement
       // immaturity (verify current McKinsey State of AI ROI-measurement figures before
       // citing). Section ships fine without it.
-      "We don't claim a certification that doesn't exist. We measure direction of change on the seven tests above, and we show our work: the rubric is part of the audit deliverable. And clients keep the rubric.",
+      "We don't claim a certification that doesn't exist. We measure direction of change on the seven experiments above, and we show our work: the rubric is part of the audit deliverable. And clients keep the rubric.",
     ],
   },
 
@@ -430,7 +443,7 @@ export const fieldGuide = {
   offersSection: {
     heading: "How to work with us",
     intro:
-      "Each engagement starts from whichever layer the tests say you're stuck in.",
+      "Each engagement starts from whichever layer the experiments say you're stuck in.",
     cta: { label: cta.auditShortLabel, href: routes.contact },
   },
 
@@ -444,7 +457,7 @@ export const fieldGuide = {
   },
 
   closingCta: {
-    heading: "If you've run the tests, we're happy to look at the results with you.",
+    heading: "If you've run the experiments, we're happy to look at the results with you.",
     body:
       "A 30-minute conversation is usually enough to tell whether it's worth going further. Bring the result that surprised you.",
     buttonLabel: cta.primaryLabel,
