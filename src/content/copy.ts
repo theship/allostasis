@@ -291,7 +291,7 @@ export const fieldGuide = {
           tagline:
             "The KG as the control plane that defines your agents' domain of interest.",
           intro:
-            "Relationships are where unstructured corpora fail hardest: left to raw tables and prose, an agent infers your domain's structure statistically, and it will invent relationships that don't exist in your business. The alternative is to sit your domain experts down and ratify the graph explicitly: which entities exist, how geography connects to account connects to product, which metric drives which. Done properly, the graph isn't something the agent consults. It's the surface the agent navigates. Every ratified edge is a hypothesis the agent may investigate. Paths not in the graph aren't legal moves. That bound is what turns an open-ended fishing expedition into a tractable investigation.",
+            "Left to raw tables and prose, an agent infers your domain's structure statistically, and it will invent relationships that don't exist in your business. The fix is not locking your domain experts in a room to ratify a graph preemptively — that's a fool's errand: inefficient, and the results are short-lived. The fix is a dynamic graph, grown from your objects and corrected by the people who know, versioned like code. It gives the agent something to check against. Done properly, the graph isn't something the agent consults. It's the surface the agent navigates.",
           failurePattern: {
             label: "Failure pattern",
             body:
@@ -305,7 +305,7 @@ export const fieldGuide = {
           good: {
             label: "Passing the bar",
             body:
-              "An explicit domain model of entities, relationships, and metric dependencies, built with your domain experts, versioned, and wired in as the boundary of agent investigation rather than background reading. This is where ontology and knowledge-graph discipline lives, applied one altitude up from the data platform.",
+              "An explicit domain model of entities, relationships, and metric dependencies — grown from your objects, corrected by your experts as it's used, versioned, and wired in as the boundary of agent investigation rather than background reading.",
           },
         },
       ],
