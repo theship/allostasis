@@ -41,14 +41,6 @@ const jsonLd = {
 };
 
 export default function AgentReadinessPage() {
-  // Index of the first layer in each group, so a group heading renders exactly once.
-  const firstOfGroup = new Map(
-    g.layerGroups.map((group) => [
-      group.id,
-      g.layers.findIndex((layer) => layer.group === group.id),
-    ])
-  );
-
   return (
     <article className="px-6 pb-24 pt-36 md:px-10 md:pt-44">
       <script
@@ -100,7 +92,7 @@ export default function AgentReadinessPage() {
         </div>
       </section>
 
-      {/* ---------- The six layers ---------- */}
+      {/* ---------- The three layers ---------- */}
       <section className="mx-auto mt-20 max-w-5xl border-t border-ink-800 pt-16 md:mt-28 md:pt-20">
         <h2 className="max-w-3xl font-display text-3xl font-semibold leading-tight tracking-tightish text-paper-50 md:text-4xl">
           {g.layersIntro.heading}
@@ -110,22 +102,9 @@ export default function AgentReadinessPage() {
         </p>
 
         <div className="mt-16 space-y-16">
-          {g.layers.map((layer, i) => {
-            const group = g.layerGroups.find((gr) => gr.id === layer.group);
-            const showGroupHeading =
-              group && firstOfGroup.get(group.id) === i;
-
-            return (
-              <div key={layer.number}>
-                {showGroupHeading && (
-                  <h3 className="mb-10 max-w-3xl font-display text-xl font-semibold leading-snug tracking-tightish text-accent-text md:text-2xl">
-                    {group.heading}
-                  </h3>
-                )}
-                <LayerCard layer={layer} />
-              </div>
-            );
-          })}
+          {g.layers.map((layer) => (
+            <LayerCard key={layer.number} layer={layer} />
+          ))}
         </div>
       </section>
 

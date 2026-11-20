@@ -20,7 +20,7 @@
 ## 🎯 Key concepts
 
 ### Single-source content (`/src/content/copy.ts`)
-All user-facing copy lives in one file — headlines, the Field Guide's six layers and seven tests,
+All user-facing copy lives in one file — headlines, the Field Guide's three layers and seven experiments,
 CTAs, form labels, footer, and per-route SEO metadata. Internal destinations live in `routes`;
 the only external one (LinkedIn) in `links`. Components never hardcode strings.
 
@@ -33,14 +33,15 @@ copy.ts
 ├── meta       (siteTitle/Description + per-route metadata)
 ├── offers     (⭐ the three engagement offers — SINGLE SOURCE: home AND guide)
 ├── home       (hero, thesis, engage, closingCta)
-├── fieldGuide (opening, reframe, layersIntro, layerGroups[3], layers[6],
+├── fieldGuide (opening, reframe, layersIntro, layers[3] each with experiments,
 │               midCta, honestProblem, pullQuote, offersSection, bioBlock, closingCta)
 ├── about      (heading, paragraphs, links)
 ├── contact    (headline/intro + form schema [field/API contract unchanged] + messages)
 └── footer     (tagline [locked], copyright, links)
 ```
 
-The guide is **six layers, seven tests** — Layer 01 splits into 01a/01b and carries two tests.
+The guide is **three layers, seven experiments** — content, domain of interest, operations, with
+experiments numbered 1-7 flat.
 Bump `fieldGuide.updatedISO` when editing the guide: it drives the visible "Updated" line, the
 `TechArticle` `dateModified`, and the sitemap's `lastModified`.
 
