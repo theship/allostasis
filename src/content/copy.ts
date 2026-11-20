@@ -204,7 +204,7 @@ export const fieldGuide = {
     heading: "Agent-readiness is not a documentation problem.",
     paragraphs: [
       "The instinct when an agent fails is to write more documentation. It's the wrong instinct, and it's why \"we documented everything and the agent still guesses\" is such a common report.",
-      "Here's the mechanism. Everything load-bearing in a company starts as somebody's model: a founder's thesis, a product lead's model of the customer, a researcher's understanding of why the system works. Executing on that model generates information all over the org: specs, code, pipelines, CRM records, support threads. Each of those is a data object, and almost none of them were designed to carry the reasoning that produced them. So the objects drift: the same entity named three ways, a definition current in one system and stale in another, the rationale for a workflow living in someone's head while the object records only the steps.",
+      "Everything load-bearing in a company starts as somebody's model: a founder's thesis, a product lead's read on the customer. Executing on that model generates information all over the org: the objects. Each of those is a data object, and almost none of them were designed to carry the reasoning that produced them. So the objects drift: the same entity named three ways, a definition current in one system and stale in another, the rationale for a workflow living in someone's head while the object records only the steps.",
       "Humans absorb drifts in judgment. We ask a colleague, read the room, find that spreadsheet. Agents act on the objects literally, at scale. Drift that used to cost onboarding time and support tickets now costs wrong decisions made confidently. And splitting the work across multiple agents makes it worse, not better: every handoff is a place context dies.",
       "We call the distance between what leadership means and what the objects say the vision gap. Agent-readiness is the work of closing it: architecture work, not transcription work. That distinction drives everything that follows.",
     ],
@@ -283,7 +283,7 @@ export const fieldGuide = {
       // TODO(operator): layer intro seeded from the retired group headings and
       // layer copy — rewrite in your own words.
       intro:
-        "Content fixes what your terms mean. This layer fixes how they relate, and how far an agent may roam. A ratified graph is not something the agent consults; it is the surface the agent navigates. Every edge is a hypothesis it may investigate, and paths that are not in the graph are not legal moves. That bound is what turns an open-ended fishing expedition into a tractable investigation.",
+        "Content fixes what your terms mean. This layer fixes how they relate, and how far an agent may roam.",
       experiments: [
         {
           number: "3",
@@ -327,7 +327,7 @@ export const fieldGuide = {
           tagline:
             "Someone has decided what is not an AI task.",
           intro:
-            "Every real process has deterministic parts and judgment parts, and the most expensive mistake in agent deployment is paying a model to do unreliably what a pipeline does perfectly. Statistics and machinery should run before any agent is pulled in: detecting that a threshold was crossed, that a number moved, that a gate passed. Whether your organization has drawn this boundary anywhere, and written it down, is a fact about your org's auditability today, agents or no agents.",
+            "Every real process has deterministic parts and judgment parts, and the most expensive mistake in agent deployment is paying a model to do unreliably what a pipeline does perfectly. Statistics and machinery should run before any agent is pulled in: detecting that a threshold was crossed or a number moved. Whether your organization has drawn this boundary anywhere, and written it down, is a fact about your org's auditability today, agents or no agents.",
           failurePattern: {
             label: "Failure pattern",
             body:
@@ -341,7 +341,7 @@ export const fieldGuide = {
           good: {
             label: "Passing the bar",
             body:
-              "A written boundary: detection, gating, and prioritization run as tested, versioned machinery; agents are invoked downstream of it, on a queue of things worth investigating. The boundary itself is an object: reviewable, arguable, improvable.",
+              "A written boundary: detection, gating, and prioritization run as tested, versioned machinery; agents are invoked downstream of it, on a queue of things worth investigating. The boundary itself is an object you can argue with.",
           },
         },
         {
@@ -350,7 +350,7 @@ export const fieldGuide = {
           tagline:
             "The documented workflow describes what the work actually is not who used to do it.",
           intro:
-            "There's at least one person in your org whose undocumented knowledge is what keeps a process running, and that knowledge is real. But there's a trap in transcribing it directly. The workflow a human runs is shaped by human role boundaries. A pipeline that mimics those roles inherits their seams. Context dies in the handoff. The durable property to audit is whether your documented workflows were ever validated against observation. Did anyone watch the work being attempted by a capable person outside the group, or by an agent? Did they record where the documentation failed? Is the wiki org-chart folklore?",
+            "There's at least one person in your org whose undocumented knowledge is what keeps a process running, and that knowledge is real. But there's a trap in transcribing it directly. The workflow a human runs is shaped by human role boundaries. A pipeline that mimics those roles inherits their seams. Context dies in the handoff. The durable property to audit is whether your documented workflows were ever validated against observation. Did anyone watch the work being attempted by a capable person outside the group, or by an agent? Is the wiki org-chart folklore?",
           failurePattern: {
             label: "Failure pattern",
             body:
@@ -359,7 +359,7 @@ export const fieldGuide = {
           procedure: {
             label: "The cold-start run",
             body:
-              "Give an agent a real (safe) instance of a documented workflow and only the documentation. Count the human rescues every time someone steps in with context that wasn't in the objects. More than zero rescues means the workflow is described, not executable. The rescue count is your metric: it's concrete, it trends, and it's hard to argue with.",
+              "Give an agent a real (safe) instance of a documented workflow and only the documentation. Count the human rescues every time someone steps in with context that wasn't in the objects. More than zero rescues means the workflow is described, not executable. The rescue count is your metric: it trends, and it's hard to argue with.",
           },
           good: {
             label: "Passing the bar",
@@ -373,7 +373,7 @@ export const fieldGuide = {
           tagline:
             "Sub-tasks return results. They never return reasoning.",
           intro:
-            "The principle is older than agents: judgment needs a single accountable owner. Distribute a decision across a committee, with human or agent members, and every member can be locally right while the outcome is incoherent: correct cause identified, disconnected action recommended, an outlook that follows from neither. The current architectural expression of the principle is one agent that owns the reasoning end to end; it may delegate focused investigations to sub-agents and machinery, but delegations return results, never conclusions. Judgment is probably not owned by one person in your group. But folks take ownership of decisions. Clarifying who is the owner, decider, one responsible makes it easy to identify judgements. Just like for humans, having this charted out makes reasoning much clearer for agents.",
+            "The principle is older than agents: judgment needs a single accountable owner. Distribute a decision across a committee, with human or agent members, and every member can be locally right while the outcome is incoherent: correct cause identified, disconnected action recommended, an outlook that follows from neither. The current architectural expression of the principle is one agent that owns the reasoning end to end; it may delegate focused investigations to sub-agents and machinery, but delegations return results, never conclusions. In most orgs nobody owns judgment outright — but people do own decisions. Chart who decides what, and judgment becomes something an agent can locate.",
           failurePattern: {
             label: "Failure pattern",
             body:
@@ -400,7 +400,7 @@ export const fieldGuide = {
           failurePattern: {
             label: "Failure pattern",
             body:
-              "\"The agent seems better lately.\" With no baseline or metric, you have no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case shows up in front of a customer.",
+              "\"The agent seems better lately.\" With no baseline or metric, you have no way to distinguish improvement from luck. So the program can't defend its budget, and quietly dies. Meanwhile regressions are invisible: an agent that got worse at one edge case looks identical to one that didn't, until the edge case ships.",
           },
           procedure: {
             label: "The silent-failure probe",
@@ -450,10 +450,7 @@ export const fieldGuide = {
   bioBlock: {
     name: "Julee Burdekin",
     title: "founder of Allostasis",
-    // TODO(operator): 2–3 sentences of track record stated as nouns (teams led,
-    // systems shipped, domains). Pull from the About page once finalized. Render only
-    // the name + title line until supplied — do not pad with adjectives.
-    body: null as string | null,
+    body: "Thirty years making information mean the same thing everywhere: Adobe (content strategy, W3C steward), Planet Labs (Head of Developer Relations, Planet SDK for Python), Macromedia, RSA. Founder, Allostasis." as string | null,
   },
 
   closingCta: {
