@@ -117,3 +117,81 @@
     @apply animate-fade-up;
   }
 }
+
+/* ---- Print ----
+   The screen design is light-on-dark: pale text over an ink background painted by
+   <body>. Browsers drop background colours when printing (the print dialog's
+   "Background graphics" is off by default), which left near-white paper-* text on
+   white paper — washed out to the point of being unreadable. So print gets its own
+   black-on-white palette. `!important` is deliberate: the colours come from
+   utility classes, and this block exists to override them wholesale.
+   Screen rendering is untouched. */
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  /* Flatten every colour decision to dark-on-white; keep the layout intact. */
+  body *,
+  body *::before,
+  body *::after {
+    color: #111 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    border-color: #999 !important;
+  }
+
+  /* Page-load reveal: print must never inherit a mid-animation or initial
+     keyframe state (opacity 0 / translateY), so pin the finished state. */
+  .reveal,
+  [class*="animate-"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Fixed chrome repeats on every printed page and overlaps content. The header
+     becomes a once-only, in-flow-sized block at the top of page 1; the mobile
+     menu and its overlay are screen-only. */
+  header.fixed {
+    position: absolute !important;
+  }
+  #mobile-menu,
+  header button,
+  div.fixed {
+    display: none !important;
+  }
+
+  /* Don't let a container clip text that overflows it. */
+  main,
+  article,
+  section {
+    overflow: visible !important;
+  }
+
+  /* Keep each experiment card (a <section> nested inside a layer <article>), its
+     failure/procedure/good sub-blocks, and the offer cards whole across pages where
+     they fit, and don't strand a heading at the foot of a page. Layers and the page
+     itself are far longer than a sheet, so they are left free to flow. */
+  article article section,
+  article article section > div,
+  .grid > div {
+    break-inside: avoid;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  /* Buttons lose their fill in print; keep a visible outline instead. */
+  .btn-primary,
+  .btn-secondary {
+    border: 1px solid #999 !important;
+  }
+}
